@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hooroo - 首页</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="../assets2/css/dark-theme.css" />
+  </head>
+  <body>
+    <!-- iOS状态栏 -->
+    <div class="status-bar">
+      <div class="status-left">
+        <span>9:41</span>
+      </div>
+      <div class="status-right">
+        <div class="signal-bars">
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+        </div>
+        <i class="fas fa-wifi wifi-icon"></i>
+        <div class="battery">
+          <div class="battery-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="main-content">
+      <!-- 顶部欢迎区域 -->
+      <div class="px-5 pt-6 pb-4">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h1 class="text-2xl font-bold text-white">欢迎回来</h1>
+            <p class="text-gray-400 text-sm">选择你喜欢的体感方式开始运动</p>
+          </div>
+          <div class="flex items-center space-x-3">
+            <button class="w-10 h-10 rounded-full bg-white bg-opacity-10 flex items-center justify-center">
+              <i class="fas fa-bell text-gray-300"></i>
+            </button>
+            <img
+              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=40&h=40&fit=crop&crop=face"
+              class="w-10 h-10 rounded-full avatar-image"
+              alt="用户头像"
+            />
+          </div>
+        </div>
+
+        <!-- 搜索栏 -->
+        <div class="relative mb-6">
+          <input type="text" placeholder="搜索游戏、舞蹈、健身..." class="search-bar" />
+          <i class="fas fa-search absolute right-4 top-4 text-gray-400"></i>
+        </div>
+      </div>
+
+      <!-- 新功能推荐 - 视觉体感 -->
+      <div class="px-5 mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center">
+            <h2 class="text-xl font-bold text-white mr-2">🆕 视觉体感</h2>
+            <span class="tag tag-new text-xs">新功能</span>
+          </div>
+          <button class="text-yellow-400 text-sm">查看全部</button>
+        </div>
+
+        <!-- 视觉体感介绍卡片 -->
+        <div class="game-card-large game-card-blue mb-4 scale-on-hover glow-effect">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mr-3">
+                <i class="fas fa-camera text-white text-xl"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white">无需手表，摄像头即可</h3>
+                <p class="text-blue-200 text-sm">AI智能识别，更自由的体感体验</p>
+              </div>
+            </div>
+            <button class="btn-primary text-sm pulse-animation">立即体验</button>
+          </div>
+
+          <!-- 特色功能 -->
+          <div class="grid grid-cols-3 gap-3 text-center text-sm">
+            <div>
+              <i class="fas fa-brain text-blue-300 mb-1"></i>
+              <div class="text-blue-200">AI识别</div>
+            </div>
+            <div>
+              <i class="fas fa-tv text-blue-300 mb-1"></i>
+              <div class="text-blue-200">大屏投屏</div>
+            </div>
+            <div>
+              <i class="fas fa-star text-blue-300 mb-1"></i>
+              <div class="text-blue-200">更多内容</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 视觉体感内容预览 -->
+        <div class="flex space-x-3 overflow-x-auto pb-2">
+          <!-- 舞动时刻 -->
+          <div class="game-card game-card-pink min-w-48 scale-on-hover">
+            <div class="flex items-center justify-between mb-2">
+              <span class="tag tag-dance text-xs">舞蹈</span>
+              <span class="tag tag-new text-xs">新</span>
+            </div>
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=50&h=50&fit=crop"
+                class="w-12 h-12 rounded-lg mr-3"
+                alt="舞动时刻"
+              />
+              <div class="flex-1">
+                <h4 class="font-bold text-white text-sm">舞动时刻</h4>
+                <p class="text-pink-200 text-xs">6分钟 • 150卡</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 全身燃脂 -->
+          <div class="game-card game-card-green min-w-48 scale-on-hover">
+            <div class="flex items-center justify-between mb-2">
+              <span class="tag tag-fitness text-xs">健身</span>
+              <span class="tag tag-new text-xs">新</span>
+            </div>
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=50&h=50&fit=crop"
+                class="w-12 h-12 rounded-lg mr-3"
+                alt="全身燃脂"
+              />
+              <div class="flex-1">
+                <h4 class="font-bold text-white text-sm">全身燃脂</h4>
+                <p class="text-green-200 text-xs">8分钟 • 250卡</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 太空冒险 -->
+          <div class="game-card game-card-blue min-w-48 scale-on-hover">
+            <div class="flex items-center justify-between mb-2">
+              <span class="tag tag-game text-xs">游戏</span>
+              <span class="tag tag-new text-xs">新</span>
+            </div>
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=50&h=50&fit=crop"
+                class="w-12 h-12 rounded-lg mr-3"
+                alt="太空冒险"
+              />
+              <div class="flex-1">
+                <h4 class="font-bold text-white text-sm">太空冒险</h4>
+                <p class="text-blue-200 text-xs">7分钟 • 160卡</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 经典手表体感 -->
+      <div class="px-5 mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center">
+            <h2 class="text-xl font-bold text-white mr-2">⌚ 手表体感</h2>
+            <span
+              class="tag text-xs"
+              style="background: rgba(128, 128, 128, 0.2); color: #dae8ff; border: 1px solid rgba(128, 128, 128, 0.3)"
+              >经典模式</span
+            >
+          </div>
+          <button class="text-yellow-400 text-sm">查看全部</button>
+        </div>
+
+        <!-- 手表体感说明 -->
+        <div class="game-list-item mb-4">
+          <div class="flex items-center">
+            <div class="w-10 h-10 bg-gray-500 bg-opacity-30 rounded-xl flex items-center justify-center mr-3">
+              <i class="fas fa-clock text-gray-400"></i>
+            </div>
+            <div class="flex-1">
+              <h4 class="font-semibold text-white text-sm">需要连接智能手表</h4>
+              <p class="text-gray-400 text-xs">精准的运动数据监测</p>
+            </div>
+            <button class="btn-secondary text-xs">连接手表</button>
+          </div>
+        </div>
+
+        <!-- 手表体感内容 -->
+        <div class="space-y-3">
+          <div class="game-list-item scale-on-hover">
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=50&h=50&fit=crop"
+                class="w-12 h-12 rounded-lg mr-4"
+                alt="HIIT训练"
+              />
+              <div class="flex-1">
+                <h4 class="font-semibold text-white">HIIT高强度训练</h4>
+                <p class="text-gray-400 text-sm">15分钟 • 需要手表 • 300卡路里</p>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                <span class="text-xs text-gray-400">4.9</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="game-list-item scale-on-hover">
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=50&h=50&fit=crop"
+                class="w-12 h-12 rounded-lg mr-4"
+                alt="跑步训练"
+              />
+              <div class="flex-1">
+                <h4 class="font-semibold text-white">智能跑步训练</h4>
+                <p class="text-gray-400 text-sm">20分钟 • 需要手表 • 400卡路里</p>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                <span class="text-xs text-gray-400">4.8</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="game-list-item scale-on-hover">
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=50&h=50&fit=crop"
+                class="w-12 h-12 rounded-lg mr-4"
+                alt="力量训练"
+              />
+              <div class="flex-1">
+                <h4 class="font-semibold text-white">力量训练监测</h4>
+                <p class="text-gray-400 text-sm">12分钟 • 需要手表 • 200卡路里</p>
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-star text-yellow-400 text-xs mr-1"></i>
+                <span class="text-xs text-gray-400">4.7</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 今日挑战区域 -->
+      <div class="px-5 mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-bold text-white">今日挑战</h2>
+          <span class="text-yellow-400 text-sm">2/3 已完成</span>
+        </div>
+
+        <div class="game-card game-card-purple mb-4 scale-on-hover">
+          <div class="flex items-center justify-between">
+            <div class="flex-1">
+              <div class="flex items-center mb-2">
+                <i class="fas fa-fire text-orange-400 mr-2"></i>
+                <span class="tag tag-new">挑战</span>
+              </div>
+              <h3 class="text-lg font-bold text-white mb-1">连续运动7天</h3>
+              <p class="text-purple-100 text-sm mb-2">尝试新的视觉体感功能</p>
+              <div class="flex items-center">
+                <div class="flex-1 bg-white bg-opacity-20 rounded-full h-2 mr-3">
+                  <div class="bg-yellow-400 h-2 rounded-full" style="width: 70%"></div>
+                </div>
+                <span class="text-xs text-blue-100">7/10</span>
+              </div>
+            </div>
+            <div class="ml-4">
+              <div class="w-16 h-16 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center">
+                <i class="fas fa-trophy text-yellow-400 text-2xl"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 每日目标 -->
+        <div class="grid grid-cols-3 gap-3">
+          <div class="stats-card">
+            <div class="stats-number text-green-400">150</div>
+            <div class="stats-label">今日卡路里</div>
+            <div class="w-full bg-gray-700 rounded-full h-1 mt-2">
+              <div class="bg-green-400 h-1 rounded-full" style="width: 60%"></div>
+            </div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-number text-blue-400">12</div>
+            <div class="stats-label">运动分钟</div>
+            <div class="w-full bg-gray-700 rounded-full h-1 mt-2">
+              <div class="bg-blue-400 h-1 rounded-full" style="width: 80%"></div>
+            </div>
+          </div>
+          <div class="stats-card">
+            <div class="stats-number text-purple-400">3</div>
+            <div class="stats-label">完成游戏</div>
+            <div class="w-full bg-gray-700 rounded-full h-1 mt-2">
+              <div class="bg-purple-400 h-1 rounded-full" style="width: 100%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 分类选择 -->
+      <div class="px-5 mb-6">
+        <h2 class="text-xl font-bold text-white mb-4">游戏类型</h2>
+        <div class="grid grid-cols-3 gap-3">
+          <!-- 舞蹈类 -->
+          <div class="game-card game-card-pink text-center scale-on-hover">
+            <i class="fas fa-music text-3xl text-white mb-3"></i>
+            <h3 class="font-bold text-white mb-1">舞蹈</h3>
+            <p class="text-pink-200 text-xs">50+内容</p>
+          </div>
+
+          <!-- 健身类 -->
+          <div class="game-card game-card-green text-center scale-on-hover">
+            <i class="fas fa-dumbbell text-3xl text-white mb-3"></i>
+            <h3 class="font-bold text-white mb-1">健身</h3>
+            <p class="text-green-200 text-xs">40+内容</p>
+          </div>
+
+          <!-- 游戏类 -->
+          <div class="game-card game-card-blue text-center scale-on-hover">
+            <i class="fas fa-gamepad text-3xl text-white mb-3"></i>
+            <h3 class="font-bold text-white mb-1">游戏</h3>
+            <p class="text-blue-200 text-xs">30+个内容</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 最近游戏 -->
+      <div class="px-5 mb-8">
+        <h2 class="text-xl font-bold text-white mb-4">最近游戏</h2>
+        <div class="space-y-3">
+          <div class="game-list-item">
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1583224964154-c9339fe2a376?w=50&h=50&fit=crop"
+                class="w-12 h-12 rounded-xl mr-4"
+                alt="K-Pop热舞"
+              />
+              <div class="flex-1">
+                <h4 class="font-semibold text-white">K-Pop热舞</h4>
+                <p class="text-gray-400 text-sm">昨天 • 8分钟 • A+</p>
+              </div>
+              <button class="btn-secondary text-sm">再次游戏</button>
+            </div>
+          </div>
+
+          <div class="game-list-item">
+            <div class="flex items-center">
+              <img
+                src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=50&h=50&fit=crop"
+                class="w-12 h-12 rounded-xl mr-4"
+                alt="瑜伽平衡"
+              />
+              <div class="flex-1">
+                <h4 class="font-semibold text-white">瑜伽平衡</h4>
+                <p class="text-gray-400 text-sm">2天前 • 12分钟 • B+</p>
+              </div>
+              <button class="btn-secondary text-sm">再次游戏</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 精简的底部导航栏 -->
+    <div class="bottom-nav">
+      <a href="home.html" class="nav-item active">
+        <i class="fas fa-home"></i>
+        <span>首页</span>
+      </a>
+      <a href="motion-games.html" class="nav-item">
+        <i class="fas fa-gamepad"></i>
+        <span>体感</span>
+      </a>
+      <a href="profile.html" class="nav-item">
+        <i class="fas fa-user"></i>
+        <span>我的</span>
+      </a>
+    </div>
+  </body>
+</html>

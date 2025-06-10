@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>体感游戏</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+
+      .filter-active {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .filter-inactive {
+        background: rgba(255, 255, 255, 0.8);
+        color: #666;
+      }
+
+      .game-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .game-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .category-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 12px;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- iOS状态栏 -->
+    <div class="bg-white h-12 flex items-center justify-between px-4 text-gray-800 text-sm">
+      <div class="flex items-center space-x-1">
+        <div class="w-1 h-1 bg-gray-800 rounded-full"></div>
+        <div class="w-1 h-1 bg-gray-800 rounded-full"></div>
+        <div class="w-1 h-1 bg-gray-800 rounded-full"></div>
+        <span class="ml-2">中国移动</span>
+      </div>
+      <div class="font-semibold">9:41</div>
+      <div class="flex items-center space-x-1">
+        <i class="fas fa-signal text-xs"></i>
+        <i class="fas fa-wifi text-xs"></i>
+        <div class="w-6 h-3 border border-gray-800 rounded-sm">
+          <div class="w-4 h-2 bg-gray-800 rounded-sm m-0.5"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="bg-white px-4 py-3 flex items-center justify-between shadow-sm">
+      <div class="flex items-center">
+        <i class="fas fa-chevron-left text-gray-600 mr-3"></i>
+        <h1 class="text-xl font-bold text-gray-800">体感游戏</h1>
+      </div>
+      <div class="flex items-center space-x-3">
+        <i class="fas fa-search text-gray-600"></i>
+        <i class="fas fa-filter text-gray-600"></i>
+      </div>
+    </div>
+
+    <!-- 筛选器 -->
+    <div class="bg-white px-4 py-3 border-b border-gray-100">
+      <div class="flex space-x-3 overflow-x-auto">
+        <button id="filter-all" class="filter-btn filter-active px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">全部</button>
+        <button id="filter-vision" class="filter-btn filter-inactive px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">
+          视觉体感
+        </button>
+        <button id="filter-watch" class="filter-btn filter-inactive px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">
+          手表体感
+        </button>
+        <button id="filter-dance" class="filter-btn filter-inactive px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">
+          舞蹈
+        </button>
+        <button id="filter-fitness" class="filter-btn filter-inactive px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">
+          健身
+        </button>
+        <button id="filter-game" class="filter-btn filter-inactive px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">
+          游戏
+        </button>
+      </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="px-4 py-4 pb-20">
+      <!-- 推荐横幅 -->
+      <div class="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-4 mb-6 text-white">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="font-bold text-lg mb-1">新手推荐</h3>
+            <p class="text-purple-100 text-sm">零基础也能轻松上手</p>
+          </div>
+          <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center">
+            <i class="fas fa-star text-white"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- 视觉体感内容区域 -->
+      <div id="vision-section" class="mb-8">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-gray-800">🎯 视觉体感</h3>
+          <span class="text-purple-600 text-sm">10个内容</span>
+        </div>
+
+        <!-- 舞蹈类 -->
+        <div class="mb-6">
+          <h4 class="text-md font-semibold text-gray-700 mb-3">�� 舞蹈类</h4>
+          <div class="category-grid">
+            <div class="game-card bg-white rounded-2xl overflow-hidden shadow-sm">
+              <div class="bg-gradient-to-br from-pink-400 to-purple-600 h-24 flex items-center justify-center relative">
+                <i class="fas fa-music text-white text-2xl"></i>
+                <div class="absolute top-2 right-2 bg-white bg-opacity-20 px-2 py-1 rounded-full text-xs text-white">视觉</div>
+              </div>
+              <div class="p-3">
+                <h5 class="font-semibold text-gray-800 text-sm mb-1">舞动时刻</h5>
+                <p class="text-xs text-gray-600 mb-2">跟随节拍，释放你的舞蹈天赋</p>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-gray-500">6分钟 • 150卡</span>
+                  <div class="flex items-center text-orange-500">
+                    <i class="fas fa-fire mr-1"></i>
+                    <span>热门</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-card bg-white rounded-2xl overflow-hidden shadow-sm">
+              <div class="bg-gradient-to-br from-red-400 to-pink-600 h-24 flex items-center justify-center relative">
+                <i class="fas fa-heart text-white text-2xl"></i>
+                <div class="absolute top-2 right-2 bg-white bg-opacity-20 px-2 py-1 rounded-full text-xs text-white">视觉</div>
+              </div>
+              <div class="p-3">
+                <h5 class="font-semibold text-gray-800 text-sm mb-1">K-Pop热舞</h5>
+                <p class="text-xs text-gray-600 mb-2">学习最新K-Pop舞蹈动作</p>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-gray-500">8分钟 • 200卡</span>
+                  <div class="flex items-center text-blue-500">
+                    <i class="fas fa-users mr-1"></i>
+                    <span>2.1k人</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-card bg-white rounded-2xl overflow-hidden shadow-sm">
+              <div class="bg-gradient-to-br from-purple-400 to-indigo-600 h-24 flex items-center justify-center relative">
+                <i class="fas fa-bolt text-white text-2xl"></i>
+                <div class="absolute top-2 right-2 bg-white bg-opacity-20 px-2 py-1 rounded-full text-xs text-white">视觉</div>
+              </div>
+              <div class="p-3">
+                <h5 class="font-semibold text-gray-800 text-sm mb-1">街舞基础</h5>
+                <p class="text-xs text-gray-600 mb-2">从基础动作开始学习街舞</p>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-gray-500">10分钟 • 180卡</span>
+                  <div class="flex items-center text-green-500">
+                    <i class="fas fa-star mr-1"></i>
+                    <span>新手友好</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 健身类 -->
+        <div class="mb-6">
+          <h4 class="text-md font-semibold text-gray-700 mb-3">💪 健身类</h4>
+          <div class="category-grid">
+            <div class="game-card bg-white rounded-2xl overflow-hidden shadow-sm">
+              <div class="bg-gradient-to-br from-green-400 to-emerald-600 h-24 flex items-center justify-center relative">
+                <i class="fas fa-dumbbell text-white text-2xl"></i>
+                <div class="absolute top-2 right-2 bg-white bg-opacity-20 px-2 py-1 rounded-full text-xs text-white">视觉</div>
+              </div>
+              <div class="p-3">
+                <h5 class="font-semibold text-gray-800 text-sm mb-1">全身燃脂</h5>
+                <p class="text-xs text-gray-600 mb-2">高效燃脂，塑造完美身材</p>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-gray-500">8分钟 • 250卡</span>
+                  <div class="flex items-center text-red-500">
+                    <i class="fas fa-fire mr-1"></i>
+                    <span>高强度</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-card bg-white rounded-2xl overflow-hidden shadow-sm">
+              <div class="bg-gradient-to-br from-blue-400 to-cyan-600 h-24 flex items-center justify-center relative">
+                <i class="fas fa-leaf text-white text-2xl"></i>
+                <div class="absolute top-2 right-2 bg-white bg-opacity-20 px-2 py-1 rounded-full text-xs text-white">视觉</div>
+              </div>
+              <div class="p-3">
+                <h5 class="font-semibold text-gray-800 text-sm mb-1">瑜伽平衡</h5>
+                <p class="text-xs text-gray-600 mb-2">提升身体平衡和柔韧性</p>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-gray-500">12分钟 • 120卡</span>
+                  <div class="flex items-center text-blue-500">
+                    <i class="fas fa-heart mr-1"></i>
+                    <span>舒缓</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-card bg-white rounded-2xl overflow-hidden shadow-sm">
+              <div class="bg-gradient-to-br from-orange-400 to-red-600 h-24 flex items-center justify-center relative">
+                <i class="fas fa-shield-alt text-white text-2xl"></i>
+                <div class="absolute top-2 right-2 bg-white bg-opacity-20 px-2 py-1 rounded-full text-xs text-white">视觉</div>
+              </div>
+              <div class="p-3">
+                <h5 class="font-semibold text-gray-800 text-sm mb-1">核心力量</h5>
+                <p class="text-xs text-gray-600 mb-2">强化核心肌群，提升稳定性</p>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-gray-500">10分钟 • 200卡</span>
+                  <div class="flex items-center text-purple-500">
+                    <i class="fas fa-trophy mr-1"></i>
+                    <span>专业</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 游戏类 -->
+        <div class="mb-6">
+          <h4 class="text-md font-semibold text-gray-700 mb-3">🎮 游戏类</h4>
+          <div class="category-grid">
+            <div class="game-card bg-white rounded-2xl overflow-hidden shadow-sm">
+              <div class="bg-gradient-to-br from-indigo-400 to-purple-600 h-24 flex items-center justify-center relative">
+                <i class="fas fa-rocket text-white text-2xl"></i>
+                <div class="absolute top-2 right-2 bg-white bg-opacity-20 px-2 py-1 rounded-full text-xs text-white">视觉</div>
+              </div>
+              <div class="p-3">
+                <h5 class="font-semibold text-gray-800 text-sm mb-1">太空冒险</h5>
+                <p class="text-xs text-gray-600 mb-2">在太空中躲避障碍物</p>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-gray-500">7分钟 • 160卡</span>
+                  <div class="flex items-center text-purple-500">
+                    <i class="fas fa-gamepad mr-1"></i>
+                    <span>冒险</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-card bg-white rounded-2xl overflow-hidden shadow-sm">
+              <div class="bg-gradient-to-br from-yellow-400 to-orange-600 h-24 flex items-center justify-center relative">
+                <i class="fas fa-apple-alt text-white text-2xl"></i>
+                <div class="absolute top-2 right-2 bg-white bg-opacity-20 px-2 py-1 rounded-full text-xs text-white">视觉</div>
+              </div>
+              <div class="p-3">
+                <h5 class="font-semibold text-gray-800 text-sm mb-1">水果忍者</h5>
+                <p class="text-xs text-gray-600 mb-2">挥手切水果，反应速度挑战</p>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-gray-500">5分钟 • 120卡</span>
+                  <div class="flex items-center text-orange-500">
+                    <i class="fas fa-zap mr-1"></i>
+                    <span>快节奏</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-card bg-white rounded-2xl overflow-hidden shadow-sm">
+              <div class="bg-gradient-to-br from-teal-400 to-blue-600 h-24 flex items-center justify-center relative">
+                <i class="fas fa-music text-white text-2xl"></i>
+                <div class="absolute top-2 right-2 bg-white bg-opacity-20 px-2 py-1 rounded-full text-xs text-white">视觉</div>
+              </div>
+              <div class="p-3">
+                <h5 class="font-semibold text-gray-800 text-sm mb-1">音律节拍</h5>
+                <p class="text-xs text-gray-600 mb-2">跟随音乐节拍做动作</p>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-gray-500">6分钟 • 140卡</span>
+                  <div class="flex items-center text-green-500">
+                    <i class="fas fa-music mr-1"></i>
+                    <span>音乐</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-card bg-white rounded-2xl overflow-hidden shadow-sm">
+              <div class="bg-gradient-to-br from-red-400 to-pink-600 h-24 flex items-center justify-center relative">
+                <i class="fas fa-fist-raised text-white text-2xl"></i>
+                <div class="absolute top-2 right-2 bg-white bg-opacity-20 px-2 py-1 rounded-full text-xs text-white">视觉</div>
+              </div>
+              <div class="p-3">
+                <h5 class="font-semibold text-gray-800 text-sm mb-1">拳击训练</h5>
+                <p class="text-xs text-gray-600 mb-2">拳击动作训练，释放压力</p>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-gray-500">9分钟 • 220卡</span>
+                  <div class="flex items-center text-red-500">
+                    <i class="fas fa-fire mr-1"></i>
+                    <span>热血</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 手表体感内容区域 -->
+      <div id="watch-section" class="mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-gray-700">⌚ 经典手表体感</h3>
+          <span class="text-gray-600 text-sm">10个内容</span>
+        </div>
+
+        <div class="space-y-3">
+          <div class="bg-white rounded-2xl p-4 shadow-sm">
+            <div class="flex items-center">
+              <div class="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center mr-4">
+                <i class="fas fa-running text-blue-600 text-xl"></i>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center mb-1">
+                  <h5 class="font-semibold text-gray-800 mr-2">智能跑步训练</h5>
+                  <span class="bg-gray-500 text-white text-xs px-2 py-0.5 rounded-full">手表</span>
+                </div>
+                <p class="text-sm text-gray-600 mb-1">智能配速，科学跑步训练</p>
+                <div class="flex items-center text-xs text-gray-500">
+                  <span class="mr-3">20分钟 • 400卡路里</span>
+                  <i class="fas fa-heart mr-1"></i>
+                  <span>心率监测</span>
+                </div>
+              </div>
+              <i class="fas fa-chevron-right text-gray-400"></i>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl p-4 shadow-sm">
+            <div class="flex items-center">
+              <div class="w-16 h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center mr-4">
+                <i class="fas fa-dumbbell text-green-600 text-xl"></i>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center mb-1">
+                  <h5 class="font-semibold text-gray-800 mr-2">HIIT高强度训练</h5>
+                  <span class="bg-gray-500 text-white text-xs px-2 py-0.5 rounded-full">手表</span>
+                </div>
+                <p class="text-sm text-gray-600 mb-1">高强度间歇训练，快速燃脂</p>
+                <div class="flex items-center text-xs text-gray-500">
+                  <span class="mr-3">15分钟 • 300卡路里</span>
+                  <i class="fas fa-fire mr-1"></i>
+                  <span>高强度</span>
+                </div>
+              </div>
+              <i class="fas fa-chevron-right text-gray-400"></i>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl p-4 shadow-sm">
+            <div class="flex items-center">
+              <div class="w-16 h-16 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center mr-4">
+                <i class="fas fa-heartbeat text-purple-600 text-xl"></i>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center mb-1">
+                  <h5 class="font-semibold text-gray-800 mr-2">有氧舞蹈</h5>
+                  <span class="bg-gray-500 text-white text-xs px-2 py-0.5 rounded-full">手表</span>
+                </div>
+                <p class="text-sm text-gray-600 mb-1">跟随音乐律动，轻松有氧</p>
+                <div class="flex items-center text-xs text-gray-500">
+                  <span class="mr-3">18分钟 • 320卡路里</span>
+                  <i class="fas fa-music mr-1"></i>
+                  <span>音乐律动</span>
+                </div>
+              </div>
+              <i class="fas fa-chevron-right text-gray-400"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2">
+      <div class="flex items-center justify-around">
+        <div class="flex flex-col items-center space-y-1">
+          <i class="fas fa-home text-gray-400"></i>
+          <span class="text-xs text-gray-400">首页</span>
+        </div>
+        <div class="flex flex-col items-center space-y-1">
+          <i class="fas fa-gamepad text-purple-600"></i>
+          <span class="text-xs text-purple-600 font-medium">体感游戏</span>
+        </div>
+        <div class="flex flex-col items-center space-y-1">
+          <i class="fas fa-trophy text-gray-400"></i>
+          <span class="text-xs text-gray-400">成就</span>
+        </div>
+        <div class="flex flex-col items-center space-y-1">
+          <i class="fas fa-user text-gray-400"></i>
+          <span class="text-xs text-gray-400">我的</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 筛选功能
+      document.addEventListener("DOMContentLoaded", function () {
+        const filterBtns = document.querySelectorAll(".filter-btn");
+        const visionSection = document.getElementById("vision-section");
+        const watchSection = document.getElementById("watch-section");
+
+        filterBtns.forEach(btn => {
+          btn.addEventListener("click", function () {
+            // 重置所有按钮状态
+            filterBtns.forEach(b => {
+              b.classList.remove("filter-active");
+              b.classList.add("filter-inactive");
+            });
+
+            // 设置当前按钮为活跃状态
+            this.classList.remove("filter-inactive");
+            this.classList.add("filter-active");
+
+            // 根据筛选条件显示/隐藏内容
+            const filterId = this.id;
+
+            if (filterId === "filter-all") {
+              visionSection.style.display = "block";
+              watchSection.style.display = "block";
+            } else if (filterId === "filter-vision") {
+              visionSection.style.display = "block";
+              watchSection.style.display = "none";
+            } else if (filterId === "filter-watch") {
+              visionSection.style.display = "none";
+              watchSection.style.display = "block";
+            } else {
+              // 其他分类筛选逻辑可以在这里实现
+              visionSection.style.display = "block";
+              watchSection.style.display = "none";
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

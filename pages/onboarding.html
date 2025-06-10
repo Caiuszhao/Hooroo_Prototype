@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hooroo - 新手引导</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="../assets/css/mobile-ui.css" />
+  </head>
+  <body>
+    <!-- iOS状态栏 -->
+    <div class="status-bar">
+      <div class="status-left">
+        <span>9:41</span>
+      </div>
+      <div class="status-right">
+        <div class="signal-bars">
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+        </div>
+        <i class="fas fa-wifi wifi-icon"></i>
+        <div class="battery">
+          <div class="battery-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="main-content">
+      <!-- 引导步骤指示器 -->
+      <div class="flex justify-center pt-6 pb-4">
+        <div class="flex space-x-2">
+          <div class="w-8 h-1 bg-blue-500 rounded"></div>
+          <div class="w-8 h-1 bg-gray-300 rounded"></div>
+          <div class="w-8 h-1 bg-gray-300 rounded"></div>
+        </div>
+      </div>
+
+      <!-- 引导内容 -->
+      <div class="px-6 text-center">
+        <!-- 主图标/插画 -->
+        <div class="mb-8">
+          <div class="w-48 h-48 mx-auto mb-6 relative">
+            <!-- SVG插画 - 视觉体感概念 -->
+            <svg viewBox="0 0 200 200" class="w-full h-full">
+              <!-- 背景圆圈 -->
+              <circle cx="100" cy="100" r="90" fill="url(#gradient1)" opacity="0.1" />
+              <circle cx="100" cy="100" r="70" fill="url(#gradient2)" opacity="0.15" />
+
+              <!-- 手机图标 -->
+              <rect x="75" y="60" width="50" height="80" rx="8" fill="#1f2937" stroke="#007aff" stroke-width="2" />
+              <rect x="80" y="70" width="40" height="60" rx="4" fill="#007aff" opacity="0.8" />
+
+              <!-- 摄像头 -->
+              <circle cx="100" cy="75" r="3" fill="white" />
+              <circle cx="100" cy="75" r="2" fill="#007aff" />
+
+              <!-- 人物剪影 -->
+              <g transform="translate(120, 80)">
+                <circle cx="15" cy="15" r="8" fill="#5856d6" />
+                <ellipse cx="15" cy="35" rx="12" ry="18" fill="#5856d6" />
+                <ellipse cx="5" cy="30" rx="3" ry="12" fill="#5856d6" />
+                <ellipse cx="25" cy="30" rx="3" ry="12" fill="#5856d6" />
+                <ellipse cx="8" cy="55" rx="3" ry="15" fill="#5856d6" />
+                <ellipse cx="22" cy="55" rx="3" ry="15" fill="#5856d6" />
+              </g>
+
+              <!-- 动作识别波纹 -->
+              <circle cx="100" cy="100" r="85" fill="none" stroke="#007aff" stroke-width="2" opacity="0.3" stroke-dasharray="5,5">
+                <animate attributeName="r" values="50;85;50" dur="2s" repeatCount="indefinite" />
+                <animate attributeName="opacity" values="0.6;0.1;0.6" dur="2s" repeatCount="indefinite" />
+              </circle>
+
+              <!-- 渐变定义 -->
+              <defs>
+                <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color: #007aff" />
+                  <stop offset="100%" style="stop-color: #5856d6" />
+                </linearGradient>
+                <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color: #ff2d55" />
+                  <stop offset="100%" style="stop-color: #ff9500" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 标题和描述 -->
+        <h1 class="text-3xl font-bold text-gray-900 mb-4">欢迎体验<span class="text-gradient">视觉体感</span></h1>
+        <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+          无需手表，仅用手机摄像头<br />
+          就能享受<strong>舞蹈、健身、游戏</strong>的乐趣
+        </p>
+
+        <!-- 特色功能列表 -->
+        <div class="space-y-4 mb-12">
+          <div class="flex items-center bg-blue-50 p-4 rounded-xl">
+            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-camera text-white"></i>
+            </div>
+            <div class="text-left">
+              <h3 class="font-semibold text-gray-900">AI 动作识别</h3>
+              <p class="text-sm text-gray-600">精准捕捉你的每个动作</p>
+            </div>
+          </div>
+
+          <div class="flex items-center bg-green-50 p-4 rounded-xl">
+            <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-tv text-white"></i>
+            </div>
+            <div class="text-left">
+              <h3 class="font-semibold text-gray-900">大屏投屏</h3>
+              <p class="text-sm text-gray-600">投屏到电视，享受大屏体验</p>
+            </div>
+          </div>
+
+          <div class="flex items-center bg-purple-50 p-4 rounded-xl">
+            <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-gamepad text-white"></i>
+            </div>
+            <div class="text-left">
+              <h3 class="font-semibold text-gray-900">丰富内容</h3>
+              <p class="text-sm text-gray-600">9+ 个精选体感内容等你体验</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 底部按钮 -->
+        <div class="space-y-3">
+          <button class="btn-primary w-full" onclick="nextStep()">
+            开始体验
+            <i class="fas fa-arrow-right ml-2"></i>
+          </button>
+          <button class="text-gray-500 text-sm" onclick="skipGuide()">跳过引导</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function nextStep() {
+        // 这里可以切换到下一步引导或直接进入主页
+        alert("进入下一步引导...");
+      }
+
+      function skipGuide() {
+        alert("跳过引导，直接进入主页...");
+      }
+    </script>
+  </body>
+</html>

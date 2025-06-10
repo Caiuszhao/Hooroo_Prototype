@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>功能介绍</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+
+      .gradient-border {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        padding: 2px;
+        border-radius: 16px;
+      }
+
+      .gradient-border .inner {
+        background: white;
+        border-radius: 14px;
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-br from-purple-600 to-blue-600 min-h-screen">
+    <!-- iOS状态栏 -->
+    <div class="bg-black bg-opacity-20 h-12 flex items-center justify-between px-4 text-white text-sm">
+      <div class="flex items-center space-x-1">
+        <div class="w-1 h-1 bg-white rounded-full"></div>
+        <div class="w-1 h-1 bg-white rounded-full"></div>
+        <div class="w-1 h-1 bg-white rounded-full"></div>
+        <span class="ml-2">中国移动</span>
+      </div>
+      <div class="font-semibold">9:41</div>
+      <div class="flex items-center space-x-1">
+        <i class="fas fa-signal text-xs"></i>
+        <i class="fas fa-wifi text-xs"></i>
+        <div class="w-6 h-3 border border-white rounded-sm">
+          <div class="w-4 h-2 bg-white rounded-sm m-0.5"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="px-6 py-8">
+      <!-- 头部 -->
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-white mb-3">两种体感方式</h1>
+        <p class="text-purple-100">选择最适合你的游戏方式</p>
+      </div>
+
+      <!-- 视觉体感卡片 -->
+      <div class="mb-6">
+        <div class="gradient-border">
+          <div class="inner p-6">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center mr-4">
+                <i class="fas fa-camera text-white text-xl"></i>
+              </div>
+              <div>
+                <div class="flex items-center">
+                  <h3 class="text-xl font-bold text-gray-800 mr-2">视觉体感</h3>
+                  <span class="bg-gradient-to-r from-purple-500 to-blue-500 text-white text-xs px-2 py-1 rounded-full font-medium"
+                    >新功能</span
+                  >
+                </div>
+                <p class="text-gray-600 text-sm">AI智能识别，摄像头即可</p>
+              </div>
+            </div>
+
+            <div class="space-y-3 mb-6">
+              <div class="flex items-center text-gray-700">
+                <i class="fas fa-check text-green-500 w-5"></i>
+                <span class="text-sm">无需额外设备</span>
+              </div>
+              <div class="flex items-center text-gray-700">
+                <i class="fas fa-check text-green-500 w-5"></i>
+                <span class="text-sm">AI动作精准识别</span>
+              </div>
+              <div class="flex items-center text-gray-700">
+                <i class="fas fa-check text-green-500 w-5"></i>
+                <span class="text-sm">支持投屏大屏体验</span>
+              </div>
+              <div class="flex items-center text-gray-700">
+                <i class="fas fa-check text-green-500 w-5"></i>
+                <span class="text-sm">舞蹈、健身、游戏丰富内容</span>
+              </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-purple-500 to-blue-500 text-white p-3 rounded-xl text-center">
+              <i class="fas fa-star text-yellow-300 mr-1"></i>
+              <span class="font-medium">推荐体验</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 手表体感卡片 -->
+      <div class="mb-8">
+        <div class="bg-white bg-opacity-90 rounded-2xl p-6 border border-gray-200">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gray-500 rounded-xl flex items-center justify-center mr-4">
+              <i class="fas fa-clock text-white text-xl"></i>
+            </div>
+            <div>
+              <div class="flex items-center">
+                <h3 class="text-xl font-bold text-gray-800 mr-2">手表体感</h3>
+                <span class="bg-gray-500 text-white text-xs px-2 py-1 rounded-full font-medium">经典模式</span>
+              </div>
+              <p class="text-gray-600 text-sm">专业运动监测，数据精准</p>
+            </div>
+          </div>
+
+          <div class="space-y-3 mb-6">
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-clock text-gray-500 w-5"></i>
+              <span class="text-sm">需要连接智能手表</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-heart text-gray-500 w-5"></i>
+              <span class="text-sm">实时心率监测</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-chart-line text-gray-500 w-5"></i>
+              <span class="text-sm">专业运动数据分析</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <i class="fas fa-trophy text-gray-500 w-5"></i>
+              <span class="text-sm">跑步、力量、有氧训练</span>
+            </div>
+          </div>
+
+          <div class="bg-gray-100 text-gray-700 p-3 rounded-xl text-center">
+            <i class="fas fa-link mr-1"></i>
+            <span class="font-medium">需要配对设备</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 进度指示器 -->
+      <div class="flex justify-center space-x-2 mb-8">
+        <div class="w-2 h-2 bg-white bg-opacity-40 rounded-full"></div>
+        <div class="w-8 h-2 bg-white rounded-full"></div>
+        <div class="w-2 h-2 bg-white bg-opacity-40 rounded-full"></div>
+      </div>
+
+      <!-- 按钮 -->
+      <div class="space-y-3">
+        <button class="w-full bg-white text-purple-600 font-semibold py-4 rounded-2xl text-lg shadow-lg">优先体验视觉体感</button>
+        <button class="w-full border-2 border-white text-white font-semibold py-4 rounded-2xl text-lg">继续了解功能</button>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hooroo - 投屏设置</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="../assets2/css/dark-theme.css" />
+  </head>
+  <body>
+    <div class="status-bar">
+      <div class="status-left"><span>9:41</span></div>
+      <div class="status-right">
+        <div class="signal-bars">
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+        </div>
+        <i class="fas fa-wifi wifi-icon"></i>
+        <div class="battery"><div class="battery-fill"></div></div>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <!-- 头部导航 -->
+      <div class="flex items-center justify-between p-5">
+        <button class="w-10 h-10 rounded-full bg-white bg-opacity-10 flex items-center justify-center">
+          <i class="fas fa-arrow-left text-white"></i>
+        </button>
+        <h1 class="text-lg font-bold text-white">投屏设置</h1>
+        <div class="w-10"></div>
+      </div>
+
+      <div class="px-5">
+        <!-- 投屏优势说明 -->
+        <div class="game-card-large game-card-blue mb-6">
+          <div class="text-center">
+            <div class="w-20 h-20 mx-auto bg-white bg-opacity-20 rounded-2xl flex items-center justify-center mb-4">
+              <i class="fas fa-tv text-white text-3xl"></i>
+            </div>
+            <h2 class="text-xl font-bold text-white mb-2">更佳的游戏体验</h2>
+            <p class="text-blue-200 mb-4">投屏到大屏幕，享受沉浸式体感游戏</p>
+
+            <div class="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <i class="fas fa-expand text-blue-300 mb-1"></i>
+                <div class="text-blue-200">更大视野</div>
+              </div>
+              <div>
+                <i class="fas fa-volume-up text-blue-300 mb-1"></i>
+                <div class="text-blue-200">环绕音效</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 搜索设备 -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-bold text-white">搜索设备</h3>
+            <button class="btn-secondary text-sm">
+              <i class="fas fa-search mr-1"></i>
+              搜索
+            </button>
+          </div>
+
+          <!-- 搜索状态 -->
+          <div class="game-list-item mb-4">
+            <div class="flex items-center">
+              <div class="loading mr-4"></div>
+              <div>
+                <h4 class="font-semibold text-white">正在搜索...</h4>
+                <p class="text-gray-400 text-sm">请确保设备在同一WiFi网络</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 可用设备列表 -->
+          <div class="space-y-3">
+            <div class="game-list-item scale-on-hover">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <div class="w-12 h-12 bg-red-500 bg-opacity-30 rounded-xl flex items-center justify-center mr-4">
+                    <i class="fas fa-tv text-red-400"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white">小米电视</h4>
+                    <p class="text-gray-400 text-sm">客厅 • 已连接WiFi</p>
+                  </div>
+                </div>
+                <button class="btn-primary text-sm">连接</button>
+              </div>
+            </div>
+
+            <div class="game-list-item scale-on-hover">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <div class="w-12 h-12 bg-blue-500 bg-opacity-30 rounded-xl flex items-center justify-center mr-4">
+                    <i class="fab fa-chromecast text-blue-400"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white">Chromecast</h4>
+                    <p class="text-gray-400 text-sm">卧室 • 可用</p>
+                  </div>
+                </div>
+                <button class="btn-secondary text-sm">连接</button>
+              </div>
+            </div>
+
+            <div class="game-list-item scale-on-hover">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <div class="w-12 h-12 bg-green-500 bg-opacity-30 rounded-xl flex items-center justify-center mr-4">
+                    <i class="fas fa-desktop text-green-400"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-white">MacBook Pro</h4>
+                    <p class="text-gray-400 text-sm">通过AirPlay • 可用</p>
+                  </div>
+                </div>
+                <button class="btn-secondary text-sm">连接</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 连接指导 -->
+        <div class="mb-6">
+          <h3 class="text-lg font-bold text-white mb-4">连接指导</h3>
+
+          <div class="space-y-3">
+            <div class="game-list-item">
+              <div class="flex">
+                <div class="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                  <span class="text-black font-bold text-sm">1</span>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-white mb-1">确保同网络</h4>
+                  <p class="text-gray-400 text-sm">手机和电视需要连接同一个WiFi</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-list-item">
+              <div class="flex">
+                <div class="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                  <span class="text-black font-bold text-sm">2</span>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-white mb-1">选择设备</h4>
+                  <p class="text-gray-400 text-sm">点击上方列表中的设备进行连接</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-list-item">
+              <div class="flex">
+                <div class="w-8 h-8 bg-yellow-400 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                  <span class="text-black font-bold text-sm">3</span>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-white mb-1">开始游戏</h4>
+                  <p class="text-gray-400 text-sm">连接成功后即可在大屏幕上游戏</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 设置选项 -->
+        <div class="mb-8">
+          <h3 class="text-lg font-bold text-white mb-4">投屏设置</h3>
+
+          <div class="space-y-3">
+            <div class="game-list-item">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="font-semibold text-white">自动搜索设备</h4>
+                  <p class="text-gray-400 text-sm">启动APP时自动搜索可用设备</p>
+                </div>
+                <div class="w-12 h-6 bg-yellow-400 rounded-full relative">
+                  <div class="w-5 h-5 bg-white rounded-full absolute right-0.5 top-0.5"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="game-list-item">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="font-semibold text-white">保持屏幕常亮</h4>
+                  <p class="text-gray-400 text-sm">投屏时防止手机屏幕自动关闭</p>
+                </div>
+                <div class="w-12 h-6 bg-gray-600 rounded-full relative">
+                  <div class="w-5 h-5 bg-white rounded-full absolute left-0.5 top-0.5"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

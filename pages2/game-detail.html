@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hooroo - 游戏详情</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="../assets2/css/dark-theme.css" />
+  </head>
+  <body>
+    <div class="status-bar">
+      <div class="status-left"><span>9:41</span></div>
+      <div class="status-right">
+        <div class="signal-bars">
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+        </div>
+        <i class="fas fa-wifi wifi-icon"></i>
+        <div class="battery"><div class="battery-fill"></div></div>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <!-- 头部导航 -->
+      <div class="flex items-center justify-between p-5">
+        <button class="w-10 h-10 rounded-full bg-white bg-opacity-10 flex items-center justify-center">
+          <i class="fas fa-arrow-left text-white"></i>
+        </button>
+        <h1 class="text-lg font-bold text-white">游戏详情</h1>
+        <button class="w-10 h-10 rounded-full bg-white bg-opacity-10 flex items-center justify-center">
+          <i class="fas fa-share text-white"></i>
+        </button>
+      </div>
+
+      <div class="px-5">
+        <!-- 游戏封面 -->
+        <div class="game-card-large game-card-pink mb-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="tag tag-dance">舞蹈</span>
+            <div class="flex items-center">
+              <i class="fas fa-star text-yellow-400 mr-1"></i>
+              <span class="text-white font-semibold">4.8</span>
+              <span class="text-pink-200 text-sm ml-1">(1,234)</span>
+            </div>
+          </div>
+
+          <div class="text-center mb-6">
+            <img
+              src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?w=120&h=120&fit=crop"
+              class="w-24 h-24 rounded-2xl mx-auto mb-4"
+              alt="舞动时刻"
+            />
+            <h2 class="text-2xl font-bold text-white mb-2">舞动时刻</h2>
+            <p class="text-pink-200">跟随节拍，释放活力</p>
+          </div>
+
+          <!-- 游戏数据 -->
+          <div class="grid grid-cols-3 gap-4 mb-6">
+            <div class="text-center">
+              <div class="text-xl font-bold text-white">6</div>
+              <div class="text-xs text-pink-200">分钟</div>
+            </div>
+            <div class="text-center">
+              <div class="text-xl font-bold text-orange-400">150</div>
+              <div class="text-xs text-pink-200">卡路里</div>
+            </div>
+            <div class="text-center">
+              <div class="text-xl font-bold text-green-400">12K</div>
+              <div class="text-xs text-pink-200">玩家</div>
+            </div>
+          </div>
+
+          <!-- 按钮组 -->
+          <div class="flex space-x-3">
+            <button class="btn-primary flex-1 py-3 glow-effect">
+              <i class="fas fa-play mr-2"></i>
+              开始游戏
+            </button>
+            <button class="btn-secondary px-4">
+              <i class="fas fa-tv"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- 游戏特色 -->
+        <div class="mb-6">
+          <h3 class="text-lg font-bold text-white mb-4">游戏特色</h3>
+          <div class="space-y-3">
+            <div class="flex items-center game-list-item">
+              <div class="w-8 h-8 bg-blue-500 bg-opacity-30 rounded-lg flex items-center justify-center mr-3">
+                <i class="fas fa-brain text-blue-400 text-sm"></i>
+              </div>
+              <span class="text-white">AI智能动作识别</span>
+            </div>
+            <div class="flex items-center game-list-item">
+              <div class="w-8 h-8 bg-green-500 bg-opacity-30 rounded-lg flex items-center justify-center mr-3">
+                <i class="fas fa-music text-green-400 text-sm"></i>
+              </div>
+              <span class="text-white">动感音乐节拍</span>
+            </div>
+            <div class="flex items-center game-list-item">
+              <div class="w-8 h-8 bg-purple-500 bg-opacity-30 rounded-lg flex items-center justify-center mr-3">
+                <i class="fas fa-chart-line text-purple-400 text-sm"></i>
+              </div>
+              <span class="text-white">实时动作评分</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 投屏建议 -->
+        <div class="game-card game-card-blue mb-6">
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mr-4">
+              <i class="fas fa-tv text-white text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <h4 class="font-bold text-white mb-1">建议投屏游戏</h4>
+              <p class="text-blue-200 text-sm">连接电视获得更佳体验</p>
+            </div>
+            <button class="btn-secondary text-sm">设置</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hooroo 视觉体感游戏 MVP - 原型展示</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      .phone-frame {
+        width: 375px;
+        height: 812px;
+        background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+        border-radius: 40px;
+        padding: 8px;
+        box-shadow: 0 0 0 2px #333, 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        position: relative;
+      }
+
+      .phone-screen {
+        width: 100%;
+        height: 100%;
+        background: #000;
+        border-radius: 32px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .dynamic-island {
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 126px;
+        height: 37px;
+        background: #000;
+        border-radius: 20px;
+        z-index: 10;
+      }
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 32px;
+      }
+
+      .prototype-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 40px;
+        padding: 40px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+
+      .prototype-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .prototype-title {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .prototype-subtitle {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 16px;
+        text-align: center;
+        margin-top: -10px;
+      }
+
+      .section-divider {
+        grid-column: 1 / -1;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        margin: 20px 0;
+      }
+
+      .section-title {
+        grid-column: 1 / -1;
+        color: white;
+        font-size: 32px;
+        font-weight: bold;
+        text-align: center;
+        margin: 40px 0 20px 0;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="prototype-container">
+      <div class="section-title">Hooroo 视觉体感 MVP 版本原型 V2</div>
+
+      <!-- 新手引导流程 -->
+      <div class="section-title">🚀 新手引导流程</div>
+
+      <div class="prototype-item">
+        <div class="phone-frame">
+          <div class="dynamic-island"></div>
+          <div class="phone-screen">
+            <iframe src="pages/onboarding-1.html"></iframe>
+          </div>
+        </div>
+        <div class="prototype-title">欢迎页面</div>
+        <div class="prototype-subtitle">介绍视觉体感新功能</div>
+      </div>
+
+      <div class="prototype-item">
+        <div class="phone-frame">
+          <div class="dynamic-island"></div>
+          <div class="phone-screen">
+            <iframe src="pages/onboarding-2.html"></iframe>
+          </div>
+        </div>
+        <div class="prototype-title">功能介绍</div>
+        <div class="prototype-subtitle">视觉体感 vs 手表体感</div>
+      </div>
+
+      <div class="prototype-item">
+        <div class="phone-frame">
+          <div class="dynamic-island"></div>
+          <div class="phone-screen">
+            <iframe src="pages/onboarding-3.html"></iframe>
+          </div>
+        </div>
+        <div class="prototype-title">权限申请</div>
+        <div class="prototype-subtitle">摄像头权限开启</div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- 核心功能页面 -->
+      <div class="section-title">📱 核心功能页面</div>
+
+      <div class="prototype-item">
+        <div class="phone-frame">
+          <div class="dynamic-island"></div>
+          <div class="phone-screen">
+            <iframe src="pages/home.html"></iframe>
+          </div>
+        </div>
+        <div class="prototype-title">首页</div>
+        <div class="prototype-subtitle">视觉体感推荐 + 手表体感</div>
+      </div>
+
+      <div class="prototype-item">
+        <div class="phone-frame">
+          <div class="dynamic-island"></div>
+          <div class="phone-screen">
+            <iframe src="pages/motion-games.html"></iframe>
+          </div>
+        </div>
+        <div class="prototype-title">体感游戏列表</div>
+        <div class="prototype-subtitle">可筛选视觉/手表体感</div>
+      </div>
+
+      <div class="prototype-item">
+        <div class="phone-frame">
+          <div class="dynamic-island"></div>
+          <div class="phone-screen">
+            <iframe src="pages/game-detail.html"></iframe>
+          </div>
+        </div>
+        <div class="prototype-title">游戏详情</div>
+        <div class="prototype-subtitle">选择体感方式 + 投屏引导</div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- 游戏体验流程 -->
+      <div class="section-title">🎮 游戏体验流程</div>
+
+      <div class="prototype-item">
+        <div class="phone-frame">
+          <div class="dynamic-island"></div>
+          <div class="phone-screen">
+            <iframe src="pages/casting-guide.html"></iframe>
+          </div>
+        </div>
+        <div class="prototype-title">投屏引导</div>
+        <div class="prototype-subtitle">引导用户投屏到TV</div>
+      </div>
+
+      <div class="prototype-item">
+        <div class="phone-frame">
+          <div class="dynamic-island"></div>
+          <div class="phone-screen">
+            <iframe src="pages/game-tutorial.html"></iframe>
+          </div>
+        </div>
+        <div class="prototype-title">游戏教程</div>
+        <div class="prototype-subtitle">视觉体感操作指南</div>
+      </div>
+
+      <div class="prototype-item">
+        <div class="phone-frame">
+          <div class="dynamic-island"></div>
+          <div class="phone-screen">
+            <iframe src="pages/game-playing.html"></iframe>
+          </div>
+        </div>
+        <div class="prototype-title">游戏进行中</div>
+        <div class="prototype-subtitle">实时动作识别界面</div>
+      </div>
+
+      <div class="prototype-item">
+        <div class="phone-frame">
+          <div class="dynamic-island"></div>
+          <div class="phone-screen">
+            <iframe src="pages/game-result.html"></iframe>
+          </div>
+        </div>
+        <div class="prototype-title">游戏结果</div>
+        <div class="prototype-subtitle">成绩展示 + 反馈收集</div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- 辅助功能页面 -->
+      <div class="section-title">⚙️ 辅助功能页面</div>
+
+      <div class="prototype-item">
+        <div class="phone-frame">
+          <div class="dynamic-island"></div>
+          <div class="phone-screen">
+            <iframe src="pages/profile.html"></iframe>
+          </div>
+        </div>
+        <div class="prototype-title">个人中心</div>
+        <div class="prototype-subtitle">成就、设置、反馈</div>
+      </div>
+
+      <div class="prototype-item">
+        <div class="phone-frame">
+          <div class="dynamic-island"></div>
+          <div class="phone-screen">
+            <iframe src="pages/feedback.html"></iframe>
+          </div>
+        </div>
+        <div class="prototype-title">反馈页面</div>
+        <div class="prototype-subtitle">用户体验反馈收集</div>
+      </div>
+    </div>
+  </body>
+</html>

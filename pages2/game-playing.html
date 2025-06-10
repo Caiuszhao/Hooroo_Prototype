@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hooroo - 游戏中</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="../assets2/css/dark-theme.css" />
+  </head>
+  <body style="background: #000">
+    <div class="status-bar" style="background: #000">
+      <div class="status-left"><span>9:41</span></div>
+      <div class="status-right">
+        <div class="signal-bars">
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+          <div class="signal-bar"></div>
+        </div>
+        <i class="fas fa-wifi wifi-icon"></i>
+        <div class="battery"><div class="battery-fill"></div></div>
+      </div>
+    </div>
+
+    <!-- 游戏界面 -->
+    <div class="min-h-screen bg-black text-white relative overflow-hidden">
+      <!-- 顶部游戏信息 -->
+      <div class="absolute top-12 left-0 right-0 z-20 px-5">
+        <div class="flex items-center justify-between mb-4">
+          <button class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center">
+            <i class="fas fa-pause text-white"></i>
+          </button>
+          <div class="text-center">
+            <div class="text-2xl font-bold text-yellow-400">2,450</div>
+            <div class="text-xs text-gray-400">总分</div>
+          </div>
+          <button class="w-10 h-10 rounded-full bg-black bg-opacity-50 flex items-center justify-center">
+            <i class="fas fa-times text-white"></i>
+          </button>
+        </div>
+
+        <!-- 进度条 -->
+        <div class="bg-gray-800 rounded-full h-2 mb-4">
+          <div class="bg-gradient-to-r from-yellow-400 to-orange-500 h-2 rounded-full" style="width: 65%"></div>
+        </div>
+
+        <!-- 游戏状态 -->
+        <div class="flex items-center justify-between text-sm">
+          <div class="flex items-center">
+            <i class="fas fa-clock text-blue-400 mr-1"></i>
+            <span>03:52</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-fire text-orange-400 mr-1"></i>
+            <span>98 卡路里</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-bolt text-yellow-400 mr-1"></i>
+            <span>连击 x12</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 摄像头预览区域 -->
+      <div class="absolute top-32 right-5 w-32 h-40 bg-gray-900 rounded-2xl border-2 border-gray-700 overflow-hidden z-20">
+        <div class="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
+          <div class="text-center">
+            <i class="fas fa-camera text-gray-500 text-2xl mb-2"></i>
+            <div class="text-xs text-gray-500">动作识别中</div>
+            <div class="w-8 h-1 bg-green-400 rounded-full mt-2 mx-auto pulse-animation"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 主要游戏区域 -->
+      <div class="absolute inset-0 flex items-center justify-center">
+        <!-- 背景粒子效果 -->
+        <div class="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-black opacity-30"></div>
+
+        <!-- 中央动作提示 -->
+        <div class="text-center z-10">
+          <div class="w-40 h-40 rounded-full border-4 border-yellow-400 flex items-center justify-center mb-8 mx-auto pulse-animation">
+            <div class="w-32 h-32 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center">
+              <i class="fas fa-hand-paper text-black text-4xl"></i>
+            </div>
+          </div>
+
+          <h2 class="text-3xl font-bold text-white mb-2">举起右手</h2>
+          <p class="text-gray-300 mb-4">跟随音乐节拍</p>
+
+          <!-- 倒计时 -->
+          <div class="text-6xl font-bold text-yellow-400 mb-4">3</div>
+
+          <!-- 节拍指示器 -->
+          <div class="flex justify-center space-x-2">
+            <div class="w-3 h-3 bg-yellow-400 rounded-full pulse-animation"></div>
+            <div class="w-3 h-3 bg-gray-600 rounded-full"></div>
+            <div class="w-3 h-3 bg-gray-600 rounded-full"></div>
+            <div class="w-3 h-3 bg-gray-600 rounded-full"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部分数显示 -->
+      <div class="absolute bottom-20 left-0 right-0 px-5 z-20">
+        <!-- 评分显示 -->
+        <div class="text-center mb-4">
+          <div class="text-4xl font-bold text-green-400 mb-1">PERFECT!</div>
+          <div class="text-lg text-white">+250 分</div>
+        </div>
+
+        <!-- 连击显示 -->
+        <div class="flex justify-center space-x-4 mb-6">
+          <div class="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center text-black font-bold text-sm">1</div>
+          <div class="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center text-black font-bold text-sm">2</div>
+          <div class="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center text-black font-bold text-sm">3</div>
+          <div class="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center text-gray-400 font-bold text-sm">4</div>
+        </div>
+
+        <!-- 控制栏 -->
+        <div class="bg-black bg-opacity-50 rounded-2xl p-4 backdrop-filter backdrop-blur-lg">
+          <div class="flex items-center justify-between">
+            <div class="text-center">
+              <div class="text-lg font-bold text-white">舞动时刻</div>
+              <div class="text-sm text-gray-400">第 3/8 段</div>
+            </div>
+
+            <div class="flex space-x-4">
+              <button class="w-12 h-12 rounded-full bg-white bg-opacity-20 flex items-center justify-center">
+                <i class="fas fa-redo text-white"></i>
+              </button>
+              <button class="w-12 h-12 rounded-full bg-red-500 bg-opacity-80 flex items-center justify-center">
+                <i class="fas fa-stop text-white"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 粒子效果 -->
+      <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-yellow-400 rounded-full animate-ping"></div>
+      <div class="absolute top-1/3 right-1/3 w-1 h-1 bg-blue-400 rounded-full animate-ping" style="animation-delay: 0.5s"></div>
+      <div class="absolute bottom-1/3 left-1/3 w-2 h-2 bg-purple-400 rounded-full animate-ping" style="animation-delay: 1s"></div>
+    </div>
+  </body>
+</html>

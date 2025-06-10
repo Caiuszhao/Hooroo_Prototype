@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visual Dance Area - Hooroo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700;800;900&display=swap");
+
+      body {
+        font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #f8fafc;
+        max-width: 375px;
+        margin: 0 auto;
+        height: 812px;
+        overflow-y: auto;
+      }
+
+      .status-bar {
+        height: 44px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        font-size: 15px;
+        font-weight: 600;
+        background: #f8fafc;
+      }
+
+      .dynamic-island {
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 126px;
+        height: 37px;
+        background: #000;
+        border-radius: 20px;
+        z-index: 10;
+      }
+
+      .header-section {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        padding: 60px 20px 24px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .header-section::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+      }
+
+      .header-nav {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .back-button {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        padding: 8px;
+        border-radius: 12px;
+        margin-right: 16px;
+        cursor: pointer;
+      }
+
+      .header-title h1 {
+        font-size: 28px;
+        font-weight: 800;
+        margin-bottom: 4px;
+      }
+
+      .header-title p {
+        opacity: 0.9;
+        font-size: 16px;
+      }
+
+      .trending-banner {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 16px;
+        margin-top: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
+      }
+
+      .trending-banner h3 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .trending-banner p {
+        font-size: 14px;
+        opacity: 0.9;
+      }
+
+      .section-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #1f2937;
+        margin: 24px 20px 16px;
+        display: flex;
+        align-items: center;
+      }
+
+      .hot-videos {
+        padding: 0 20px 16px;
+      }
+
+      .video-card {
+        background: white;
+        border-radius: 16px;
+        margin-bottom: 16px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        border: 1px solid #f1f5f9;
+      }
+
+      .video-thumbnail {
+        height: 160px;
+        background: linear-gradient(135deg, #ec4899 0%, #f59e0b 100%);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .video-info {
+        padding: 16px;
+      }
+
+      .video-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 8px;
+      }
+
+      .video-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #6b7280;
+        font-size: 14px;
+      }
+
+      .video-stats {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .dance-types {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 0 20px;
+      }
+
+      .dance-type-card {
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f1f5f9;
+        transition: all 0.3s ease;
+      }
+
+      .dance-type-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      }
+
+      .dance-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 12px;
+        color: white;
+      }
+
+      .kpop-icon {
+        background: linear-gradient(135deg, #ec4899, #db2777);
+      }
+
+      .street-icon {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+      }
+
+      .latin-icon {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+      }
+
+      .modern-icon {
+        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      }
+
+      .dance-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 4px;
+      }
+
+      .dance-count {
+        font-size: 12px;
+        color: #6b7280;
+      }
+
+      .play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .trending-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+        color: white;
+        font-size: 10px;
+        padding: 4px 8px;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+
+      .course-recommendations {
+        margin: 20px;
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      }
+
+      .course-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+      }
+
+      .course-list {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .course-item {
+        min-width: 120px;
+        text-align: center;
+      }
+
+      .course-thumbnail {
+        width: 120px;
+        height: 80px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 12px;
+        margin-bottom: 8px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .course-name {
+        font-size: 12px;
+        font-weight: 500;
+        color: #374151;
+        margin-bottom: 4px;
+      }
+
+      .course-duration {
+        font-size: 11px;
+        color: #6b7280;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 状态栏 -->
+    <div class="status-bar">
+      <div>9:41</div>
+      <div class="flex items-center space-x-1">
+        <i class="fas fa-signal text-sm"></i>
+        <i class="fas fa-wifi text-sm"></i>
+        <div class="w-6 h-3 border border-black rounded-sm relative">
+          <div class="w-4 h-1.5 bg-black rounded-sm absolute top-0.5 left-0.5"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 头部区域 -->
+    <div class="header-section">
+      <div class="header-nav">
+        <button class="back-button">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <div class="header-title">
+          <h1>Dance Area</h1>
+          <p>视觉体感舞蹈专区</p>
+        </div>
+      </div>
+
+      <div class="trending-banner">
+        <h3>🔥 今日热门</h3>
+        <p>NewJeans - Get Up 舞蹈教学</p>
+      </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="pb-20">
+      <!-- 热门舞蹈视频 -->
+      <h2 class="section-title">
+        <i class="fas fa-fire text-red-500 mr-2"></i>
+        热门舞蹈视频
+      </h2>
+
+      <div class="hot-videos">
+        <div class="video-card">
+          <div class="video-thumbnail">
+            <div class="trending-badge">TRENDING</div>
+            <button class="play-button">
+              <i class="fas fa-play text-lg" style="margin-left: 2px"></i>
+            </button>
+            <div class="w-full h-full bg-gradient-to-r from-pink-500 to-yellow-500 flex items-center justify-center">
+              <i class="fas fa-star text-white text-4xl"></i>
+            </div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">K-Pop Dance Cover - ITZY</div>
+            <div class="video-meta">
+              <div class="video-stats">
+                <span><i class="fas fa-play mr-1"></i>25.8K</span>
+                <span><i class="fas fa-heart mr-1"></i>1.2K</span>
+              </div>
+              <span><i class="fas fa-clock mr-1"></i>3:45</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-thumbnail">
+            <button class="play-button">
+              <i class="fas fa-play text-lg" style="margin-left: 2px"></i>
+            </button>
+            <div class="w-full h-full bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center">
+              <i class="fas fa-fire text-white text-4xl"></i>
+            </div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">街舞基础教学 - Popping</div>
+            <div class="video-meta">
+              <div class="video-stats">
+                <span><i class="fas fa-play mr-1"></i>18.6K</span>
+                <span><i class="fas fa-heart mr-1"></i>892</span>
+              </div>
+              <span><i class="fas fa-clock mr-1"></i>5:20</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 舞蹈类型 -->
+      <h2 class="section-title">
+        <i class="fas fa-th-large text-blue-500 mr-2"></i>
+        舞蹈类型
+      </h2>
+
+      <div class="dance-types">
+        <div class="dance-type-card">
+          <div class="dance-icon kpop-icon">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="dance-title">K-Pop</div>
+          <div class="dance-count">25个视频</div>
+        </div>
+
+        <div class="dance-type-card">
+          <div class="dance-icon street-icon">
+            <i class="fas fa-fire"></i>
+          </div>
+          <div class="dance-title">街舞</div>
+          <div class="dance-count">32个视频</div>
+        </div>
+
+        <div class="dance-type-card">
+          <div class="dance-icon latin-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <div class="dance-title">拉丁舞</div>
+          <div class="dance-count">18个视频</div>
+        </div>
+
+        <div class="dance-type-card">
+          <div class="dance-icon modern-icon">
+            <i class="fas fa-magic"></i>
+          </div>
+          <div class="dance-title">现代舞</div>
+          <div class="dance-count">15个视频</div>
+        </div>
+      </div>
+
+      <!-- 课程推荐 -->
+      <div class="course-recommendations">
+        <div class="course-title">
+          <i class="fas fa-graduation-cap text-purple-500 mr-2"></i>
+          推荐课程
+        </div>
+        <div class="course-list">
+          <div class="course-item">
+            <div class="course-thumbnail">
+              <i class="fas fa-music text-white text-xl"></i>
+            </div>
+            <div class="course-name">初级K-Pop</div>
+            <div class="course-duration">8节课</div>
+          </div>
+
+          <div class="course-item">
+            <div class="course-thumbnail">
+              <i class="fas fa-bolt text-white text-xl"></i>
+            </div>
+            <div class="course-name">街舞入门</div>
+            <div class="course-duration">12节课</div>
+          </div>
+
+          <div class="course-item">
+            <div class="course-thumbnail">
+              <i class="fas fa-heart text-white text-xl"></i>
+            </div>
+            <div class="course-name">拉丁基础</div>
+            <div class="course-duration">10节课</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 视频卡片点击效果
+      document.querySelectorAll(".video-card").forEach(card => {
+        card.addEventListener("click", function () {
+          this.style.transform = "scale(0.98)";
+          setTimeout(() => {
+            this.style.transform = "scale(1)";
+          }, 150);
+        });
+      });
+
+      // 舞蹈类型卡片悬浮效果
+      document.querySelectorAll(".dance-type-card").forEach(card => {
+        card.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-4px) scale(1.02)";
+        });
+
+        card.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0) scale(1)";
+        });
+      });
+
+      // 播放按钮点击效果
+      document.querySelectorAll(".play-button").forEach(button => {
+        button.addEventListener("click", function (e) {
+          e.stopPropagation();
+          this.style.transform = "translate(-50%, -50%) scale(0.9)";
+          setTimeout(() => {
+            this.style.transform = "translate(-50%, -50%) scale(1)";
+          }, 150);
+        });
+      });
+
+      // 课程项目点击效果
+      document.querySelectorAll(".course-item").forEach(item => {
+        item.addEventListener("click", function () {
+          this.style.transform = "scale(0.95)";
+          setTimeout(() => {
+            this.style.transform = "scale(1)";
+          }, 150);
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>摄像头权限</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+
+      .camera-animation {
+        animation: camera-pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes camera-pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+      }
+
+      .privacy-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-br from-purple-600 to-blue-600 min-h-screen">
+    <!-- iOS状态栏 -->
+    <div class="bg-black bg-opacity-20 h-12 flex items-center justify-between px-4 text-white text-sm">
+      <div class="flex items-center space-x-1">
+        <div class="w-1 h-1 bg-white rounded-full"></div>
+        <div class="w-1 h-1 bg-white rounded-full"></div>
+        <div class="w-1 h-1 bg-white rounded-full"></div>
+        <span class="ml-2">中国移动</span>
+      </div>
+      <div class="font-semibold">9:41</div>
+      <div class="flex items-center space-x-1">
+        <i class="fas fa-signal text-xs"></i>
+        <i class="fas fa-wifi text-xs"></i>
+        <div class="w-6 h-3 border border-white rounded-sm">
+          <div class="w-4 h-2 bg-white rounded-sm m-0.5"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="flex flex-col items-center justify-center px-6 py-16 min-h-screen">
+      <!-- 摄像头图标 -->
+      <div class="mb-8">
+        <div class="w-32 h-32 bg-white rounded-full flex items-center justify-center camera-animation shadow-lg">
+          <i class="fas fa-camera text-6xl text-purple-600"></i>
+        </div>
+      </div>
+
+      <!-- 标题和描述 -->
+      <div class="text-center mb-12">
+        <h1 class="text-3xl font-bold text-white mb-4">开启摄像头权限</h1>
+        <p class="text-lg text-purple-100 leading-relaxed">
+          为了提供最佳的视觉体感游戏体验
+          <br />我们需要使用您的摄像头
+        </p>
+      </div>
+
+      <!-- 隐私保护说明 -->
+      <div class="privacy-card rounded-2xl p-6 mb-8 w-full max-w-sm">
+        <div class="flex items-center mb-4">
+          <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center mr-3">
+            <i class="fas fa-shield-alt text-white"></i>
+          </div>
+          <h3 class="text-lg font-bold text-gray-800">隐私保护承诺</h3>
+        </div>
+
+        <div class="space-y-3 text-gray-700 text-sm">
+          <div class="flex items-start">
+            <i class="fas fa-check text-green-500 w-5 mt-0.5 mr-2 flex-shrink-0"></i>
+            <span>仅用于动作识别，不会录制或存储视频</span>
+          </div>
+          <div class="flex items-start">
+            <i class="fas fa-check text-green-500 w-5 mt-0.5 mr-2 flex-shrink-0"></i>
+            <span>所有处理都在本地设备完成</span>
+          </div>
+          <div class="flex items-start">
+            <i class="fas fa-check text-green-500 w-5 mt-0.5 mr-2 flex-shrink-0"></i>
+            <span>随时可以在设置中关闭权限</span>
+          </div>
+          <div class="flex items-start">
+            <i class="fas fa-check text-green-500 w-5 mt-0.5 mr-2 flex-shrink-0"></i>
+            <span>符合国际隐私保护标准</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 使用场景说明 -->
+      <div class="bg-white bg-opacity-20 rounded-2xl p-4 mb-8 w-full max-w-sm backdrop-blur-sm">
+        <h4 class="text-white font-semibold mb-3 text-center">摄像头使用场景</h4>
+        <div class="grid grid-cols-3 gap-4 text-center">
+          <div>
+            <div class="w-12 h-12 bg-white bg-opacity-30 rounded-xl flex items-center justify-center mx-auto mb-2">
+              <i class="fas fa-running text-white"></i>
+            </div>
+            <span class="text-white text-xs">动作识别</span>
+          </div>
+          <div>
+            <div class="w-12 h-12 bg-white bg-opacity-30 rounded-xl flex items-center justify-center mx-auto mb-2">
+              <i class="fas fa-gamepad text-white"></i>
+            </div>
+            <span class="text-white text-xs">体感游戏</span>
+          </div>
+          <div>
+            <div class="w-12 h-12 bg-white bg-opacity-30 rounded-xl flex items-center justify-center mx-auto mb-2">
+              <i class="fas fa-chart-line text-white"></i>
+            </div>
+            <span class="text-white text-xs">实时反馈</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 进度指示器 -->
+      <div class="flex space-x-2 mb-8">
+        <div class="w-2 h-2 bg-white bg-opacity-40 rounded-full"></div>
+        <div class="w-2 h-2 bg-white bg-opacity-40 rounded-full"></div>
+        <div class="w-8 h-2 bg-white rounded-full"></div>
+      </div>
+
+      <!-- 按钮 -->
+      <div class="w-full max-w-sm space-y-3">
+        <button class="w-full bg-white text-purple-600 font-semibold py-4 rounded-2xl text-lg shadow-lg">
+          <i class="fas fa-camera mr-2"></i>
+          允许访问摄像头
+        </button>
+        <button class="w-full border-2 border-white text-white font-semibold py-4 rounded-2xl text-lg">稍后设置</button>
+        <p class="text-center text-purple-100 text-xs mt-4">您可以随时在手机设置中修改权限</p>
+      </div>
+    </div>
+  </body>
+</html>

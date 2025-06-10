@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hooroo MVP - V2 暗色主题版本</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="assets2/css/dark-theme.css" />
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: #0a0a0a;
+        color: #ffffff;
+      }
+      .phone-frame {
+        width: 375px;
+        height: 52rem;
+        border: 8px solid #1f2937;
+        border-radius: 40px;
+        overflow: hidden;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        background: #000;
+      }
+      .phone-content {
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 32px;
+      }
+      .prototype-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(375px, 1fr));
+        gap: 3rem;
+        padding: 2rem;
+        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2d2d2d 100%);
+        min-height: 100vh;
+      }
+      .prototype-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .prototype-title {
+        color: #ffd700;
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        text-align: center;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+      }
+      .hero-section {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .feature-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+      }
+      .feature-card:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 215, 0, 0.3);
+        transform: translateY(-4px);
+      }
+      .glow-text {
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-white">
+    <div class="container mx-auto px-4 py-8">
+      <!-- 页面标题 -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+          Hooroo MVP - V2 Black 版本
+        </h1>
+        <p class="text-xl text-gray-300 mb-6">暗色主题 + 双体感模式设计</p>
+
+        <!-- 版本特色 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+            <div class="text-3xl mb-3">🎨</div>
+            <h3 class="text-lg font-semibold mb-2">暗色游戏主题</h3>
+            <p class="text-gray-400 text-sm">参考用户UI图，采用深色背景配金色亮点的游戏化设计</p>
+          </div>
+          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+            <div class="text-3xl mb-3">📱</div>
+            <h3 class="text-lg font-semibold mb-2">双体感模式</h3>
+            <p class="text-gray-400 text-sm">视觉体感（新功能）+ 手表体感（经典模式）并存展示</p>
+          </div>
+          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+            <div class="text-3xl mb-3">🎯</div>
+            <h3 class="text-lg font-semibold mb-2">精简架构</h3>
+            <p class="text-gray-400 text-sm">整合挑战内容到首页，删除社区Tab，保持3个主要Tab</p>
+          </div>
+        </div>
+
+        <!-- 信息架构调整说明 -->
+        <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 mb-8">
+          <h3 class="text-xl font-semibold mb-4 text-yellow-400">📋 信息架构重新设计</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+            <div>
+              <h4 class="font-semibold mb-3 text-green-400">✅ 设计原则</h4>
+              <ul class="space-y-2 text-sm text-gray-300">
+                <li>• <strong>突出新功能</strong>：视觉体感作为主推功能，放在显眼位置</li>
+                <li>• <strong>保留原功能</strong>：手表体感作为成熟功能，继续提供给用户</li>
+                <li>• <strong>清晰区分</strong>：用不同的视觉设计区分两种体感方式</li>
+                <li>• <strong>引导体验</strong>：优先引导用户尝试新的视觉体感功能</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-3 text-blue-400">🔄 具体调整</h4>
+              <ul class="space-y-2 text-sm text-gray-300">
+                <li>• <strong>首页</strong>：新增视觉体感推荐区域，保留手表体感展示</li>
+                <li>• <strong>体感页</strong>：增加筛选功能，支持视觉/手表/全部三种模式</li>
+                <li>• <strong>视觉标识</strong>：新功能用彩色卡片，经典功能用灰色调</li>
+                <li>• <strong>引导策略</strong>：默认展示视觉体感，手表体感需要连接提示</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 原型页面展示 -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+        <!-- 新手引导 -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
+          <div class="p-4 border-b border-gray-700">
+            <h3 class="text-lg font-semibold flex items-center">
+              <i class="fas fa-play-circle text-yellow-400 mr-2"></i>
+              新手引导
+            </h3>
+            <p class="text-sm text-gray-400 mt-1">暗色主题的欢迎页面</p>
+          </div>
+          <iframe src="pages2/onboarding.html" class="w-96 h-[52rem] border-0"></iframe>
+        </div>
+
+        <!-- 首页 - 双体感模式 -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
+          <div class="p-4 border-b border-gray-700">
+            <h3 class="text-lg font-semibold flex items-center">
+              <i class="fas fa-home text-yellow-400 mr-2"></i>
+              首页 - 双体感模式
+            </h3>
+            <p class="text-sm text-gray-400 mt-1">视觉体感 + 手表体感并存展示</p>
+          </div>
+          <iframe src="pages2/home.html" class="w-96 h-[52rem] border-0"></iframe>
+        </div>
+
+        <!-- 体感游戏 - 筛选功能 -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
+          <div class="p-4 border-b border-gray-700">
+            <h3 class="text-lg font-semibold flex items-center">
+              <i class="fas fa-gamepad text-yellow-400 mr-2"></i>
+              体感游戏 - 筛选功能
+            </h3>
+            <p class="text-sm text-gray-400 mt-1">支持视觉/手表/全部三种模式</p>
+          </div>
+          <iframe src="pages2/motion-games.html" class="w-96 h-[52rem] border-0"></iframe>
+        </div>
+
+        <!-- 游戏详情 -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
+          <div class="p-4 border-b border-gray-700">
+            <h3 class="text-lg font-semibold flex items-center">
+              <i class="fas fa-info-circle text-yellow-400 mr-2"></i>
+              游戏详情
+            </h3>
+            <p class="text-sm text-gray-400 mt-1">彩色卡片展示游戏信息</p>
+          </div>
+          <iframe src="pages2/game-detail.html" class="w-96 h-[52rem] border-0"></iframe>
+        </div>
+
+        <!-- 投屏引导 -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
+          <div class="p-4 border-b border-gray-700">
+            <h3 class="text-lg font-semibold flex items-center">
+              <i class="fas fa-tv text-yellow-400 mr-2"></i>
+              投屏引导
+            </h3>
+            <p class="text-sm text-gray-400 mt-1">现代化投屏设置界面</p>
+          </div>
+          <iframe src="pages2/casting-guide.html" class="w-96 h-[52rem] border-0"></iframe>
+        </div>
+
+        <!-- 游戏进行中 -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
+          <div class="p-4 border-b border-gray-700">
+            <h3 class="text-lg font-semibold flex items-center">
+              <i class="fas fa-play text-yellow-400 mr-2"></i>
+              游戏进行中
+            </h3>
+            <p class="text-sm text-gray-400 mt-1">沉浸式游戏界面</p>
+          </div>
+          <iframe src="pages2/game-playing.html" class="w-96 h-[52rem] border-0"></iframe>
+        </div>
+
+        <!-- 游戏结果 -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
+          <div class="p-4 border-b border-gray-700">
+            <h3 class="text-lg font-semibold flex items-center">
+              <i class="fas fa-trophy text-yellow-400 mr-2"></i>
+              游戏结果
+            </h3>
+            <p class="text-sm text-gray-400 mt-1">成就展示和反馈系统</p>
+          </div>
+          <iframe src="pages2/game-result.html" class="w-96 h-[52rem] border-0"></iframe>
+        </div>
+
+        <!-- 个人中心 -->
+        <div class="bg-gray-800 rounded-xl overflow-hidden border border-gray-700">
+          <div class="p-4 border-b border-gray-700">
+            <h3 class="text-lg font-semibold flex items-center">
+              <i class="fas fa-user text-yellow-400 mr-2"></i>
+              个人中心
+            </h3>
+            <p class="text-sm text-gray-400 mt-1">统计优化的用户界面</p>
+          </div>
+          <iframe src="pages2/profile.html" class="w-96 h-[52rem] border-0"></iframe>
+        </div>
+      </div>
+
+      <!-- 设计说明 -->
+      <div class="mt-12 bg-gray-800 rounded-xl p-6 border border-gray-700">
+        <h3 class="text-xl font-semibold mb-4 text-yellow-400">🎯 双体感模式设计说明</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h4 class="font-semibold mb-3 text-green-400">🆕 视觉体感（新功能）</h4>
+            <ul class="space-y-2 text-sm text-gray-300">
+              <li>• <strong>突出展示</strong>：首页顶部大卡片推荐，配有"新功能"标签</li>
+              <li>• <strong>彩色设计</strong>：使用彩色渐变卡片，视觉冲击力强</li>
+              <li>• <strong>功能说明</strong>：强调"无需手表，摄像头即可"的优势</li>
+              <li>• <strong>内容丰富</strong>：舞蹈、健身、游戏三大类，共10个内容</li>
+              <li>• <strong>默认展示</strong>：体感页面默认显示视觉体感内容</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-semibold mb-3 text-blue-400">⌚ 手表体感（经典模式）</h4>
+            <ul class="space-y-2 text-sm text-gray-300">
+              <li>• <strong>保留展示</strong>：首页下方区域展示，标注"经典模式"</li>
+              <li>• <strong>灰色调设计</strong>：使用较为低调的灰色调，不抢夺视觉焦点</li>
+              <li>• <strong>连接提示</strong>：明确提示"需要连接智能手表"</li>
+              <li>• <strong>成熟内容</strong>：跑步、力量、有氧三大类，共10个内容</li>
+              <li>• <strong>筛选访问</strong>：通过筛选按钮可以单独查看手表体感</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 bg-gray-700 rounded-lg">
+          <h4 class="font-semibold mb-2 text-yellow-400">💡 用户引导策略</h4>
+          <p class="text-sm text-gray-300">
+            通过视觉层次和交互设计，优先引导用户体验新的视觉体感功能，同时保留原有手表体感的完整功能。
+            新用户会被新功能的彩色设计和"立即体验"按钮吸引，老用户仍可通过筛选功能快速找到熟悉的手表体感内容。
+          </p>
+        </div>
+      </div>
+
+      <!-- 版本对比 -->
+      <div class="mt-8 text-center">
+        <a href="../index.html" class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
+          <i class="fas fa-eye mr-2"></i>
+          查看 V1 亮色版本
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

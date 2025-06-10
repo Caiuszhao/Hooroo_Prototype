@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>游戏反馈</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+      }
+
+      .ios-status-bar {
+        height: 44px;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .feedback-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .star-rating {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        margin: 20px 0;
+      }
+
+      .star {
+        font-size: 32px;
+        color: #ddd;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .star.active {
+        color: #ffd700;
+        transform: scale(1.1);
+      }
+
+      .star:hover {
+        color: #ffd700;
+        transform: scale(1.15);
+      }
+
+      .emoji-rating {
+        display: flex;
+        justify-content: space-around;
+        margin: 20px 0;
+      }
+
+      .emoji-item {
+        font-size: 40px;
+        cursor: pointer;
+        padding: 12px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .emoji-item:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1.1);
+      }
+
+      .emoji-item.selected {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        transform: scale(1.1);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      }
+
+      .feedback-option {
+        background: rgba(255, 255, 255, 0.15);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        padding: 16px;
+        margin: 8px 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        color: white;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      }
+
+      .feedback-option:hover {
+        border-color: rgba(102, 126, 234, 0.5);
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .feedback-option.selected {
+        border-color: #667eea;
+        background: rgba(102, 126, 234, 0.1);
+      }
+
+      .feedback-textarea {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        padding: 16px;
+        color: white;
+        resize: vertical;
+        min-height: 100px;
+        font-size: 16px;
+      }
+
+      .feedback-textarea::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .feedback-textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .submit-button {
+        background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 16px 32px;
+        font-size: 18px;
+        font-weight: 600;
+        width: 100%;
+        margin-top: 20px;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .submit-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 184, 148, 0.4);
+      }
+
+      .submit-button:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .share-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin: 16px 0;
+      }
+
+      .share-button {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        padding: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .share-button:hover {
+        border-color: rgba(255, 255, 255, 0.4);
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .achievement-badge {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        border-radius: 12px;
+        padding: 16px;
+        text-align: center;
+        color: white;
+        margin: 16px 0;
+        animation: bounceIn 0.6s ease-out;
+      }
+
+      @keyframes bounceIn {
+        0% {
+          transform: scale(0.3);
+          opacity: 0;
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        70% {
+          transform: scale(0.9);
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .feedback-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 16px 0;
+      }
+
+      .feedback-tag {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 20px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      .feedback-tag:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
+
+      .feedback-tag.selected {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-color: transparent;
+      }
+
+      .progress-indicator {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin: 20px 0;
+      }
+
+      .progress-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .progress-dot.active {
+        background: #667eea;
+        transform: scale(1.2);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- iOS状态栏 -->
+    <div class="ios-status-bar">
+      <span>9:41</span>
+      <span>
+        <i class="fas fa-signal"></i>
+        <i class="fas fa-wifi"></i>
+        <i class="fas fa-battery-three-quarters"></i>
+      </span>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="p-6 pb-6" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: calc(100vh - 44px)">
+      <!-- 页面标题 -->
+      <div class="text-center mb-6">
+        <div class="text-white text-2xl font-bold mb-2">🎉 感谢体验</div>
+        <div class="text-white text-opacity-80 text-sm">你的反馈对我们很重要</div>
+
+        <!-- 进度指示器 -->
+        <div class="progress-indicator">
+          <div class="progress-dot active"></div>
+          <div class="progress-dot"></div>
+          <div class="progress-dot"></div>
+        </div>
+      </div>
+
+      <!-- 成就展示 -->
+      <div class="achievement-badge">
+        <div class="text-2xl mb-2">🏆</div>
+        <div class="font-bold text-lg">恭喜完成首次视觉体感游戏！</div>
+        <div class="text-sm mt-1 opacity-90">解锁成就：体感新手</div>
+      </div>
+
+      <!-- 整体评价 -->
+      <div class="feedback-card">
+        <h3 class="text-lg font-bold text-center mb-4">📊 整体体验如何？</h3>
+
+        <div class="star-rating" id="starRating">
+          <i class="fas fa-star star" data-rating="1"></i>
+          <i class="fas fa-star star" data-rating="2"></i>
+          <i class="fas fa-star star" data-rating="3"></i>
+          <i class="fas fa-star star" data-rating="4"></i>
+          <i class="fas fa-star star" data-rating="5"></i>
+        </div>
+
+        <div class="text-center text-gray-800" id="ratingText">点击星星进行评分</div>
+      </div>
+
+      <!-- 心情评价 -->
+      <div class="feedback-card">
+        <h3 class="text-lg font-bold text-center mb-4">😊 游戏后的心情？</h3>
+
+        <div class="emoji-rating">
+          <div class="emoji-item" data-mood="disappointed" title="失望">😞</div>
+          <div class="emoji-item" data-mood="neutral" title="一般">😐</div>
+          <div class="emoji-item" data-mood="satisfied" title="满意">😊</div>
+          <div class="emoji-item" data-mood="excited" title="兴奋">🤩</div>
+          <div class="emoji-item" data-mood="amazing" title="超棒">🔥</div>
+        </div>
+      </div>
+
+      <!-- 具体反馈 -->
+      <div class="feedback-card">
+        <h3 class="text-lg font-bold mb-4">💭 具体反馈</h3>
+
+        <div class="mb-4">
+          <div class="text-sm text-gray-800 mb-3">你最喜欢哪些方面？（可多选）</div>
+          <div class="feedback-tags">
+            <div class="feedback-tag" data-tag="visual-sensing">视觉体感技术</div>
+            <div class="feedback-tag" data-tag="game-content">游戏内容</div>
+            <div class="feedback-tag" data-tag="ui-design">界面设计</div>
+            <div class="feedback-tag" data-tag="easy-to-use">操作简单</div>
+            <div class="feedback-tag" data-tag="fun">很有趣</div>
+            <div class="feedback-tag" data-tag="exercise">运动效果</div>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <div class="text-sm text-gray-800 mb-3">还有哪些需要改进？</div>
+          <textarea class="feedback-textarea" placeholder="请告诉我们你的建议和想法..." id="feedbackText"></textarea>
+        </div>
+      </div>
+
+      <!-- 推荐意愿 -->
+      <div class="feedback-card">
+        <h3 class="text-lg font-bold mb-4">🔗 推荐意愿</h3>
+        <div class="text-sm text-gray-800 mb-3">你会推荐朋友使用视觉体感功能吗？</div>
+
+        <div class="feedback-option" data-recommend="definitely">
+          <div class="font-semibold">✅ 非常愿意推荐</div>
+          <div class="text-sm text-gray-700">这个功能太棒了！</div>
+        </div>
+
+        <div class="feedback-option" data-recommend="maybe">
+          <div class="font-semibold">🤔 可能会推荐</div>
+          <div class="text-sm text-gray-700">还不错，但有改进空间</div>
+        </div>
+
+        <div class="feedback-option" data-recommend="unlikely">
+          <div class="font-semibold">❌ 暂时不会推荐</div>
+          <div class="text-sm text-gray-700">需要更多完善</div>
+        </div>
+      </div>
+
+      <!-- 分享成就 -->
+      <div class="feedback-card">
+        <h3 class="text-lg font-bold mb-4">📤 分享你的成就</h3>
+
+        <div class="share-buttons">
+          <button class="share-button" onclick="shareToWeChat()"><i class="fab fa-weixin mb-1"></i><br />微信朋友圈</button>
+          <button class="share-button" onclick="shareToWeibo()"><i class="fab fa-weibo mb-1"></i><br />微博</button>
+        </div>
+
+        <div class="text-center text-sm text-white opacity-80 mt-3">分享你的首次视觉体感体验，邀请朋友一起运动！</div>
+      </div>
+
+      <!-- 提交按钮 -->
+      <button class="submit-button" id="submitFeedback" onclick="submitFeedback()">提交反馈 🚀</button>
+
+      <!-- 跳过链接 -->
+      <div class="text-center mt-4">
+        <button class="text-white text-opacity-60 text-sm underline" onclick="skipFeedback()">跳过反馈，直接返回</button>
+      </div>
+    </div>
+
+    <script>
+      let feedbackData = {
+        rating: 0,
+        mood: "",
+        tags: [],
+        text: "",
+        recommend: ""
+      };
+
+      // 星级评分功能
+      const stars = document.querySelectorAll(".star");
+      const ratingText = document.getElementById("ratingText");
+      const ratingTexts = ["很差", "较差", "一般", "不错", "很棒"];
+
+      stars.forEach((star, index) => {
+        star.addEventListener("click", () => {
+          const rating = index + 1;
+          feedbackData.rating = rating;
+
+          stars.forEach((s, i) => {
+            if (i < rating) {
+              s.classList.add("active");
+            } else {
+              s.classList.remove("active");
+            }
+          });
+
+          ratingText.textContent = `${rating}星 - ${ratingTexts[index]}`;
+          checkFormComplete();
+        });
+      });
+
+      // 心情评价功能
+      const emojiItems = document.querySelectorAll(".emoji-item");
+      emojiItems.forEach(item => {
+        item.addEventListener("click", () => {
+          emojiItems.forEach(ei => ei.classList.remove("selected"));
+          item.classList.add("selected");
+          feedbackData.mood = item.dataset.mood;
+          checkFormComplete();
+        });
+      });
+
+      // 标签选择功能
+      const feedbackTags = document.querySelectorAll(".feedback-tag");
+      feedbackTags.forEach(tag => {
+        tag.addEventListener("click", () => {
+          tag.classList.toggle("selected");
+          const tagValue = tag.dataset.tag;
+
+          if (feedbackData.tags.includes(tagValue)) {
+            feedbackData.tags = feedbackData.tags.filter(t => t !== tagValue);
+          } else {
+            feedbackData.tags.push(tagValue);
+          }
+          checkFormComplete();
+        });
+      });
+
+      // 推荐选项功能
+      const recommendOptions = document.querySelectorAll(".feedback-option");
+      recommendOptions.forEach(option => {
+        option.addEventListener("click", () => {
+          recommendOptions.forEach(ro => ro.classList.remove("selected"));
+          option.classList.add("selected");
+          feedbackData.recommend = option.dataset.recommend;
+          checkFormComplete();
+        });
+      });
+
+      // 文本输入监听
+      const feedbackTextArea = document.getElementById("feedbackText");
+      feedbackTextArea.addEventListener("input", () => {
+        feedbackData.text = feedbackTextArea.value;
+        checkFormComplete();
+      });
+
+      // 检查表单完成度
+      function checkFormComplete() {
+        const submitButton = document.getElementById("submitFeedback");
+        const isComplete = feedbackData.rating > 0 && feedbackData.mood;
+
+        if (isComplete) {
+          submitButton.disabled = false;
+          submitButton.style.opacity = "1";
+        } else {
+          submitButton.disabled = true;
+          submitButton.style.opacity = "0.6";
+        }
+      }
+
+      // 提交反馈
+      function submitFeedback() {
+        if (feedbackData.rating === 0 || !feedbackData.mood) {
+          alert("请完成评分和心情选择");
+          return;
+        }
+
+        // 这里可以发送反馈数据到服务器
+        console.log("反馈数据:", feedbackData);
+
+        alert("感谢你的反馈！我们会认真考虑你的建议 ❤️");
+
+        // 可以跳转回主页或其他页面
+        // window.location.href = 'home.html';
+      }
+
+      // 跳过反馈
+      function skipFeedback() {
+        if (confirm("确定要跳过反馈吗？你的意见对我们很重要。")) {
+          // window.location.href = 'home.html';
+          alert("已跳过反馈，返回主页");
+        }
+      }
+
+      // 分享功能
+      function shareToWeChat() {
+        alert("正在打开微信分享...");
+        // 这里实现微信分享逻辑
+      }
+
+      function shareToWeibo() {
+        alert("正在打开微博分享...");
+        // 这里实现微博分享逻辑
+      }
+
+      // 初始化表单状态
+      checkFormComplete();
+    </script>
+  </body>
+</html>

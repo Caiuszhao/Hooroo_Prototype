@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>投屏引导</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+
+      .step-animation {
+        animation: step-highlight 3s ease-in-out infinite;
+      }
+
+      @keyframes step-highlight {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      .device-pulse {
+        animation: device-pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes device-pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+        }
+        50% {
+          box-shadow: 0 0 0 20px rgba(59, 130, 246, 0);
+        }
+      }
+
+      .connection-line {
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        background-size: 200% 100%;
+        animation: connection-flow 2s linear infinite;
+      }
+
+      @keyframes connection-flow {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen">
+    <!-- iOS状态栏 -->
+    <div class="bg-white h-12 flex items-center justify-between px-4 text-gray-800 text-sm">
+      <div class="flex items-center space-x-1">
+        <div class="w-1 h-1 bg-gray-800 rounded-full"></div>
+        <div class="w-1 h-1 bg-gray-800 rounded-full"></div>
+        <div class="w-1 h-1 bg-gray-800 rounded-full"></div>
+        <span class="ml-2">中国移动</span>
+      </div>
+      <div class="font-semibold">9:41</div>
+      <div class="flex items-center space-x-1">
+        <i class="fas fa-signal text-xs"></i>
+        <i class="fas fa-wifi text-xs"></i>
+        <div class="w-6 h-3 border border-gray-800 rounded-sm">
+          <div class="w-4 h-2 bg-gray-800 rounded-sm m-0.5"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="bg-white px-4 py-3 flex items-center shadow-sm">
+      <i class="fas fa-chevron-left text-gray-600 mr-3"></i>
+      <h1 class="text-xl font-bold text-gray-800">投屏到电视</h1>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="px-4 py-6">
+      <!-- 头部说明 -->
+      <div class="text-center mb-8">
+        <div
+          class="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 device-pulse"
+        >
+          <i class="fas fa-tv text-3xl text-white"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">享受大屏体验</h2>
+        <p class="text-gray-600">将游戏投屏到电视，获得更佳的视觉效果和游戏体验</p>
+      </div>
+
+      <!-- 投屏优势 -->
+      <div class="bg-white rounded-3xl p-6 mb-6 shadow-sm">
+        <h3 class="text-lg font-bold text-gray-800 mb-4">为什么要投屏？</h3>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="text-center">
+            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-2">
+              <i class="fas fa-expand text-blue-600"></i>
+            </div>
+            <h4 class="font-semibold text-gray-800 text-sm mb-1">大屏显示</h4>
+            <p class="text-xs text-gray-600">更清晰地看到动作指示</p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-2">
+              <i class="fas fa-running text-green-600"></i>
+            </div>
+            <h4 class="font-semibold text-gray-800 text-sm mb-1">更大空间</h4>
+            <p class="text-xs text-gray-600">释放双手，自由舞动</p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-2">
+              <i class="fas fa-eye text-purple-600"></i>
+            </div>
+            <h4 class="font-semibold text-gray-800 text-sm mb-1">沉浸体验</h4>
+            <p class="text-xs text-gray-600">身临其境的游戏感受</p>
+          </div>
+
+          <div class="text-center">
+            <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mx-auto mb-2">
+              <i class="fas fa-users text-orange-600"></i>
+            </div>
+            <h4 class="font-semibold text-gray-800 text-sm mb-1">多人互动</h4>
+            <p class="text-xs text-gray-600">家人朋友一起参与</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 投屏步骤 -->
+      <div class="bg-white rounded-3xl p-6 mb-6 shadow-sm">
+        <h3 class="text-lg font-bold text-gray-800 mb-6">如何投屏</h3>
+
+        <!-- 步骤1 -->
+        <div class="flex items-start mb-6 step-animation">
+          <div
+            class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-4 flex-shrink-0"
+          >
+            <span class="text-white text-sm font-bold">1</span>
+          </div>
+          <div class="flex-1">
+            <h4 class="font-semibold text-gray-800 mb-2">确保设备在同一网络</h4>
+            <p class="text-sm text-gray-600 mb-3">手机和电视需要连接到相同的WiFi网络</p>
+            <div class="bg-blue-50 rounded-xl p-3">
+              <div class="flex items-center justify-center space-x-4">
+                <div class="text-center">
+                  <i class="fas fa-mobile-alt text-blue-600 text-2xl mb-1"></i>
+                  <p class="text-xs text-blue-600">手机</p>
+                </div>
+                <div class="connection-line h-1 w-12 rounded"></div>
+                <div class="text-center">
+                  <i class="fas fa-wifi text-blue-600 text-2xl mb-1"></i>
+                  <p class="text-xs text-blue-600">WiFi</p>
+                </div>
+                <div class="connection-line h-1 w-12 rounded"></div>
+                <div class="text-center">
+                  <i class="fas fa-tv text-blue-600 text-2xl mb-1"></i>
+                  <p class="text-xs text-blue-600">电视</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 步骤2 -->
+        <div class="flex items-start mb-6">
+          <div
+            class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-4 flex-shrink-0"
+          >
+            <span class="text-white text-sm font-bold">2</span>
+          </div>
+          <div class="flex-1">
+            <h4 class="font-semibold text-gray-800 mb-2">打开投屏功能</h4>
+            <p class="text-sm text-gray-600 mb-3">从控制中心或设置中启用投屏</p>
+            <div class="bg-gray-50 rounded-xl p-3">
+              <div class="grid grid-cols-3 gap-3 text-center">
+                <div>
+                  <div class="bg-white rounded-lg p-2 mb-2">
+                    <i class="fas fa-mobile-alt text-gray-600"></i>
+                  </div>
+                  <p class="text-xs text-gray-600">下拉控制中心</p>
+                </div>
+                <div>
+                  <div class="bg-white rounded-lg p-2 mb-2">
+                    <i class="fas fa-cast text-purple-600"></i>
+                  </div>
+                  <p class="text-xs text-gray-600">点击投屏按钮</p>
+                </div>
+                <div>
+                  <div class="bg-white rounded-lg p-2 mb-2">
+                    <i class="fas fa-tv text-green-600"></i>
+                  </div>
+                  <p class="text-xs text-gray-600">选择电视设备</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 步骤3 -->
+        <div class="flex items-start">
+          <div
+            class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-4 flex-shrink-0"
+          >
+            <span class="text-white text-sm font-bold">3</span>
+          </div>
+          <div class="flex-1">
+            <h4 class="font-semibold text-gray-800 mb-2">开始游戏</h4>
+            <p class="text-sm text-gray-600 mb-3">连接成功后，启动游戏即可在电视上显示</p>
+            <div class="bg-green-50 rounded-xl p-3 text-center">
+              <i class="fas fa-check-circle text-green-600 text-2xl mb-2"></i>
+              <p class="text-sm font-semibold text-green-700">投屏成功，开始游戏</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 支持的设备 -->
+      <div class="bg-white rounded-3xl p-6 mb-6 shadow-sm">
+        <h3 class="text-lg font-bold text-gray-800 mb-4">支持的设备</h3>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="border border-gray-200 rounded-xl p-3">
+            <div class="flex items-center mb-2">
+              <i class="fas fa-tv text-gray-600 mr-2"></i>
+              <span class="font-semibold text-gray-800 text-sm">智能电视</span>
+            </div>
+            <ul class="text-xs text-gray-600 space-y-1">
+              <li>• 小米电视</li>
+              <li>• 海信电视</li>
+              <li>• TCL电视</li>
+              <li>• 其他支持投屏的电视</li>
+            </ul>
+          </div>
+
+          <div class="border border-gray-200 rounded-xl p-3">
+            <div class="flex items-center mb-2">
+              <i class="fas fa-cube text-gray-600 mr-2"></i>
+              <span class="font-semibold text-gray-800 text-sm">投屏盒子</span>
+            </div>
+            <ul class="text-xs text-gray-600 space-y-1">
+              <li>• Apple TV</li>
+              <li>• 小米盒子</li>
+              <li>• 当贝盒子</li>
+              <li>• Chromecast</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 常见问题 -->
+      <div class="bg-white rounded-3xl p-6 mb-6 shadow-sm">
+        <h3 class="text-lg font-bold text-gray-800 mb-4">常见问题</h3>
+        <div class="space-y-4">
+          <div class="border-l-4 border-blue-500 pl-4">
+            <h4 class="font-semibold text-gray-800 text-sm mb-1">找不到电视设备怎么办？</h4>
+            <p class="text-xs text-gray-600">请确保手机和电视连接同一WiFi，并且电视支持投屏功能</p>
+          </div>
+
+          <div class="border-l-4 border-green-500 pl-4">
+            <h4 class="font-semibold text-gray-800 text-sm mb-1">投屏有延迟怎么办？</h4>
+            <p class="text-xs text-gray-600">建议使用5G WiFi网络，并确保网络信号良好</p>
+          </div>
+
+          <div class="border-l-4 border-orange-500 pl-4">
+            <h4 class="font-semibold text-gray-800 text-sm mb-1">不投屏可以玩吗？</h4>
+            <p class="text-xs text-gray-600">当然可以！投屏只是为了更好的体验，直接用手机也能正常游戏</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 智能检测 -->
+      <div class="bg-gradient-to-r from-purple-600 to-blue-600 rounded-3xl p-6 mb-20 text-white">
+        <div class="text-center mb-4">
+          <i class="fas fa-search text-2xl mb-2"></i>
+          <h3 class="text-lg font-bold mb-2">自动搜索设备</h3>
+          <p class="text-purple-100 text-sm">我们会自动搜索附近可投屏的设备</p>
+        </div>
+
+        <div class="space-y-3">
+          <button class="w-full bg-white text-purple-600 py-3 rounded-xl font-semibold">
+            <i class="fas fa-search mr-2"></i>
+            搜索可投屏设备
+          </button>
+          <button class="w-full border-2 border-white text-white py-3 rounded-xl font-semibold">
+            <i class="fas fa-play mr-2"></i>
+            跳过投屏，直接开始
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2">
+      <div class="flex items-center justify-around">
+        <div class="flex flex-col items-center space-y-1">
+          <i class="fas fa-home text-gray-400"></i>
+          <span class="text-xs text-gray-400">首页</span>
+        </div>
+        <div class="flex flex-col items-center space-y-1">
+          <i class="fas fa-gamepad text-purple-600"></i>
+          <span class="text-xs text-purple-600 font-medium">体感游戏</span>
+        </div>
+        <div class="flex flex-col items-center space-y-1">
+          <i class="fas fa-trophy text-gray-400"></i>
+          <span class="text-xs text-gray-400">成就</span>
+        </div>
+        <div class="flex flex-col items-center space-y-1">
+          <i class="fas fa-user text-gray-400"></i>
+          <span class="text-xs text-gray-400">我的</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

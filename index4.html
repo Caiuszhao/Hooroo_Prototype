@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hooroo App V4 - 模式选择架构</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700;800;900&display=swap");
+
+      body {
+        font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      .demo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 40px;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      .demo-section {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        padding: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .demo-section:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .demo-section h2 {
+        color: white;
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      .phone-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      iframe {
+        width: 375px;
+        height: 812px;
+        border: none;
+        border-radius: 36px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .badge {
+        background: #ff4444;
+        color: white;
+        font-size: 10px;
+        padding: 2px 6px;
+        border-radius: 10px;
+        font-weight: 600;
+      }
+
+      .new-badge {
+        background: #10b981;
+        color: white;
+        font-size: 10px;
+        padding: 2px 6px;
+        border-radius: 10px;
+        font-weight: 600;
+      }
+
+      .version-info {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 顶部导航 -->
+    <div class="w-full bg-white/10 backdrop-blur-lg border-b border-white/20">
+      <div class="max-w-7xl mx-auto px-6 py-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-4">
+            <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+              <i class="fas fa-running text-white text-lg"></i>
+            </div>
+            <div>
+              <h1 class="text-2xl font-bold text-white">Hooroo App V4</h1>
+              <p class="text-white/70 text-sm">模式选择架构 - 视觉与手表体感完全隔离</p>
+            </div>
+          </div>
+          <div class="text-white/70 text-sm">
+            <i class="fas fa-mobile-alt mr-2"></i>
+            最新版本
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 版本说明 -->
+    <div class="max-w-7xl mx-auto px-6 py-6">
+      <div class="version-info">
+        <h3 class="text-xl font-bold text-white mb-3">
+          <i class="fas fa-route mr-2"></i>
+          新架构核心理念
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-white/90">
+          <div class="flex items-start space-x-3">
+            <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+              <i class="fas fa-eye text-xs"></i>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-1">视觉体感模式</h4>
+              <p class="text-sm opacity-90">独立的视觉体感内容体系，包含Home、各专区及Me页面</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3">
+            <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+              <i class="fas fa-clock text-xs"></i>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-1">手表体感模式</h4>
+              <p class="text-sm opacity-90">保持原有结构的手表体感内容，独立的导航体系</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主要内容区 -->
+    <div class="demo-grid">
+      <!-- 模式选择页面 -->
+      <div class="demo-section">
+        <h2><i class="fas fa-crossroads mr-3 text-yellow-500"></i>Mode Selection - 模式选择</h2>
+        <div class="phone-container">
+          <iframe src="pages4/mode-selection.html" title="Mode Selection"></iframe>
+        </div>
+        <div class="mt-4 text-center">
+          <h3 class="text-lg font-semibold text-white mb-2">模式选择入口</h3>
+          <p class="text-white/70 text-sm">用户进入App首先选择体感模式，实现内容完全隔离</p>
+          <div class="flex justify-center space-x-2 mt-3">
+            <span class="new-badge">NEW</span>
+            <span class="text-sm text-white/70">视觉体感 | 手表体感</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 视觉体感 - Home页面 -->
+      <div class="demo-section">
+        <h2><i class="fas fa-eye mr-3 text-blue-500"></i>Visual Mode - Home</h2>
+        <div class="phone-container">
+          <iframe src="pages4/visual-home.html" title="Visual Home"></iframe>
+        </div>
+        <div class="mt-4 text-center">
+          <h3 class="text-lg font-semibold text-white mb-2">视觉体感主页</h3>
+          <p class="text-white/70 text-sm">视觉体感模式的专属主页，包含Fit Area、Dance Area、Casual Game Area</p>
+          <div class="flex justify-center space-x-2 mt-3">
+            <span class="badge">HOT</span>
+            <span class="text-sm text-white/70">健身 | 舞蹈 | 游戏</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 视觉体感 - Fit Area -->
+      <div class="demo-section">
+        <h2><i class="fas fa-dumbbell mr-3 text-green-500"></i>Visual - Fit Area</h2>
+        <div class="phone-container">
+          <iframe src="pages4/visual-fit-area.html" title="Visual Fit Area"></iframe>
+        </div>
+        <div class="mt-4 text-center">
+          <h3 class="text-lg font-semibold text-white mb-2">视觉健身专区</h3>
+          <p class="text-white/70 text-sm">专为视觉体感设计的健身内容和课程</p>
+          <div class="flex justify-center space-x-2 mt-3">
+            <span class="badge">HOT</span>
+            <span class="text-sm text-white/70">HIIT | 瑜伽 | 力量</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 视觉体感 - Dance Area -->
+      <div class="demo-section">
+        <h2><i class="fas fa-music mr-3 text-pink-500"></i>Visual - Dance Area</h2>
+        <div class="phone-container">
+          <iframe src="pages4/visual-dance-area.html" title="Visual Dance Area"></iframe>
+        </div>
+        <div class="mt-4 text-center">
+          <h3 class="text-lg font-semibold text-white mb-2">视觉舞蹈专区</h3>
+          <p class="text-white/70 text-sm">专为视觉体感设计的舞蹈内容</p>
+          <div class="flex justify-center space-x-2 mt-3">
+            <span class="badge">HOT</span>
+            <span class="text-sm text-white/70">K-Pop | 街舞 | 现代舞</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 视觉体感 - Casual Game Area -->
+      <div class="demo-section">
+        <h2><i class="fas fa-gamepad mr-3 text-purple-500"></i>Visual - Casual Game</h2>
+        <div class="phone-container">
+          <iframe src="pages4/visual-casual-game.html" title="Visual Casual Game"></iframe>
+        </div>
+        <div class="mt-4 text-center">
+          <h3 class="text-lg font-semibold text-white mb-2">视觉休闲游戏</h3>
+          <p class="text-white/70 text-sm">专为视觉体感设计的休闲游戏内容</p>
+          <div class="flex justify-center space-x-2 mt-3">
+            <span class="badge">HOT</span>
+            <span class="text-sm text-white/70">反应 | 平衡 | 协调</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 视觉体感 - Me页面 -->
+      <div class="demo-section">
+        <h2><i class="fas fa-user-circle mr-3 text-cyan-500"></i>Visual - Me</h2>
+        <div class="phone-container">
+          <iframe src="pages4/visual-me.html" title="Visual Me"></iframe>
+        </div>
+        <div class="mt-4 text-center">
+          <h3 class="text-lg font-semibold text-white mb-2">视觉体感个人中心</h3>
+          <p class="text-white/70 text-sm">视觉体感模式的个人信息、数据统计、历史记录</p>
+          <div class="flex justify-center space-x-2 mt-3">
+            <span class="text-sm text-white/70">资料 | 数据 | 历史 | 设置</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 手表体感模式页面 -->
+      <div class="demo-section">
+        <h2><i class="fas fa-clock mr-3 text-orange-500"></i>Watch Mode - 手表体感</h2>
+        <div class="phone-container">
+          <iframe src="pages4/watch-mode.html" title="Watch Mode"></iframe>
+        </div>
+        <div class="mt-4 text-center">
+          <h3 class="text-lg font-semibold text-white mb-2">手表体感模式</h3>
+          <p class="text-white/70 text-sm">保持原有结构的手表体感内容，包含挑战、健身、游戏、我的</p>
+          <div class="flex justify-center space-x-2 mt-3">
+            <span class="text-sm text-white/70">挑战 | 健身 | 游戏 | 我的</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部信息 -->
+    <div class="w-full bg-white/10 backdrop-blur-lg border-t border-white/20 mt-12">
+      <div class="max-w-7xl mx-auto px-6 py-8">
+        <div class="text-center text-white">
+          <h3 class="text-xl font-semibold mb-4">Hooroo App V4 - 模式选择架构</h3>
+          <p class="text-white/70 mb-6">进入App即选择体感模式，视觉体感与手表体感内容完全隔离的新架构</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+            <div class="bg-white/10 rounded-lg p-4">
+              <i class="fas fa-route text-2xl mb-2"></i>
+              <h4 class="font-semibold mb-1">模式选择优先</h4>
+              <p class="text-white/70">用户进入App首先选择体感模式，确保体验的专一性</p>
+            </div>
+
+            <div class="bg-white/10 rounded-lg p-4">
+              <i class="fas fa-layer-group text-2xl mb-2"></i>
+              <h4 class="font-semibold mb-1">内容完全隔离</h4>
+              <p class="text-white/70">视觉体感和手表体感拥有独立的内容体系和导航</p>
+            </div>
+
+            <div class="bg-white/10 rounded-lg p-4">
+              <i class="fas fa-mobile-alt text-2xl mb-2"></i>
+              <h4 class="font-semibold mb-1">真实界面设计</h4>
+              <p class="text-white/70">iPhone 15 Pro设计规范，现代化UI元素，真实图片内容</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 添加页面加载动画
+      document.addEventListener("DOMContentLoaded", function () {
+        const sections = document.querySelectorAll(".demo-section");
+        sections.forEach((section, index) => {
+          section.style.opacity = "0";
+          section.style.transform = "translateY(30px)";
+
+          setTimeout(() => {
+            section.style.transition = "all 0.6s ease";
+            section.style.opacity = "1";
+            section.style.transform = "translateY(0)";
+          }, index * 200);
+        });
+      });
+    </script>
+  </body>
+</html>

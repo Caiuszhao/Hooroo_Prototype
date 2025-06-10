@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dance Area - Hooroo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap");
+
+      body {
+        font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #f8fafc;
+        max-width: 375px;
+        margin: 0 auto;
+        height: 812px;
+        overflow-y: auto;
+      }
+
+      .status-bar {
+        height: 44px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        font-size: 15px;
+        font-weight: 600;
+        background: #f8fafc;
+      }
+
+      .dynamic-island {
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 126px;
+        height: 37px;
+        background: #000;
+        border-radius: 20px;
+        z-index: 10;
+      }
+
+      .header-card {
+        background: linear-gradient(135deg, #ff6b9d, #c44569);
+        border-radius: 20px;
+        padding: 24px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .header-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100px;
+        height: 100px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: translate(30px, -30px);
+      }
+
+      .section-card {
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f1f5f9;
+      }
+
+      .dance-item {
+        background: white;
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        border: 1px solid #f1f5f9;
+        transition: all 0.3s ease;
+      }
+
+      .dance-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .hot-badge {
+        background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+        color: white;
+        font-size: 10px;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-weight: 600;
+      }
+
+      .type-card {
+        background: white;
+        border-radius: 12px;
+        padding: 16px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        border: 1px solid #f1f5f9;
+        transition: all 0.3s ease;
+      }
+
+      .type-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .course-item {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        border: 1px solid #f1f5f9;
+        transition: all 0.3s ease;
+      }
+
+      .course-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .video-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f1f5f9;
+        transition: all 0.3s ease;
+      }
+
+      .video-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 状态栏 -->
+    <div class="status-bar">
+      <div>9:41</div>
+      <div class="flex items-center space-x-1">
+        <i class="fas fa-signal text-sm"></i>
+        <i class="fas fa-wifi text-sm"></i>
+        <div class="w-6 h-3 border border-black rounded-sm relative">
+          <div class="w-4 h-1.5 bg-black rounded-sm absolute top-0.5 left-0.5"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <div class="flex items-center justify-between px-4 py-3 bg-white border-b border-gray-100">
+      <button class="w-8 h-8 flex items-center justify-center">
+        <i class="fas fa-chevron-left text-gray-700"></i>
+      </button>
+      <h1 class="text-lg font-bold text-gray-900">Dance Area</h1>
+      <button class="w-8 h-8 flex items-center justify-center">
+        <i class="fas fa-search text-gray-700"></i>
+      </button>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="px-4 pb-20">
+      <!-- 头部Banner -->
+      <div class="header-card mb-6 mt-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="text-2xl font-bold mb-2">舞蹈专区</h1>
+            <p class="text-sm opacity-90 mb-3">释放你的舞蹈天赋</p>
+            <div class="flex items-center">
+              <div class="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
+              <span class="text-xs opacity-90">15个热门舞蹈</span>
+            </div>
+          </div>
+          <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
+            <i class="fas fa-music text-2xl"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- 热门舞蹈视频 -->
+      <div class="section-card mb-6">
+        <div class="flex items-center mb-4">
+          <span class="hot-badge mr-2">HOT</span>
+          <h2 class="text-lg font-bold text-gray-900">热门舞蹈</h2>
+        </div>
+
+        <div class="space-y-4">
+          <div class="video-card">
+            <div class="h-40 bg-gradient-to-r from-pink-500 to-rose-500 relative">
+              <img
+                src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=350&h=160&fit=crop"
+                alt="K-Pop Dance"
+                class="w-full h-full object-cover"
+              />
+              <div class="absolute inset-0 bg-black/20"></div>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center">
+                  <i class="fas fa-play text-pink-500 text-xl ml-1"></i>
+                </div>
+              </div>
+              <div class="absolute top-3 left-3">
+                <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full font-semibold">NEW</span>
+              </div>
+              <div class="absolute bottom-3 left-3 text-white">
+                <div class="text-sm font-bold">K-Pop 热舞挑战</div>
+                <div class="text-xs opacity-90">8分钟 · 200卡路里</div>
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center text-sm text-gray-600">
+                  <i class="fas fa-play mr-2"></i>
+                  <span>2.3万次播放</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-star text-yellow-400 text-sm"></i>
+                  <span class="text-sm text-gray-600 ml-1">4.8</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="video-card">
+            <div class="h-40 bg-gradient-to-r from-purple-500 to-pink-500 relative">
+              <img
+                src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=350&h=160&fit=crop"
+                alt="Street Dance"
+                class="w-full h-full object-cover"
+              />
+              <div class="absolute inset-0 bg-black/20"></div>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center">
+                  <i class="fas fa-play text-purple-500 text-xl ml-1"></i>
+                </div>
+              </div>
+              <div class="absolute top-3 left-3">
+                <span class="bg-purple-500 text-white text-xs px-2 py-1 rounded-full font-semibold">HOT</span>
+              </div>
+              <div class="absolute bottom-3 left-3 text-white">
+                <div class="text-sm font-bold">街舞基础教学</div>
+                <div class="text-xs opacity-90">12分钟 · 180卡路里</div>
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center text-sm text-gray-600">
+                  <i class="fas fa-play mr-2"></i>
+                  <span>1.8万次播放</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-star text-yellow-400 text-sm"></i>
+                  <span class="text-sm text-gray-600 ml-1">4.9</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 舞蹈类型 -->
+      <div class="section-card mb-6">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">舞蹈类型</h2>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="type-card">
+            <div class="w-12 h-12 bg-gradient-to-r from-red-400 to-pink-400 rounded-full mx-auto mb-3 flex items-center justify-center">
+              <i class="fas fa-fire text-white"></i>
+            </div>
+            <h3 class="font-bold text-gray-900 mb-1">街舞</h3>
+            <p class="text-xs text-gray-500 mb-2">HipHop, Breaking</p>
+            <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">8个课程</span>
+          </div>
+
+          <div class="type-card">
+            <div class="w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full mx-auto mb-3 flex items-center justify-center">
+              <i class="fas fa-heart text-white"></i>
+            </div>
+            <h3 class="font-bold text-gray-900 mb-1">拉丁</h3>
+            <p class="text-xs text-gray-500 mb-2">Salsa, Bachata</p>
+            <span class="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">6个课程</span>
+          </div>
+
+          <div class="type-card">
+            <div class="w-12 h-12 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full mx-auto mb-3 flex items-center justify-center">
+              <i class="fas fa-star text-white"></i>
+            </div>
+            <h3 class="font-bold text-gray-900 mb-1">现代舞</h3>
+            <p class="text-xs text-gray-500 mb-2">Contemporary</p>
+            <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">5个课程</span>
+          </div>
+
+          <div class="type-card">
+            <div class="w-12 h-12 bg-gradient-to-r from-green-400 to-teal-400 rounded-full mx-auto mb-3 flex items-center justify-center">
+              <i class="fas fa-music text-white"></i>
+            </div>
+            <h3 class="font-bold text-gray-900 mb-1">K-Pop</h3>
+            <p class="text-xs text-gray-500 mb-2">Korean Pop</p>
+            <span class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded-full">12个课程</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 推荐课程 -->
+      <div class="section-card">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">推荐课程</h2>
+
+        <div class="space-y-4">
+          <div class="course-item">
+            <div class="h-32 bg-gradient-to-r from-pink-400 to-red-400 relative">
+              <img
+                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=350&h=128&fit=crop"
+                alt="Dance Course"
+                class="w-full h-full object-cover"
+              />
+              <div class="absolute inset-0 bg-gradient-to-r from-pink-500/80 to-red-500/80"></div>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                  <i class="fas fa-play text-white text-lg"></i>
+                </div>
+              </div>
+              <div class="absolute top-3 left-3">
+                <span class="bg-white/20 text-white text-xs px-2 py-1 rounded-full">初级</span>
+              </div>
+              <div class="absolute top-3 right-3">
+                <span class="bg-white/20 text-white text-xs px-2 py-1 rounded-full">15分钟</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-gray-900 mb-1">K-Pop舞蹈入门</h3>
+              <p class="text-sm text-gray-600 mb-2">学习最基础的K-Pop舞蹈动作，适合零基础学员</p>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center text-xs text-gray-500">
+                  <i class="fas fa-user mr-1"></i>
+                  <span>2.3k学习</span>
+                  <i class="fas fa-clock ml-3 mr-1"></i>
+                  <span>15分钟</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-star text-yellow-400 text-xs"></i>
+                  <span class="text-xs text-gray-500 ml-1">4.8</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="course-item">
+            <div class="h-32 bg-gradient-to-r from-purple-400 to-blue-400 relative">
+              <img
+                src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=350&h=128&fit=crop"
+                alt="Street Dance"
+                class="w-full h-full object-cover"
+              />
+              <div class="absolute inset-0 bg-gradient-to-r from-purple-500/80 to-blue-500/80"></div>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                  <i class="fas fa-play text-white text-lg"></i>
+                </div>
+              </div>
+              <div class="absolute top-3 left-3">
+                <span class="bg-white/20 text-white text-xs px-2 py-1 rounded-full">中级</span>
+              </div>
+              <div class="absolute top-3 right-3">
+                <span class="bg-white/20 text-white text-xs px-2 py-1 rounded-full">20分钟</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-gray-900 mb-1">街舞进阶训练</h3>
+              <p class="text-sm text-gray-600 mb-2">提升街舞技巧和表现力，进阶动作训练</p>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center text-xs text-gray-500">
+                  <i class="fas fa-user mr-1"></i>
+                  <span>1.8k学习</span>
+                  <i class="fas fa-clock ml-3 mr-1"></i>
+                  <span>20分钟</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-star text-yellow-400 text-xs"></i>
+                  <span class="text-xs text-gray-500 ml-1">4.9</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

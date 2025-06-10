@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Tab - Hooroo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap");
+
+      body {
+        font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #f8fafc;
+        max-width: 375px;
+        margin: 0 auto;
+        height: 812px;
+        overflow-y: auto;
+      }
+
+      .status-bar {
+        height: 44px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        font-size: 15px;
+        font-weight: 600;
+        background: #f8fafc;
+      }
+
+      .dynamic-island {
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 126px;
+        height: 37px;
+        background: #000;
+        border-radius: 20px;
+        z-index: 10;
+      }
+
+      .gradient-dance {
+        background: linear-gradient(135deg, #ff6b9d, #c44569);
+      }
+
+      .gradient-fitness {
+        background: linear-gradient(135deg, #4ecdc4, #26de81);
+      }
+
+      .gradient-games {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+      }
+
+      .banner-card {
+        border-radius: 20px;
+        padding: 24px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .banner-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100px;
+        height: 100px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: translate(30px, -30px);
+      }
+
+      .area-card {
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #f1f5f9;
+      }
+
+      .item-card {
+        background: white;
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        border: 1px solid #f1f5f9;
+        transition: all 0.3s ease;
+      }
+
+      .item-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .badge {
+        background: #ef4444;
+        color: white;
+        font-size: 10px;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-weight: 600;
+      }
+
+      .hot-badge {
+        background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+        color: white;
+        font-size: 10px;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-weight: 600;
+      }
+
+      .more-btn {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 8px 16px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 状态栏 -->
+    <div class="status-bar">
+      <div>9:41</div>
+      <div class="flex items-center space-x-1">
+        <i class="fas fa-signal text-sm"></i>
+        <i class="fas fa-wifi text-sm"></i>
+        <div class="w-6 h-3 border border-black rounded-sm relative">
+          <div class="w-4 h-1.5 bg-black rounded-sm absolute top-0.5 left-0.5"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="px-4 pb-20">
+      <!-- 顶部Banner -->
+      <div class="banner-card gradient-dance mb-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="flex items-center mb-2">
+              <span class="badge mr-2">NEW</span>
+              <span class="text-sm opacity-90">视觉体感</span>
+            </div>
+            <h1 class="text-2xl font-bold mb-1">体感游戏 Banner</h1>
+            <p class="text-sm opacity-90">用身体感受运动的乐趣</p>
+          </div>
+          <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
+            <i class="fas fa-gamepad text-2xl"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dance Area -->
+      <div class="area-card mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center">
+            <div class="w-8 h-8 gradient-dance rounded-lg flex items-center justify-center mr-3">
+              <i class="fas fa-music text-white text-sm"></i>
+            </div>
+            <div>
+              <h2 class="text-lg font-bold text-gray-900">Dance Area</h2>
+              <p class="text-xs text-gray-500">舞蹈专区</p>
+            </div>
+          </div>
+          <button class="more-btn">More</button>
+        </div>
+
+        <!-- Hot Section -->
+        <div class="mb-4">
+          <div class="flex items-center mb-3">
+            <span class="hot-badge mr-2">HOT</span>
+            <span class="text-sm font-semibold text-gray-700">热门舞蹈</span>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="item-card">
+              <div class="w-full h-20 bg-gradient-to-r from-pink-400 to-red-400 rounded-lg mb-3 flex items-center justify-center">
+                <i class="fas fa-play text-white text-xl"></i>
+              </div>
+              <h3 class="font-semibold text-sm text-gray-900 mb-1">K-Pop热舞</h3>
+              <p class="text-xs text-gray-500">8分钟 · 200卡</p>
+            </div>
+            <div class="item-card">
+              <div class="w-full h-20 bg-gradient-to-r from-purple-400 to-pink-400 rounded-lg mb-3 flex items-center justify-center">
+                <i class="fas fa-play text-white text-xl"></i>
+              </div>
+              <h3 class="font-semibold text-sm text-gray-900 mb-1">舞动时刻</h3>
+              <p class="text-xs text-gray-500">6分钟 · 150卡</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dance Types -->
+        <div class="mb-4">
+          <h4 class="text-sm font-semibold text-gray-700 mb-3">舞蹈类型</h4>
+          <div class="flex space-x-3">
+            <div class="flex-1 bg-gradient-to-r from-pink-50 to-red-50 border border-pink-200 rounded-lg p-3 text-center">
+              <i class="fas fa-fire text-pink-500 mb-1"></i>
+              <p class="text-xs font-medium text-gray-700">街舞</p>
+            </div>
+            <div class="flex-1 bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-lg p-3 text-center">
+              <i class="fas fa-heart text-purple-500 mb-1"></i>
+              <p class="text-xs font-medium text-gray-700">拉丁</p>
+            </div>
+            <div class="flex-1 bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-3 text-center">
+              <i class="fas fa-star text-blue-500 mb-1"></i>
+              <p class="text-xs font-medium text-gray-700">现代</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fitness Area -->
+      <div class="area-card mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center">
+            <div class="w-8 h-8 gradient-fitness rounded-lg flex items-center justify-center mr-3">
+              <i class="fas fa-dumbbell text-white text-sm"></i>
+            </div>
+            <div>
+              <h2 class="text-lg font-bold text-gray-900">Fitness Area</h2>
+              <p class="text-xs text-gray-500">健身专区</p>
+            </div>
+          </div>
+          <button class="more-btn">More</button>
+        </div>
+
+        <!-- Hot Section -->
+        <div class="mb-4">
+          <div class="flex items-center mb-3">
+            <span class="hot-badge mr-2">HOT</span>
+            <span class="text-sm font-semibold text-gray-700">热门课程</span>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="item-card">
+              <div class="w-full h-20 bg-gradient-to-r from-green-400 to-teal-400 rounded-lg mb-3 flex items-center justify-center">
+                <i class="fas fa-play text-white text-xl"></i>
+              </div>
+              <h3 class="font-semibold text-sm text-gray-900 mb-1">全身燃脂</h3>
+              <p class="text-xs text-gray-500">8分钟 · 250卡</p>
+            </div>
+            <div class="item-card">
+              <div class="w-full h-20 bg-gradient-to-r from-teal-400 to-cyan-400 rounded-lg mb-3 flex items-center justify-center">
+                <i class="fas fa-play text-white text-xl"></i>
+              </div>
+              <h3 class="font-semibold text-sm text-gray-900 mb-1">瑜伽平衡</h3>
+              <p class="text-xs text-gray-500">12分钟 · 120卡</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fitness Goals -->
+        <div class="mb-4">
+          <h4 class="text-sm font-semibold text-gray-700 mb-3">健身目标</h4>
+          <div class="flex space-x-3">
+            <div class="flex-1 bg-gradient-to-r from-green-50 to-teal-50 border border-green-200 rounded-lg p-3 text-center">
+              <i class="fas fa-fire text-green-500 mb-1"></i>
+              <p class="text-xs font-medium text-gray-700">燃脂</p>
+            </div>
+            <div class="flex-1 bg-gradient-to-r from-teal-50 to-cyan-50 border border-teal-200 rounded-lg p-3 text-center">
+              <i class="fas fa-dumbbell text-teal-500 mb-1"></i>
+              <p class="text-xs font-medium text-gray-700">增肌</p>
+            </div>
+            <div class="flex-1 bg-gradient-to-r from-cyan-50 to-blue-50 border border-cyan-200 rounded-lg p-3 text-center">
+              <i class="fas fa-leaf text-cyan-500 mb-1"></i>
+              <p class="text-xs font-medium text-gray-700">瑜伽</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Casual Game Area -->
+      <div class="area-card mb-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center">
+            <div class="w-8 h-8 gradient-games rounded-lg flex items-center justify-center mr-3">
+              <i class="fas fa-puzzle-piece text-white text-sm"></i>
+            </div>
+            <div>
+              <h2 class="text-lg font-bold text-gray-900">Casual Game Area</h2>
+              <p class="text-xs text-gray-500">休闲游戏专区</p>
+            </div>
+          </div>
+          <button class="more-btn">More</button>
+        </div>
+
+        <!-- Hot Section -->
+        <div class="mb-4">
+          <div class="flex items-center mb-3">
+            <span class="hot-badge mr-2">HOT</span>
+            <span class="text-sm font-semibold text-gray-700">热门游戏</span>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="item-card">
+              <div class="w-full h-20 bg-gradient-to-r from-purple-400 to-blue-400 rounded-lg mb-3 flex items-center justify-center">
+                <i class="fas fa-play text-white text-xl"></i>
+              </div>
+              <h3 class="font-semibold text-sm text-gray-900 mb-1">太空冒险</h3>
+              <p class="text-xs text-gray-500">7分钟 · 160卡</p>
+            </div>
+            <div class="item-card">
+              <div class="w-full h-20 bg-gradient-to-r from-orange-400 to-red-400 rounded-lg mb-3 flex items-center justify-center">
+                <i class="fas fa-play text-white text-xl"></i>
+              </div>
+              <h3 class="font-semibold text-sm text-gray-900 mb-1">水果忍者</h3>
+              <p class="text-xs text-gray-500">5分钟 · 120卡</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Game Categories -->
+        <div class="mb-4">
+          <h4 class="text-sm font-semibold text-gray-700 mb-3">游戏分类</h4>
+          <div class="flex space-x-3">
+            <div class="flex-1 bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 rounded-lg p-3 text-center">
+              <i class="fas fa-fist-raised text-red-500 mb-1"></i>
+              <p class="text-xs font-medium text-gray-700">格斗</p>
+            </div>
+            <div class="flex-1 bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-3 text-center">
+              <i class="fas fa-running text-blue-500 mb-1"></i>
+              <p class="text-xs font-medium text-gray-700">体感</p>
+            </div>
+            <div class="flex-1 bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-lg p-3 text-center">
+              <i class="fas fa-gamepad text-purple-500 mb-1"></i>
+              <p class="text-xs font-medium text-gray-700">休闲</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Challenges -->
+      <div class="area-card">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center">
+            <div class="w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-lg flex items-center justify-center mr-3">
+              <i class="fas fa-trophy text-white text-sm"></i>
+            </div>
+            <div>
+              <h2 class="text-lg font-bold text-gray-900">Challenges</h2>
+              <p class="text-xs text-gray-500">挑战活动</p>
+            </div>
+          </div>
+          <button class="more-btn">More</button>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div class="item-card">
+            <div class="w-full h-16 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-lg mb-3 flex items-center justify-center">
+              <i class="fas fa-calendar-day text-white text-lg"></i>
+            </div>
+            <h3 class="font-semibold text-sm text-gray-900 mb-1">每日挑战</h3>
+            <p class="text-xs text-gray-500">连续7天获得奖励</p>
+          </div>
+          <div class="item-card">
+            <div class="w-full h-16 bg-gradient-to-r from-purple-400 to-pink-400 rounded-lg mb-3 flex items-center justify-center">
+              <i class="fas fa-users text-white text-lg"></i>
+            </div>
+            <h3 class="font-semibold text-sm text-gray-900 mb-1">团队挑战</h3>
+            <p class="text-xs text-gray-500">与好友一起完成</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2" style="max-width: 375px; margin: 0 auto">
+      <div class="flex justify-around items-center h-12">
+        <div class="flex flex-col items-center space-y-1">
+          <i class="fas fa-gamepad text-purple-500 text-lg"></i>
+          <span class="text-xs text-purple-500 font-medium">Game</span>
+        </div>
+        <div class="flex flex-col items-center space-y-1">
+          <i class="fas fa-user text-gray-400 text-lg"></i>
+          <span class="text-xs text-gray-400">Me</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

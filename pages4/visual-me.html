@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visual Me - Hooroo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700;800;900&display=swap");
+
+      body {
+        font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #f8fafc;
+        max-width: 375px;
+        margin: 0 auto;
+        height: 812px;
+        overflow-y: auto;
+      }
+
+      .status-bar {
+        height: 44px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        font-size: 15px;
+        font-weight: 600;
+        background: #f8fafc;
+      }
+
+      .dynamic-island {
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 126px;
+        height: 37px;
+        background: #000;
+        border-radius: 20px;
+        z-index: 10;
+      }
+
+      .profile-header {
+        background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+        padding: 60px 20px 30px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        border-radius: 0 0 24px 24px;
+      }
+
+      .profile-header::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+      }
+
+      .profile-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+
+      .avatar {
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 16px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .user-details h2 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+
+      .user-level {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 600;
+        display: inline-block;
+        margin-bottom: 8px;
+      }
+
+      .user-stats {
+        display: flex;
+        justify-content: space-between;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .stat-item {
+        text-align: center;
+        flex: 1;
+      }
+
+      .stat-value {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+
+      .stat-label {
+        font-size: 11px;
+        opacity: 0.8;
+      }
+
+      .menu-section {
+        padding: 20px;
+      }
+
+      .menu-item {
+        background: white;
+        border-radius: 16px;
+        margin-bottom: 12px;
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        border: 1px solid #f1f5f9;
+        transition: all 0.3s ease;
+      }
+
+      .menu-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      }
+
+      .menu-left {
+        display: flex;
+        align-items: center;
+      }
+
+      .menu-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        color: white;
+      }
+
+      .profile-icon {
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      }
+
+      .data-icon {
+        background: linear-gradient(135deg, #10b981, #059669);
+      }
+
+      .history-icon {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+      }
+
+      .achievement-icon {
+        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      }
+
+      .settings-icon {
+        background: linear-gradient(135deg, #6b7280, #4b5563);
+      }
+
+      .logout-icon {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+      }
+
+      .menu-text h4 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 2px;
+      }
+
+      .menu-text p {
+        font-size: 12px;
+        color: #6b7280;
+      }
+
+      .recent-activity {
+        background: white;
+        border-radius: 16px;
+        margin: 0 20px 20px;
+        padding: 20px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      }
+
+      .activity-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+      }
+
+      .activity-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid #f3f4f6;
+      }
+
+      .activity-item:last-child {
+        border-bottom: none;
+      }
+
+      .activity-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        color: white;
+        font-size: 12px;
+      }
+
+      .activity-content {
+        flex: 1;
+      }
+
+      .activity-name {
+        font-size: 14px;
+        font-weight: 500;
+        color: #374151;
+        margin-bottom: 2px;
+      }
+
+      .activity-time {
+        font-size: 12px;
+        color: #6b7280;
+      }
+
+      .activity-score {
+        font-size: 14px;
+        font-weight: 600;
+        color: #10b981;
+      }
+
+      .achievements-section {
+        background: white;
+        border-radius: 16px;
+        margin: 0 20px 20px;
+        padding: 20px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      }
+
+      .achievements-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+      }
+
+      .achievements-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+
+      .achievement-badge {
+        text-align: center;
+        padding: 12px 8px;
+        border-radius: 12px;
+        background: #f9fafb;
+        border: 1px solid #f3f4f6;
+      }
+
+      .achievement-badge.earned {
+        background: linear-gradient(135deg, #ffd700, #ffed4e);
+        border-color: #fbbf24;
+      }
+
+      .badge-icon {
+        font-size: 20px;
+        margin-bottom: 4px;
+        color: #6b7280;
+      }
+
+      .achievement-badge.earned .badge-icon {
+        color: #92400e;
+      }
+
+      .badge-name {
+        font-size: 10px;
+        font-weight: 500;
+        color: #374151;
+      }
+
+      .achievement-badge.earned .badge-name {
+        color: #92400e;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 状态栏 -->
+    <div class="status-bar">
+      <div>9:41</div>
+      <div class="flex items-center space-x-1">
+        <i class="fas fa-signal text-sm"></i>
+        <i class="fas fa-wifi text-sm"></i>
+        <div class="w-6 h-3 border border-black rounded-sm relative">
+          <div class="w-4 h-1.5 bg-black rounded-sm absolute top-0.5 left-0.5"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 个人资料头部 -->
+    <div class="profile-header">
+      <div class="profile-info">
+        <div class="avatar">
+          <i class="fas fa-user text-white text-2xl"></i>
+        </div>
+        <div class="user-details">
+          <h2>Ajeng</h2>
+          <div class="user-level">Level 2 🔥</div>
+          <p class="text-sm opacity-90">视觉体感运动爱好者</p>
+        </div>
+      </div>
+
+      <div class="user-stats">
+        <div class="stat-item">
+          <div class="stat-value">2,468</div>
+          <div class="stat-label">总积分</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">156</div>
+          <div class="stat-label">完成活动</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">28</div>
+          <div class="stat-label">连续天数</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">12</div>
+          <div class="stat-label">获得徽章</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="pb-20">
+      <!-- 最近活动 -->
+      <div class="recent-activity">
+        <div class="activity-title">
+          <i class="fas fa-clock text-blue-500 mr-2"></i>
+          最近活动
+        </div>
+
+        <div class="activity-item">
+          <div class="activity-icon" style="background: linear-gradient(135deg, #10b981, #059669)">
+            <i class="fas fa-dumbbell"></i>
+          </div>
+          <div class="activity-content">
+            <div class="activity-name">HIIT 燃脂训练</div>
+            <div class="activity-time">2小时前</div>
+          </div>
+          <div class="activity-score">+150分</div>
+        </div>
+
+        <div class="activity-item">
+          <div class="activity-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706)">
+            <i class="fas fa-music"></i>
+          </div>
+          <div class="activity-content">
+            <div class="activity-name">K-Pop 舞蹈</div>
+            <div class="activity-time">昨天</div>
+          </div>
+          <div class="activity-score">+120分</div>
+        </div>
+
+        <div class="activity-item">
+          <div class="activity-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed)">
+            <i class="fas fa-gamepad"></i>
+          </div>
+          <div class="activity-content">
+            <div class="activity-name">反应速度游戏</div>
+            <div class="activity-time">2天前</div>
+          </div>
+          <div class="activity-score">+80分</div>
+        </div>
+      </div>
+
+      <!-- 成就徽章 -->
+      <div class="achievements-section">
+        <div class="achievements-title">
+          <i class="fas fa-trophy text-yellow-500 mr-2"></i>
+          成就徽章
+        </div>
+
+        <div class="achievements-grid">
+          <div class="achievement-badge earned">
+            <div class="badge-icon"><i class="fas fa-fire"></i></div>
+            <div class="badge-name">初学者</div>
+          </div>
+
+          <div class="achievement-badge earned">
+            <div class="badge-icon"><i class="fas fa-calendar-check"></i></div>
+            <div class="badge-name">连续7天</div>
+          </div>
+
+          <div class="achievement-badge earned">
+            <div class="badge-icon"><i class="fas fa-star"></i></div>
+            <div class="badge-name">舞蹈达人</div>
+          </div>
+
+          <div class="achievement-badge">
+            <div class="badge-icon"><i class="fas fa-crown"></i></div>
+            <div class="badge-name">健身专家</div>
+          </div>
+
+          <div class="achievement-badge earned">
+            <div class="badge-icon"><i class="fas fa-target"></i></div>
+            <div class="badge-name">精准射手</div>
+          </div>
+
+          <div class="achievement-badge">
+            <div class="badge-icon"><i class="fas fa-bolt"></i></div>
+            <div class="badge-name">闪电快手</div>
+          </div>
+
+          <div class="achievement-badge">
+            <div class="badge-icon"><i class="fas fa-medal"></i></div>
+            <div class="badge-name">冠军</div>
+          </div>
+
+          <div class="achievement-badge">
+            <div class="badge-icon"><i class="fas fa-gem"></i></div>
+            <div class="badge-name">传奇</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 菜单选项 -->
+      <div class="menu-section">
+        <div class="menu-item">
+          <div class="menu-left">
+            <div class="menu-icon profile-icon">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="menu-text">
+              <h4>个人资料</h4>
+              <p>编辑个人信息和偏好</p>
+            </div>
+          </div>
+          <i class="fas fa-chevron-right text-gray-400"></i>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-left">
+            <div class="menu-icon data-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="menu-text">
+              <h4>数据统计</h4>
+              <p>查看详细的运动数据</p>
+            </div>
+          </div>
+          <i class="fas fa-chevron-right text-gray-400"></i>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-left">
+            <div class="menu-icon history-icon">
+              <i class="fas fa-history"></i>
+            </div>
+            <div class="menu-text">
+              <h4>运动历史</h4>
+              <p>查看过往运动记录</p>
+            </div>
+          </div>
+          <i class="fas fa-chevron-right text-gray-400"></i>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-left">
+            <div class="menu-icon achievement-icon">
+              <i class="fas fa-trophy"></i>
+            </div>
+            <div class="menu-text">
+              <h4>成就中心</h4>
+              <p>查看所有徽章和成就</p>
+            </div>
+          </div>
+          <i class="fas fa-chevron-right text-gray-400"></i>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-left">
+            <div class="menu-icon settings-icon">
+              <i class="fas fa-cog"></i>
+            </div>
+            <div class="menu-text">
+              <h4>设置</h4>
+              <p>应用设置和偏好</p>
+            </div>
+          </div>
+          <i class="fas fa-chevron-right text-gray-400"></i>
+        </div>
+
+        <div class="menu-item">
+          <div class="menu-left">
+            <div class="menu-icon logout-icon">
+              <i class="fas fa-sign-out-alt"></i>
+            </div>
+            <div class="menu-text">
+              <h4>退出登录</h4>
+              <p>安全退出当前账户</p>
+            </div>
+          </div>
+          <i class="fas fa-chevron-right text-gray-400"></i>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 菜单项目点击效果
+      document.querySelectorAll(".menu-item").forEach(item => {
+        item.addEventListener("click", function () {
+          this.style.transform = "scale(0.98)";
+          setTimeout(() => {
+            this.style.transform = "scale(1)";
+          }, 150);
+        });
+      });
+
+      // 菜单项目悬浮效果
+      document.querySelectorAll(".menu-item").forEach(item => {
+        item.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-2px)";
+        });
+
+        item.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0)";
+        });
+      });
+
+      // 成就徽章点击效果
+      document.querySelectorAll(".achievement-badge").forEach(badge => {
+        badge.addEventListener("click", function () {
+          if (this.classList.contains("earned")) {
+            this.style.transform = "scale(1.1)";
+            setTimeout(() => {
+              this.style.transform = "scale(1)";
+            }, 200);
+          }
+        });
+      });
+
+      // 活动项目点击效果
+      document.querySelectorAll(".activity-item").forEach(item => {
+        item.addEventListener("click", function () {
+          this.style.backgroundColor = "#f9fafb";
+          setTimeout(() => {
+            this.style.backgroundColor = "transparent";
+          }, 200);
+        });
+      });
+    </script>
+  </body>
+</html>

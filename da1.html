@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>分析报告可视化总览</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ["-apple-system", "SF Pro Text", "SF Pro Display", "Inter", "system-ui", "Arial", "sans-serif"] },
+            colors: { brand: { DEFAULT: "#0EA5E9" }, ink: "#0f172a" }
+          }
+        }
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  </head>
+  <body class="bg-slate-50 text-ink">
+    <header class="sticky top-0 z-10 bg-white/80 backdrop-blur border-b border-slate-200">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        <h1 class="text-xl font-semibold">分析报告可视化总览</h1>
+        <nav class="text-sm text-slate-600 hidden md:block">
+          <a href="#q-payment-path" class="hover:text-ink mr-4">支付路径与驱动</a>
+          <a href="#q-user-30d" class="hover:text-ink mr-4">30天用户特征</a>
+          <a href="#q-gamer-40d" class="hover:text-ink mr-4">40天Gamer画像与留存</a>
+          <a href="#q-payfail-40d" class="hover:text-ink mr-4">40天支付失败</a>
+          <a href="#q-cluster-funnel" class="hover:text-ink mr-4">40天聚类与漏斗</a>
+          <a href="#q-payers-60d" class="hover:text-ink mr-4">60天付费模式对比</a>
+          <a href="#q-content-retention" class="hover:text-ink mr-4">内容类型留存</a>
+          <a href="#q-markov-attribution" class="hover:text-ink mr-4">归因方法</a>
+          <a href="#q-0915-summary" class="hover:text-ink">0915数据总结</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-6 space-y-10">
+      <!-- 1) 支付页入口路径与驱动因素 -->
+      <section
+        id="q-payment-path"
+        tabindex="0"
+        aria-label="支付页入口路径与驱动因素"
+        class="bg-white rounded-xl shadow-sm border border-slate-200 p-5"
+      >
+        <h2 class="text-lg font-semibold">Q1/Q2 近40天支付页入口前一步事件分布 & 近30天驱动因素</h2>
+        <p class="text-slate-600 text-sm mt-1">来源：30d_payment_entry_path_and_drivers.md</p>
+        <div class="grid md:grid-cols-2 gap-6 mt-4">
+          <div class="bg-slate-50 rounded-lg p-3">
+            <canvas id="chartPrevStep" aria-label="支付前一步事件占比" role="img"></canvas>
+            <p class="text-slate-700 text-sm mt-2">
+              解读：约四成来源于页面浏览（$AppViewScreen），其次是页面离开（$AppPageLeave）。说明“从内容/页面到付费页”的直达链路显著，入口设计需要在高流量页面加强。
+            </p>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-3">
+            <canvas id="chartDrivers" aria-label="进入付费页的驱动因素提升比" role="img"></canvas>
+            <p class="text-slate-700 text-sm mt-2">
+              解读：banner
+              点击与进入付费页强相关（提升比≈5.72），整体内容浏览（pv）与曝光也有正相关，建议强化“曝光→点击→付费页”的联动与实验。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2) 30天用户特征汇总 -->
+      <section id="q-user-30d" tabindex="0" aria-label="30天用户特征汇总" class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <h2 class="text-lg font-semibold">30天用户特征汇总（production）</h2>
+        <p class="text-slate-600 text-sm mt-1">来源：30d_user_features_summary.md</p>
+        <div class="grid md:grid-cols-2 gap-6 mt-4">
+          <div class="bg-slate-50 rounded-lg p-3">
+            <canvas id="chartModeRatio" aria-label="手表/视觉模式进入占比" role="img"></canvas>
+            <p class="text-slate-700 text-sm mt-2">
+              解读：手表模式占比≈61.8%，视觉模式≈38.2%。现阶段以手表模式为主，需要在视觉模式的首场体验与引导上持续优化。
+            </p>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-3">
+            <canvas id="chartPayment30d" aria-label="近30天支付提交与成功" role="img"></canvas>
+            <p class="text-slate-700 text-sm mt-2">
+              解读：近30天提交19次、成功10次，付费样本较少。建议延长观察窗口，并按支付渠道/商品类型细分监控端到端转化。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3) 40天 Gamer 留存（节选） -->
+      <section
+        id="q-gamer-40d"
+        tabindex="0"
+        aria-label="40天Gamer留存节选"
+        class="bg-white rounded-xl shadow-sm border border-slate-200 p-5"
+      >
+        <h2 class="text-lg font-semibold">40天 Gamer 留存（dominant_mode × 时段 × 集中度）节选</h2>
+        <p class="text-slate-600 text-sm mt-1">来源：40d_gamer_segmentation_report.md</p>
+        <div class="bg-slate-50 rounded-lg p-3">
+          <canvas id="chartGamerRetention" aria-label="Gamer人群 D1/D7 留存率对比" role="img"></canvas>
+          <p class="text-slate-700 text-sm mt-2">
+            解读：18-24 夜间段的 D1 较高（watch≈0.297；vision≈0.322），但 D7
+            普遍较低。高集中度并不必然带来更高留存，需结合更长窗口与会话质量分层继续验证。
+          </p>
+        </div>
+      </section>
+
+      <!-- 4) 40天支付失败拆解 -->
+      <section
+        id="q-payfail-40d"
+        tabindex="0"
+        aria-label="40天支付失败拆解"
+        class="bg-white rounded-xl shadow-sm border border-slate-200 p-5"
+      >
+        <h2 class="text-lg font-semibold">近40天支付失败拆解（attempt状态与时段）</h2>
+        <p class="text-slate-600 text-sm mt-1">来源：40d_payment_failure_analysis.md</p>
+        <div class="grid md:grid-cols-2 gap-6 mt-4">
+          <div class="bg-slate-50 rounded-lg p-3">
+            <canvas id="chartAttemptStatus" aria-label="支付尝试状态分布" role="img"></canvas>
+            <p class="text-slate-700 text-sm mt-2">
+              解读：失败主要来自“无结果”（no_result）而非显式失败码。需排查回调链路与结果落表一致性。
+            </p>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-3">
+            <canvas id="chartFailHours" aria-label="失败尝试的提交小时分布" role="img"></canvas>
+            <p class="text-slate-700 text-sm mt-2">
+              解读：当前样本集中在 10 点与 16 点各 1 次，样本较少。建议延长至 60/90 天并加入支付方式/版本等维度。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5) 40天聚类与漏斗 -->
+      <section
+        id="q-cluster-funnel"
+        tabindex="0"
+        aria-label="40天聚类与漏斗"
+        class="bg-white rounded-xl shadow-sm border border-slate-200 p-5"
+      >
+        <h2 class="text-lg font-semibold">40天用户聚类规模与漏斗转化</h2>
+        <p class="text-slate-600 text-sm mt-1">来源：40d_user_cluster_and_funnel_report.md</p>
+        <div class="grid md:grid-cols-2 gap-6 mt-4">
+          <div class="bg-slate-50 rounded-lg p-3">
+            <canvas id="chartClusterSize" aria-label="用户聚类规模分布" role="img"></canvas>
+            <p class="text-slate-700 text-sm mt-2">解读：主体为 light（≈3118）与 gamer（≈1409）。browser/payer体量较小。</p>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-3">
+            <canvas id="chartClusterFunnel" aria-label="各聚类漏斗转化率（S1-S4）" role="img"></canvas>
+            <p class="text-slate-700 text-sm mt-2">
+              解读：gamer进入游戏几乎100%但支付提交比例极低；payer一旦提交成功率高。建议对gamer优化游戏内购买触发点，对light优化首场引导。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6) 60天付费用户 手表/视觉 模式对比 -->
+      <section
+        id="q-payers-60d"
+        tabindex="0"
+        aria-label="60天付费用户模式对比"
+        class="bg-white rounded-xl shadow-sm border border-slate-200 p-5"
+      >
+        <h2 class="text-lg font-semibold">最近60天成功付费用户在手表/视觉模式中的表现</h2>
+        <p class="text-slate-600 text-sm mt-1">来源：60d_payers_watch_vs_vision_analysis.md</p>
+        <div class="grid md:grid-cols-2 gap-6 mt-4">
+          <div class="bg-slate-50 rounded-lg p-3">
+            <canvas id="chartInclusiveRatio" aria-label="可重叠口径的模式占比" role="img"></canvas>
+            <p class="text-slate-700 text-sm mt-2">解读：watch_inclusive（≈47.6%）略高于 vision_inclusive（≈38.1%），两者可重叠。</p>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-3">
+            <canvas id="chartExclusiveARPPU" aria-label="互斥口径各段 ARPPU" role="img"></canvas>
+            <p class="text-slate-700 text-sm mt-2">
+              解读：同时玩两种模式（both）ARPPU最高（125），vision_only高于watch_only，建议促进多模式体验与更高价值套餐。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7) 内容类型留存贡献（9/1~9/14） -->
+      <section
+        id="q-content-retention"
+        tabindex="0"
+        aria-label="内容类型留存贡献"
+        class="bg-white rounded-xl shadow-sm border border-slate-200 p-5"
+      >
+        <h2 class="text-lg font-semibold">内容类型对 D1/D7 留存的贡献（2025-09-01 ~ 2025-09-14）</h2>
+        <p class="text-slate-600 text-sm mt-1">来源：内容类型留存贡献_2025-09-01_2025-09-14.md</p>
+        <div class="grid md:grid-cols-2 gap-6 mt-4">
+          <div class="bg-slate-50 rounded-lg p-3">
+            <canvas id="chartRetentionRates" aria-label="三类内容 D1/D7 留存率" role="img"></canvas>
+            <p class="text-slate-700 text-sm mt-2">
+              解读：D1 留存率游戏最高（19.0%），D7 留存率游戏同样更优（2.8%）。舞蹈体量大，但留存率略低；健身体量与留存均较低。
+            </p>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-3">
+            <canvas id="chartContributionShares" aria-label="三类内容 D1/D7 留存贡献份额" role="img"></canvas>
+            <p class="text-slate-700 text-sm mt-2">
+              解读：D1 贡献舞蹈最高（≈54.9%）主要由覆盖驱动；D7 贡献游戏最高（≈53.3%）体现中期黏性更强。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8) 2025-09-15 提问总结（7日对比与品牌拆解） -->
+      <section id="q-0915-summary" tabindex="0" aria-label="0915数据总结" class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <h2 class="text-lg font-semibold">7天滚动对比与品牌拆解（2025-09-08～2025-09-14 VS 2025-09-01～2025-09-07）</h2>
+        <p class="text-slate-600 text-sm mt-1">来源：2025-09-15提问总结.md</p>
+        <div class="grid md:grid-cols-2 gap-6 mt-4">
+          <div class="bg-slate-50 rounded-lg p-3">
+            <canvas id="chartDAUCompare" aria-label="DAU 两期对比" role="img"></canvas>
+            <p class="text-slate-700 text-sm mt-2">解读：DAU环比-0.8%，总体稳定。</p>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-3">
+            <canvas id="chartNewUserCompare" aria-label="New User 两期对比" role="img"></canvas>
+            <p class="text-slate-700 text-sm mt-2">解读：New User 环比-7.5%，建议关注注册链路与渠道结构变化。</p>
+          </div>
+        </div>
+        <div class="bg-slate-50 rounded-lg p-3 mt-6">
+          <canvas id="chartBrandDelta0912" aria-label="9/12 vs 9/11 各品牌新增差值" role="img"></canvas>
+          <p class="text-slate-700 text-sm mt-2">
+            解读：9/12 iOS-Apple 新增较 9/11 少 15、人，Android-XIAOMI 少 8，人；主要由 iOS 微信注册减少驱动。
+          </p>
+        </div>
+      </section>
+
+      <!-- 9) 归因方法建议（Markov + Shapley + 因果） -->
+      <section
+        id="q-markov-attribution"
+        tabindex="0"
+        aria-label="归因方法建议"
+        class="bg-white rounded-xl shadow-sm border border-slate-200 p-5"
+      >
+        <h2 class="text-lg font-semibold">归因方法建议：Markov 链 + Shapley 路径 + 因果推断</h2>
+        <p class="text-slate-600 text-sm mt-1">来源：Markov_Retention_Data_Analysis.md（方法学综述，非取数报表）</p>
+        <div class="mt-4 grid md:grid-cols-3 gap-6">
+          <div class="bg-slate-50 rounded-lg p-4">
+            <h3 class="font-medium mb-2">Markov 链归因</h3>
+            <svg viewBox="0 0 600 140" class="w-full h-28" role="img" aria-label="Markov 链状态转移示意">
+              <defs>
+                <linearGradient id="gradB" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#0EA5E9" />
+                  <stop offset="100%" stop-color="#6366f1" />
+                </linearGradient>
+              </defs>
+              <rect x="20" y="40" width="120" height="60" rx="12" fill="url(#gradB)" />
+              <text x="80" y="75" text-anchor="middle" fill="white" font-size="14">曝光/触点</text>
+              <rect x="240" y="40" width="120" height="60" rx="12" fill="#22c55e" />
+              <text x="300" y="75" text-anchor="middle" fill="white" font-size="14">互动/点击</text>
+              <rect x="460" y="40" width="120" height="60" rx="12" fill="#f59e0b" />
+              <text x="520" y="75" text-anchor="middle" fill="white" font-size="14">目标/留存</text>
+              <path d="M140,70 L240,70" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow)" />
+              <path d="M360,70 L460,70" stroke="#94a3b8" stroke-width="3" marker-end="url(#arrow)" />
+              <defs>
+                <marker id="arrow" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0,0 L8,4 L0,8 z" fill="#94a3b8" />
+                </marker>
+              </defs>
+            </svg>
+            <p class="text-slate-700 text-sm mt-2">通过移除效应评估每个触点对达成（如留存/付费）的边际贡献，适合跨多触点路径的贡献归因。</p>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-4">
+            <h3 class="font-medium mb-2">Shapley 路径归因</h3>
+            <p class="text-slate-700 text-sm">
+              基于合作博弈论，计算各触点在所有可能路径排列中的平均边际收益，解决顺序敏感问题，适合复杂路径的公平分摊。
+            </p>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-4">
+            <h3 class="font-medium mb-2">因果推断（A/B/PSM/双重差分）</h3>
+            <p class="text-slate-700 text-sm">
+              用于评估策略对留存/收入的因果影响，避免纯相关性误判。建议将因果评估与归因贡献结合，形成“贡献×因果效应”的闭环。
+            </p>
+          </div>
+        </div>
+        <p class="text-slate-700 text-sm mt-4">
+          解读：本节为方法论指引，建议在后续将关键触点事件标准化、补齐 Markov
+          归因所需字段，并与实验平台打通，形成敏捷的“归因→实验→复盘”机制。
+        </p>
+      </section>
+    </main>
+
+    <footer class="max-w-6xl mx-auto px-4 py-6 text-xs text-slate-500">
+      数据来源于 /reports 文件夹中的分析报告。每块图表下方均给出简要解读，且各分析问题独立分区展示，便于快速理解与对比。
+    </footer>
+
+    <script>
+      const createBar = (ctx, labels, data, title, isPercent = false) =>
+        new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels,
+            datasets: [
+              {
+                label: title,
+                data,
+                backgroundColor: ["#0EA5E9", "#22c55e", "#fb7185", "#f59e0b", "#6366f1", "#14b8a6", "#64748b"],
+                borderRadius: 6
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => (isPercent ? `${c.parsed.y}%` : c.parsed.y) } } },
+            scales: { y: { beginAtZero: true, ticks: { callback: v => (isPercent ? `${v}%` : v) } } }
+          }
+        });
+      const createDoughnut = (ctx, labels, data, title) =>
+        new Chart(ctx, {
+          type: "doughnut",
+          data: { labels, datasets: [{ label: title, data, backgroundColor: ["#0EA5E9", "#6366f1", "#22c55e", "#f59e0b"] }] },
+          options: { plugins: { legend: { position: "bottom" } } }
+        });
+
+      // 1) 支付前一步事件占比
+      createBar(
+        document.getElementById("chartPrevStep"),
+        ["$AppViewScreen", "$AppPageLeave", "module_exposure", "其他"],
+        [39.2, 17.3, 8.6, 34.9],
+        "前一步事件占比",
+        true
+      );
+      // 驱动因素提升比
+      createBar(
+        document.getElementById("chartDrivers"),
+        ["banner_clk_cnt", "pv_cnt", "banner_exp_cnt"],
+        [5.72, 3.3, 3.133],
+        "驱动因素提升比"
+      );
+
+      // 2) 30天用户特征：模式占比、支付提交vs成功
+      createDoughnut(document.getElementById("chartModeRatio"), ["手表模式", "视觉模式"], [61.8, 38.2], "模式进入占比");
+      createBar(document.getElementById("chartPayment30d"), ["提交", "成功"], [19, 10], "近30天支付链路");
+
+      // 3) 40天 Gamer 留存节选（取报告中的几条样本）
+      const gamerLabels = ["watch·18-24·Q1", "watch·18-24·Q2", "watch·18-24·Q3", "vision·18-24·Q1", "vision·18-24·Q2"];
+      const gamerD1 = [0.297, 0.267, 0.182, 0.322, 0.197];
+      const gamerD7 = [0.028, 0.036, 0.01, 0.08, 0.054];
+      new Chart(document.getElementById("chartGamerRetention"), {
+        type: "bar",
+        data: {
+          labels: gamerLabels,
+          datasets: [
+            { label: "D1", data: gamerD1, backgroundColor: "#0EA5E9", borderRadius: 6 },
+            { label: "D7", data: gamerD7, backgroundColor: "#22c55e", borderRadius: 6 }
+          ]
+        },
+        options: { responsive: true, scales: { y: { beginAtZero: true } }, plugins: { legend: { position: "bottom" } } }
+      });
+
+      // 4) 支付失败：attempt状态与小时分布
+      createDoughnut(document.getElementById("chartAttemptStatus"), ["成功", "失败", "无结果"], [13, 0, 2], "支付尝试状态");
+      createBar(document.getElementById("chartFailHours"), ["10", "16"], [1, 1], "失败尝试小时");
+
+      // 5) 聚类规模与漏斗（S1-S4 转化率）
+      createBar(document.getElementById("chartClusterSize"), ["light", "gamer", "browser", "payer"], [3118, 1409, 53, 11], "聚类用户数");
+      new Chart(document.getElementById("chartClusterFunnel"), {
+        type: "bar",
+        data: {
+          labels: ["light", "gamer", "browser", "payer"],
+          datasets: [
+            { label: "S1 启动率", data: [98.9, 99.9, 100.0, 90.9], backgroundColor: "#0EA5E9", borderRadius: 6 },
+            { label: "S2 游戏率", data: [44.0, 100.0, 0.0, 90.0], backgroundColor: "#6366f1", borderRadius: 6 },
+            { label: "S3 提交率", data: [0.4, 0.1, 0.0, 88.9], backgroundColor: "#22c55e", borderRadius: 6 },
+            { label: "S4 成功率", data: [0.0, 0.0, 0.0, 100.0], backgroundColor: "#f59e0b", borderRadius: 6 }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: { y: { beginAtZero: true, ticks: { callback: v => `${v}%` } } },
+          plugins: { legend: { position: "bottom" } }
+        }
+      });
+
+      // 6) 60天付费：可重叠比例、互斥段 ARPPU
+      createBar(
+        document.getElementById("chartInclusiveRatio"),
+        ["watch_inclusive", "vision_inclusive"],
+        [47.6, 38.1],
+        "成功付费用户模式占比",
+        true
+      );
+      createBar(
+        document.getElementById("chartExclusiveARPPU"),
+        ["both", "watch_only", "vision_only", "neither"],
+        [125.0, 40.0, 50.0, 40.0],
+        "互斥段 ARPPU"
+      );
+
+      // 7) 内容类型：D1/D7 留存率与贡献份额
+      new Chart(document.getElementById("chartRetentionRates"), {
+        type: "bar",
+        data: {
+          labels: ["舞蹈(dance)", "游戏(game)", "健身(fitness)"],
+          datasets: [
+            { label: "D1 留存率", data: [16.2, 19.0, 14.6], backgroundColor: "#0EA5E9", borderRadius: 6 },
+            { label: "D7 留存率", data: [1.0, 2.8, 1.9], backgroundColor: "#22c55e", borderRadius: 6 }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: { y: { beginAtZero: true, ticks: { callback: v => `${v}%` } } },
+          plugins: { legend: { position: "bottom" } }
+        }
+      });
+      new Chart(document.getElementById("chartContributionShares"), {
+        type: "bar",
+        data: {
+          labels: ["舞蹈(dance)", "游戏(game)", "健身(fitness)"],
+          datasets: [
+            { label: "D1 贡献份额", data: [54.9, 35.3, 9.8], backgroundColor: "#6366f1", borderRadius: 6 },
+            { label: "D7 贡献份额", data: [33.3, 53.3, 13.3], backgroundColor: "#f59e0b", borderRadius: 6 }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: { y: { beginAtZero: true, ticks: { callback: v => `${v}%` } } },
+          plugins: { legend: { position: "bottom" } }
+        }
+      });
+
+      // 8) 0915：两期 DAU/New User 对比、品牌差值
+      new Chart(document.getElementById("chartDAUCompare"), {
+        type: "bar",
+        data: {
+          labels: ["本期", "上期"],
+          datasets: [{ label: "DAU 合计", data: [1218, 1228], backgroundColor: "#0EA5E9", borderRadius: 6 }]
+        },
+        options: { responsive: true }
+      });
+      new Chart(document.getElementById("chartNewUserCompare"), {
+        type: "bar",
+        data: {
+          labels: ["本期", "上期"],
+          datasets: [{ label: "New User 合计", data: [588, 636], backgroundColor: "#22c55e", borderRadius: 6 }]
+        },
+        options: { responsive: true }
+      });
+      createBar(
+        document.getElementById("chartBrandDelta0912"),
+        ["iOS-Apple", "Android-XIAOMI", "HarmonyOS-HUAWEI"],
+        [-15, -8, -1],
+        "9/12 vs 9/11 新增差值"
+      );
+    </script>
+  </body>
+</html>

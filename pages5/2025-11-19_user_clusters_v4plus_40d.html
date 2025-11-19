@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>App 4.0+ 用户规则分群（40 天）可视化</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --card: #ffffff;
+      --text: #1d1d1f;
+      --muted: #86868b;
+      --primary: #0071e3;
+      --success: #34c759;
+      --warning: #ff9500;
+      --danger: #ff3b30;
+    }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: var(--card);
+      padding: 24px 32px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    }
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      font-weight: 600;
+    }
+    header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+    main {
+      max-width: 1200px;
+      margin: 32px auto;
+      padding: 0 24px;
+    }
+    section {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 24px 32px 32px;
+      margin-bottom: 32px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+    section h2 {
+      margin: 0 0 16px;
+      font-size: 22px;
+      font-weight: 600;
+    }
+    .chart-box {
+      height: 360px;
+      margin-top: 24px;
+    }
+    .insight {
+      margin-top: 24px;
+      padding: 16px 20px;
+      border-left: 4px solid var(--primary);
+      background: #f0f8ff;
+      border-radius: 8px;
+      font-size: 15px;
+      color: var(--text);
+    }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .metric-card {
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 16px 20px;
+      text-align: center;
+    }
+    .metric-card .label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .metric-card .value {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>App 4.0+ 用户规则分群（40 天）可视化</h1>
+    <p>数据区间：2025-10-10 至 2025-11-18（40 天） | 仅 App 版本 ≥ 4.0 的用户</p>
+  </header>
+
+  <main>
+    <!-- 问题 1：用户分群规模 -->
+    <section>
+      <h2>问题 1：App 4.0+ 用户分群规模与占比</h2>
+      <div id="chart-pie" class="chart-box"></div>
+      <div class="insight">
+        <strong>数据解读：</strong>
+        在 4 306 名 App 4.0+ 用户中，<strong>light（轻量）占 67.4%</strong>，为最大群体；<strong>gamer（深度游戏）占 30.9%</strong>；<strong>payer（付费成功）仅 0.9%</strong>，但全部完成支付；<strong>browser（纯浏览）占 0.7%</strong>，几乎无游戏与付费行为。整体呈“漏斗式”分布，付费转化空间巨大。
+      </div>
+    </section>
+
+    <!-- 问题 2：S1-S4 漏斗对比 -->
+    <section>
+      <h2>问题 2：各分群 S1→S4 漏斗转化对比</h2>
+      <div id="chart-funnel" class="chart-box"></div>
+      <div class="insight">
+        <strong>数据解读：</strong>
+        payer 群 S3→S4 转化高达 <strong>100%</strong>，说明支付链路顺畅；但 gamer→payer 的跨群转化仅 <strong>0.9%</strong>。light 群 S2 转化 <strong>45.2%</strong>，仍有半数用户未进入游戏。提升 gamer 的首充引导、降低 light 进入游戏门槛，是后续重点。
+      </div>
+    </section>
+
+    <!-- 问题 3：关键指标速览 -->
+    <section>
+      <h2>问题 3：关键指标速览</h2>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="label">总 4.0+ 用户</div>
+          <div class="value">4,306</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">付费成功用户</div>
+          <div class="value">38</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">gamer 有效活跃日均时长</div>
+          <div class="value">11.5 分钟</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">payer 全漏斗转化率</div>
+          <div class="value">76.3%</div>
+        </div>
+      </div>
+      <div class="insight">
+        <strong>数据解读：</strong>
+        尽管 payer 人群极小，但其从 App 启动到付费成功的整体转化达 <strong>76.3%</strong>，说明产品付费链路体验良好。经口径校准，gamer 群体“有效活跃日”的人均日均时长约 11 分钟，具备持续运营价值，但当前付费渗透不足 1%，可通过“游戏内权益+限时礼包”刺激首充。
+      </div>
+    </section>
+
+    <!-- 问题 4：v1→v2 对比 -->
+    <section>
+      <h2>问题 4：40 天 v1→v2 对比（2025-09-16 vs 2025-11-18）</h2>
+      <table style="width:100%;border-collapse:collapse;font-size:14px;">
+        <thead>
+          <tr style="background:#f2f2f7;">
+            <th style="padding:8px;text-align:left;">分群</th>
+            <th style="padding:8px;text-align:right;">v1 占比</th>
+            <th style="padding:8px;text-align:right;">v2 占比</th>
+            <th style="padding:8px;text-align:right;">占比环比</th>
+            <th style="padding:8px;text-align:right;">v1 绝对值</th>
+            <th style="padding:8px;text-align:right;">v2 绝对值</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:8px;">light</td>
+            <td style="padding:8px;text-align:right;">67.9%</td>
+            <td style="padding:8px;text-align:right;">67.5%</td>
+            <td style="padding:8px;text-align:right;color:#ff3b30;">↓ 0.4pp</td>
+            <td style="padding:8px;text-align:right;">3,118</td>
+            <td style="padding:8px;text-align:right;">2,905</td>
+          </tr>
+          <tr>
+            <td style="padding:8px;">gamer</td>
+            <td style="padding:8px;text-align:right;">30.7%</td>
+            <td style="padding:8px;text-align:right;">30.9%</td>
+            <td style="padding:8px;text-align:right;color:#34c759;">↑ 0.2pp</td>
+            <td style="padding:8px;text-align:right;">1,409</td>
+            <td style="padding:8px;text-align:right;">1,331</td>
+          </tr>
+          <tr>
+            <td style="padding:8px;">payer</td>
+            <td style="padding:8px;text-align:right;">0.2%</td>
+            <td style="padding:8px;text-align:right;">0.9%</td>
+            <td style="padding:8px;text-align:right;color:#34c759;">↑ 0.7pp</td>
+            <td style="padding:8px;text-align:right;">11</td>
+            <td style="padding:8px;text-align:right;">38</td>
+          </tr>
+          <tr>
+            <td style="padding:8px;">browser</td>
+            <td style="padding:8px;text-align:right;">1.2%</td>
+            <td style="padding:8px;text-align:right;">0.7%</td>
+            <td style="padding:8px;text-align:right;color:#ff3b30;">↓ 0.5pp</td>
+            <td style="padding:8px;text-align:right;">53</td>
+            <td style="padding:8px;text-align:right;">32</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:8px;font-size:12px;color:#666;">
+        注：占比 = 分群用户数 / 总 4.0+ 活跃用户；pp 表示百分点变化。
+      </div>
+      <table style="width:100%;border-collapse:collapse;font-size:14px;margin-top:12px;">
+        <thead>
+          <tr style="background:#f2f2f7;">
+            <th style="padding:8px;text-align:left;">其他核心指标</th>
+            <th style="padding:8px;text-align:right;">v1</th>
+            <th style="padding:8px;text-align:right;">v2</th>
+            <th style="padding:8px;text-align:right;">变化</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:8px;">gamer 人均日游戏时长</td>
+            <td style="padding:8px;text-align:right;">约 8.6 分钟</td>
+            <td style="padding:8px;text-align:right;">11.5 分钟</td>
+            <td style="padding:8px;text-align:right;color:#34c759;">↑ 2.9 分钟（+33.7%）</td>
+          </tr>
+          <tr>
+            <td style="padding:8px;">payer 全链路转化率</td>
+            <td style="padding:8px;text-align:right;">80.0%</td>
+            <td style="padding:8px;text-align:right;">76.3%</td>
+            <td style="padding:8px;text-align:right;color:#ff3b30;">↓ 3.7pp</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="insight">
+        <strong>数据解读：</strong>
+        分群占比变化显示：light 占比↓0.4pp（67.9%→67.5%），gamer 占比↑0.2pp（30.7%→30.9%），payer 占比↑0.7pp（0.2%→0.9%），browser 占比↓0.5pp（1.2%→0.7%）。payer 占比提升显著，但全链路转化率↓3.7pp（80.0%→76.3%），需在渗透与路径效率间平衡；gamer 人均日时长↑33.7%（约 8.6→11.5 分钟），建议继续以内容与任务机制提升粘性并转化。总体上，总 4.0+ 用户规模↓6.2%，需以激活与留存策略对冲规模下滑。
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    数据来源：production 库 events & users 表 | SQL 归档：
+    <a href="../SQL_Command/2025-11-19_user_clusters_rules_based_v4plus_40d_v2.sql" target="_blank">2025-11-19_user_clusters_rules_based_v4plus_40d_v2.sql</a>
+    ｜
+    <a href="../SQL_Command/2025-11-19_v4plus_gamer_daily_avg_playtime_40d.sql" target="_blank">2025-11-19_v4plus_gamer_daily_avg_playtime_40d.sql</a>
+    ｜
+    <a href="../SQL_Command/2025-11-19_v4plus_gamer_daily_avg_playtime_40d_v1_window.sql" target="_blank">2025-11-19_v4plus_gamer_daily_avg_playtime_40d_v1_window.sql</a>
+    ｜
+    <a href="../SQL_Command/2025-11-19_v1v2_user_cluster_40d_comparison.sql" target="_blank">2025-11-19_v1v2_user_cluster_40d_comparison.sql</a>
+    ｜
+    <a href="../reports/2025-11-19_gamer_playtime_calibration.md" target="_blank">校准报告（2025-11-19）</a>
+    ｜
+    <a href="../reports/2025-11-19_v1_gamer_playtime_calibration.md" target="_blank">v1 周期补充校准说明</a>
+    ｜
+    <a href="../reports/2025-11-19_v1v2_user_cluster_comparison.md" target="_blank">v1→v2 对比报告</a>
+  </footer>
+
+  <script>
+    // 数据常量
+    const clusterRaw = [
+      { name: 'light', users: 2905, s1: 2905, s2: 1313, s3: 8, s4: 0 },
+      { name: 'gamer', users: 1331, s1: 1331, s2: 1331, s3: 12, s4: 0 },
+      { name: 'payer', users: 38, s1: 38, s2: 34, s3: 29, s4: 29 },
+      { name: 'browser', users: 32, s1: 32, s2: 0, s3: 0, s4: 0 }
+    ];
+    const total = clusterRaw.reduce((a, b) => a + b.users, 0);
+    const pieData = clusterRaw.map(d => ({ name: d.name, value: d.users }));
+    const funnelData = [
+      { name: 'S1 启动', value: clusterRaw.reduce((a, b) => a + b.s1, 0) },
+      { name: 'S2 进入游戏', value: clusterRaw.reduce((a, b) => a + b.s2, 0) },
+      { name: 'S3 提交支付', value: clusterRaw.reduce((a, b) => a + b.s3, 0) },
+      { name: 'S4 支付成功', value: clusterRaw.reduce((a, b) => a + b.s4, 0) }
+    ];
+
+    // 饼图
+    const pie = echarts.init(document.getElementById('chart-pie'));
+    pie.setOption({
+      tooltip: { trigger: 'item', formatter: '{b}: {c} 人 ({d}%)' },
+      legend: { bottom: 0 },
+      color: ['#0071e3', '#34c759', '#ff9500', '#ff3b30'],
+      series: [{
+        type: 'pie',
+        radius: ['40%', '70%'],
+        avoidLabelOverlap: true,
+        label: { show: true, formatter: '{b}\n{d}%' },
+        data: pieData
+      }]
+    });
+
+    // 漏斗图
+    const funnel = echarts.init(document.getElementById('chart-funnel'));
+    funnel.setOption({
+      tooltip: { trigger: 'item', formatter: '{b}: {c} 人' },
+      color: ['#0071e3', '#34c759', '#ff9500', '#ff3b30'],
+      series: [{
+        type: 'funnel',
+        left: '10%',
+        width: '80%',
+        min: 0,
+        max: funnelData[0].value,
+        label: { show: true, position: 'inside', formatter: '{b}: {c}' },
+        data: funnelData
+      }]
+    });
+
+    // 自适应
+    window.addEventListener('resize', () => {
+      pie.resize();
+      funnel.resize();
+    });
+  </script>
+</body>
+</html>

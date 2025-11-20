@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4.0+版本近14天用户留存归因分析</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); overflow: hidden; }
+        .header { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 30px; text-align: center; }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 10px; }
+        .header p { font-size: 1rem; opacity: 0.9; }
+        .section { padding: 30px; border-bottom: 1px solid #f0f0f0; }
+        .section:last-child { border-bottom: none; }
+        .section-title { font-size: 1.6rem; color: #2c3e50; margin-bottom: 16px; display: flex; align-items: center; }
+        .section-title::before { content: ''; width: 4px; height: 26px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin-right: 12px; border-radius: 2px; }
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .metric-card { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); padding: 22px; border-radius: 14px; text-align: center; box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+        .metric-card h3 { font-size: 1.1rem; color: #8b4513; margin-bottom: 8px; }
+        .metric-card .value { font-size: 2.2rem; font-weight: 700; color: #2c3e50; }
+        .chart-container { position: relative; height: 380px; margin: 16px 0; background: #f8f9fa; border-radius: 14px; padding: 18px; }
+        .data-table { width: 100%; border-collapse: collapse; margin: 16px 0; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .data-table th, .data-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #e9ecef; }
+        .data-table th { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-weight: 600; }
+        .data-table tr:hover { background: #f8f9fa; }
+        .positive { color: #28a745; font-weight: 600; }
+        .negative { color: #dc3545; font-weight: 600; }
+        .insight-box { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding: 22px; border-radius: 14px; margin: 16px 0; }
+        .insight-box h4 { color: #2c3e50; margin-bottom: 10px; font-size: 1.2rem; }
+        .insight-box ul { list-style: none; padding-left: 0; }
+        .insight-box li { margin: 8px 0; padding-left: 22px; position: relative; color: #495057; line-height: 1.6; }
+        .insight-box li::before { content: '▶'; position: absolute; left: 0; color: #667eea; font-weight: bold; }
+        .divider { height: 3px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); margin: 24px 0; border-radius: 2px; }
+        @media (max-width: 768px) { .header h1 { font-size: 1.8rem; } .section { padding: 20px; } .metrics-grid { grid-template-columns: 1fr; } .chart-container { height: 300px; } }
+    </style>
+    <meta name="description" content="4.0+版本近14天用户行为对次日与7日留存的影响分析与可视化展示">
+    <meta name="robots" content="noindex">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>4.0+版本近14天用户留存归因分析</h1>
+            <p>分析窗口：2025-11-06 至 2025-11-19（仅统计可观测样本），以及首启后+1/+7日留存</p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">分析目标</h2>
+            <div class="insight-box">
+                <h4>核心问题</h4>
+                <ul>
+                    <li>在近14天内，哪些首日行为与次日留存最相关？</li>
+                    <li>在近14天内，哪些首日行为与7日留存最相关？</li>
+                    <li>依据结论，应优先优化哪些产品环节？</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section">
+            <h2 class="section-title">总体基线数据</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3>新用户（近14天）</h3>
+                    <div class="value">1,733</div>
+                </div>
+                <div class="metric-card">
+                    <h3>次日可观测样本量</h3>
+                    <div class="value">1,618</div>
+                </div>
+                <div class="metric-card">
+                    <h3>7日可观测样本量</h3>
+                    <div class="value">871</div>
+                </div>
+                <div class="metric-card">
+                    <h3>次日留存率</h3>
+                    <div class="value">15.4%</div>
+                </div>
+                <div class="metric-card">
+                    <h3>7日留存率</h3>
+                    <div class="value">2.0%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section">
+            <h2 class="section-title">次日留存相关性分析</h2>
+            <div class="chart-container"><canvas id="d1Chart"></canvas></div>
+            <div class="insight-box">
+                <h4>关键发现</h4>
+                <ul>
+                    <li><strong>页面离开</strong>（$AppPageLeave）与次日留存提升最强，约<strong>+15.6%</strong></li>
+                    <li><strong>内容曝光</strong>（card/banner/popup）次日均显著正相关（约<strong>+12.1%～+14.6%</strong>）</li>
+                    <li><strong>玩法体验</strong>（进入/退出）与次日留存保持强相关（约<strong>+7.9%～+8.8%</strong>）</li>
+                    <li><strong>交互点击</strong>（button/card）同样正相关（约<strong>+7.3%～+15.4%</strong>）</li>
+                    <li><strong>权限结果</strong>在次日留存上显著负相关（约<strong>-4.8%</strong>），触发时机需谨慎</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section">
+            <h2 class="section-title">7日留存相关性分析</h2>
+            <div class="chart-container"><canvas id="d7Chart"></canvas></div>
+            <div class="insight-box">
+                <h4>关键发现</h4>
+                <ul>
+                    <li><strong>页面离开与点击</strong>对7日留存有积极影响（约<strong>+2.0%～+2.1%</strong>）</li>
+                    <li><strong>内容曝光</strong>在7日的正向影响较小（约<strong>+1.3%～+1.4%</strong>），但仍具培育价值</li>
+                    <li><strong>权限结果</strong>对7日留存显示轻微正相关（约<strong>+0.4%</strong>），需结合场景控制频次</li>
+                    <li><strong>部分交互/玩法</strong>在7日提升有限（约<strong>+0.2%～+0.7%</strong>），更依赖路径质量和反馈</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section">
+            <h2 class="section-title">详细数据表格</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>用户行为</th>
+                        <th>有行为用户数</th>
+                        <th>无行为用户数</th>
+                        <th>次日留存提升</th>
+                        <th>7日留存提升</th>
+                    </tr>
+                </thead>
+                <tbody id="dataTableBody"></tbody>
+            </table>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="section">
+            <h2 class="section-title">业务建议</h2>
+            <div class="insight-box">
+                <h4>优化方向</h4>
+                <ul>
+                    <li><strong>强化按钮点击作为首日重点</strong>：提升按钮可见性与层级，优化文案与即时反馈；在卡片/Banner中设置明确CTA，目标次日留存≥16%</li>
+                    <li><strong>提升内容曝光质量并频控弹窗</strong>：优化卡片/Banner素材与排序；弹窗设置频控（如每用户每日≤2次）与关键时机触发，兼顾次日提升与7日稳定</li>
+                    <li><strong>引导完成玩法闭环</strong>：首日设计任务与奖励，促进一次完整的进入→退出体验，降低中途流失</li>
+                    <li><strong>权限弹窗后置与场景化</strong>：避免首日全局弹出，仅在高价值场景触发并提供“稍后提醒”，减少次日损失同时保留7日微增</li>
+                    <li><strong>优化路径质量与打断</strong>：减少无关跳转与重复弹窗，提升连续操作体验；确保首日完成2-3个关键动作</li>
+                    <li><strong>建立实验与监控机制</strong>：围绕D1/D7留存、曝光点击率、弹窗命中率设置AB实验并每周复盘迭代</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const behaviorData = [
+            { event: '$AppPageLeave', present: 1598, absent: 20, d1Uplift: 0.156, d7Uplift: 0.020 },
+            { event: 'card_exposure', present: 1424, absent: 194, d1Uplift: 0.146, d7Uplift: 0.013 },
+            { event: 'banner_exposure', present: 1395, absent: 223, d1Uplift: 0.121, d7Uplift: 0.014 },
+            { event: 'popup_exposure', present: 1425, absent: 193, d1Uplift: 0.145, d7Uplift: 0.004 },
+            { event: 'game_enter', present: 1182, absent: 436, d1Uplift: 0.079, d7Uplift: 0.006 },
+            { event: 'game_exit', present: 1157, absent: 461, d1Uplift: 0.088, d7Uplift: 0.006 },
+            { event: 'card_click', present: 1140, absent: 478, d1Uplift: 0.073, d7Uplift: 0.002 },
+            { event: 'button_click', present: 1515, absent: 103, d1Uplift: 0.154, d7Uplift: 0.021 },
+            { event: 'level_challenge_detail_show', present: 1056, absent: 562, d1Uplift: 0.072, d7Uplift: 0.007 },
+            { event: 'pose_calibration', present: 1126, absent: 492, d1Uplift: 0.069, d7Uplift: 0.004 },
+            { event: 'permission_result', present: 592, absent: 1026, d1Uplift: -0.048, d7Uplift: 0.004 },
+            { event: '$AppViewScreen', present: 1618, absent: 0, d1Uplift: 0.154, d7Uplift: 0.020 }
+        ];
+
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top', labels: { font: { size: 14, family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' } } },
+                title: { display: true, font: { size: 18, weight: 'bold', family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' } }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(0,0,0,0.1)' },
+                    ticks: { font: { size: 12, family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }, callback: (v) => (v).toFixed(1) + '%' }
+                },
+                x: { grid: { display: false }, ticks: { font: { size: 12, family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }, maxRotation: 45 } }
+            }
+        };
+
+        const d1Ctx = document.getElementById('d1Chart').getContext('2d');
+        new Chart(d1Ctx, {
+            type: 'bar',
+            data: {
+                labels: behaviorData.map(d => d.event),
+                datasets: [{
+                    label: '次日留存提升 (百分点)',
+                    data: behaviorData.map(d => d.d1Uplift * 100),
+                    backgroundColor: behaviorData.map(d => d.d1Uplift > 0 ? 'rgba(40, 167, 69, 0.8)' : 'rgba(220, 53, 69, 0.8)'),
+                    borderColor: behaviorData.map(d => d.d1Uplift > 0 ? 'rgba(40, 167, 69, 1)' : 'rgba(220, 53, 69, 1)'),
+                    borderWidth: 2,
+                    borderRadius: 8
+                }]
+            },
+            options: { ...chartOptions, plugins: { ...chartOptions.plugins, title: { display: true, text: '用户行为与次日留存相关性分析', font: { size: 18, weight: 'bold', family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' } } } }
+        });
+
+        const d7Ctx = document.getElementById('d7Chart').getContext('2d');
+        new Chart(d7Ctx, {
+            type: 'bar',
+            data: {
+                labels: behaviorData.map(d => d.event),
+                datasets: [{
+                    label: '7日留存提升 (百分点)',
+                    data: behaviorData.map(d => d.d7Uplift * 100),
+                    backgroundColor: behaviorData.map(d => d.d7Uplift > 0 ? 'rgba(23, 162, 184, 0.8)' : 'rgba(220, 53, 69, 0.8)'),
+                    borderColor: behaviorData.map(d => d.d7Uplift > 0 ? 'rgba(23, 162, 184, 1)' : 'rgba(220, 53, 69, 1)'),
+                    borderWidth: 2,
+                    borderRadius: 8
+                }]
+            },
+            options: { ...chartOptions, plugins: { ...chartOptions.plugins, title: { display: true, text: '用户行为与7日留存相关性分析', font: { size: 18, weight: 'bold', family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' } } } }
+        });
+
+        const tableBody = document.getElementById('dataTableBody');
+        behaviorData.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${row.event}</strong></td>
+                <td>${row.present.toLocaleString()}</td>
+                <td>${row.absent.toLocaleString()}</td>
+                <td class="${row.d1Uplift > 0 ? 'positive' : 'negative'}">${(row.d1Uplift * 100).toFixed(1)}%</td>
+                <td class="${row.d7Uplift > 0 ? 'positive' : 'negative'}">${(row.d7Uplift * 100).toFixed(1)}%</td>
+            `;
+            tableBody.appendChild(tr);
+        });
+    </script>
+</body>
+</html>

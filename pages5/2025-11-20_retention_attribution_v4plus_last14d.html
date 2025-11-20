@@ -139,16 +139,44 @@
         <div class="divider"></div>
 
         <div class="section">
+            <h2 class="section-title">权限影响分析（permission_result）</h2>
+            <div class="chart-container"><canvas id="permD1Chart"></canvas></div>
+            <div class="chart-container"><canvas id="permD7Chart"></canvas></div>
+            <div class="insight-box">
+                <h4>关键发现</h4>
+                <ul>
+                    <li><strong>摄像头权限拒绝</strong>对次日留存影响最大，约<strong>-16.3%</strong>；允许亦有轻微负向（约<strong>-2.7%</strong>）</li>
+                    <li><strong>通知权限拒绝</strong>次日留存约<strong>-2.8%</strong>，允许近中性；但对7日留存呈<strong>正向</strong>（允许约<strong>+2.1%</strong>）</li>
+                    <li>建议将权限触发<strong>后置且场景化</strong>，并提供<strong>稍后提醒</strong>与<strong>功能降级</strong>以减少首日摩擦</li>
+                </ul>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>权限类型</th>
+                        <th>成功样本</th>
+                        <th>拒绝样本</th>
+                        <th>次日留存率(成功/拒绝/无权限)</th>
+                        <th>次日提升(成功/拒绝)</th>
+                        <th>7日留存率(成功/拒绝/无权限)</th>
+                        <th>7日提升(成功/拒绝)</th>
+                    </tr>
+                </thead>
+                <tbody id="permTableBody"></tbody>
+            </table>
+        </div>
+
+        <div class="section">
             <h2 class="section-title">业务建议</h2>
             <div class="insight-box">
                 <h4>优化方向</h4>
                 <ul>
-                    <li><strong>强化按钮点击作为首日重点</strong>：提升按钮可见性与层级，优化文案与即时反馈；在卡片/Banner中设置明确CTA，目标次日留存≥16%</li>
-                    <li><strong>提升内容曝光质量并频控弹窗</strong>：优化卡片/Banner素材与排序；弹窗设置频控（如每用户每日≤2次）与关键时机触发，兼顾次日提升与7日稳定</li>
-                    <li><strong>引导完成玩法闭环</strong>：首日设计任务与奖励，促进一次完整的进入→退出体验，降低中途流失</li>
-                    <li><strong>权限弹窗后置与场景化</strong>：避免首日全局弹出，仅在高价值场景触发并提供“稍后提醒”，减少次日损失同时保留7日微增</li>
-                    <li><strong>优化路径质量与打断</strong>：减少无关跳转与重复弹窗，提升连续操作体验；确保首日完成2-3个关键动作</li>
-                    <li><strong>建立实验与监控机制</strong>：围绕D1/D7留存、曝光点击率、弹窗命中率设置AB实验并每周复盘迭代</li>
+                    <li><strong>摄像头权限后置与降级</strong>：弹窗触发移动到用户进入玩法前；提供“稍后再说”和基础体验降级；首日最多一次提示，目标将次日负向影响由<em>-16.3%</em>收敛至<em>-8%</em>以下</li>
+                    <li><strong>通知权限场景化与正反馈</strong>：在“领取奖励/加入活动/完成玩法闭环”后提示授权；授权后24小时内推送一次高质量消息以巩固D7（参考提升<em>+2.1%</em>）；避免冷启动首屏弹出</li>
+                    <li><strong>强化按钮与内容CTA</strong>：提升按钮层级与即时反馈；在卡片/Banner中设置明确CTA；配合弹窗频控（每人每日≤2次）与关键时机触发，助推D1≥<em>16%</em></li>
+                    <li><strong>引导完成玩法闭环</strong>：首日明确任务与奖励，促进一次完整的进入→退出体验，降低中途流失并提高参与质量</li>
+                    <li><strong>优化路径质量与打断</strong>：减少无关跳转与重复弹窗，保证连续操作；确保首日完成2–3个关键动作</li>
+                    <li><strong>AB实验与监控</strong>：① 摄像头弹出时机（首屏vs玩法前）对D1；② 通知授权触发场景对D7；③ 弹窗频控（1/2次）对D1/D7；每周复盘并滚动迭代</li>
                 </ul>
             </div>
         </div>
@@ -232,6 +260,40 @@
                 <td class="${row.d7Uplift > 0 ? 'positive' : 'negative'}">${(row.d7Uplift * 100).toFixed(1)}%</td>
             `;
             tableBody.appendChild(tr);
+        });
+
+        const permissionData = [
+          { type: "摄像头", successUsers: 493, failureUsers: 17, absentUsers: 1115, d1RateSuccess: 0.136, d1RateFailure: 0.0, d1RateAbsent: 0.163, d1UpliftSuccess: -0.027, d1UpliftFailure: -0.163, d7RateSuccess: 0.018, d7RateFailure: 0.0, d7RateAbsent: 0.007, d7UpliftSuccess: 0.011, d7UpliftFailure: -0.007 },
+          { type: "通知", successUsers: 69, failureUsers: 264, absentUsers: 1327, d1RateSuccess: 0.159, d1RateFailure: 0.133, d1RateAbsent: 0.161, d1UpliftSuccess: -0.001, d1UpliftFailure: -0.028, d7RateSuccess: 0.029, d7RateFailure: 0.019, d7RateAbsent: 0.008, d7UpliftSuccess: 0.021, d7UpliftFailure: 0.011 }
+        ];
+
+        const permD1Ctx = document.getElementById('permD1Chart').getContext('2d');
+        new Chart(permD1Ctx, {
+          type: 'bar',
+          data: { labels: permissionData.map(p => p.type), datasets: [ { label: '允许提升', data: permissionData.map(p => p.d1UpliftSuccess * 100), backgroundColor: 'rgba(40, 167, 69, 0.8)', borderColor: 'rgba(40, 167, 69, 1)', borderWidth: 2, borderRadius: 8 }, { label: '拒绝提升', data: permissionData.map(p => p.d1UpliftFailure * 100), backgroundColor: 'rgba(220, 53, 69, 0.8)', borderColor: 'rgba(220, 53, 69, 1)', borderWidth: 2, borderRadius: 8 } ] },
+          options: { ...chartOptions, plugins: { ...chartOptions.plugins, title: { display: true, text: '权限类型与次日留存提升', font: { size: 18, weight: 'bold', family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' } } } }
+        });
+
+        const permD7Ctx = document.getElementById('permD7Chart').getContext('2d');
+        new Chart(permD7Ctx, {
+          type: 'bar',
+          data: { labels: permissionData.map(p => p.type), datasets: [ { label: '允许提升', data: permissionData.map(p => p.d7UpliftSuccess * 100), backgroundColor: 'rgba(23, 162, 184, 0.8)', borderColor: 'rgba(23, 162, 184, 1)', borderWidth: 2, borderRadius: 8 }, { label: '拒绝提升', data: permissionData.map(p => p.d7UpliftFailure * 100), backgroundColor: 'rgba(220, 53, 69, 0.8)', borderColor: 'rgba(220, 53, 69, 1)', borderWidth: 2, borderRadius: 8 } ] },
+          options: { ...chartOptions, plugins: { ...chartOptions.plugins, title: { display: true, text: '权限类型与7日留存提升', font: { size: 18, weight: 'bold', family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' } } } }
+        });
+
+        const permTableBody = document.getElementById('permTableBody');
+        permissionData.forEach(p => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><strong>${p.type}</strong></td>
+            <td>${p.successUsers.toLocaleString()}</td>
+            <td>${p.failureUsers.toLocaleString()}</td>
+            <td>${(p.d1RateSuccess * 100).toFixed(1)}% / ${(p.d1RateFailure * 100).toFixed(1)}% / ${(p.d1RateAbsent * 100).toFixed(1)}%</td>
+            <td class="${p.d1UpliftSuccess >= 0 ? 'positive' : 'negative'}">${(p.d1UpliftSuccess * 100).toFixed(1)}%</td>
+            <td>${(p.d7RateSuccess * 100).toFixed(1)}% / ${(p.d7RateFailure * 100).toFixed(1)}% / ${(p.d7RateAbsent * 100).toFixed(1)}%</td>
+            <td class="${p.d7UpliftSuccess >= 0 ? 'positive' : 'negative'}">${(p.d7UpliftSuccess * 100).toFixed(1)}%</td>
+          `;
+          permTableBody.appendChild(tr);
         });
     </script>
 </body>

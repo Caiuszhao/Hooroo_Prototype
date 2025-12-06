@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App 4.1+ 版本用户行为深度分析报告</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f5f5f7; color: #1d1d1f; }
+        .card { background: white; border-radius: 18px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 24px; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-2px); }
+        .chart-container { height: 400px; width: 100%; }
+        h1 { font-weight: 600; letter-spacing: -0.02em; }
+        h2 { font-weight: 600; color: #1d1d1f; }
+        .highlight-text { color: #0066cc; font-weight: 500; }
+        .stat-value { font-size: 24px; font-weight: 700; }
+        .stat-label { font-size: 14px; color: #86868b; }
+    </style>
+</head>
+<body class="p-8 max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <header class="mb-10 text-center">
+        <h1 class="text-4xl mb-2">App 4.1+ 用户行为深度分析</h1>
+        <p class="text-gray-500">分析范围：2025-11-01 至 2025-11-30 | 版本：v4.1.0 及以上</p>
+    </header>
+
+    <!-- Section 1: 留存驱动力 -->
+    <section class="mb-12">
+        <h2 class="text-2xl mb-6 flex items-center">
+            <span class="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">1</span>
+            留存驱动力 (Magic Event)
+        </h2>
+        <div class="card">
+            <h3 class="text-lg font-medium mb-4">哪些行为能显著提升次日留存？</h3>
+            <div id="chart-retention" class="chart-container"></div>
+            <div class="mt-6 bg-blue-50 p-4 rounded-xl border border-blue-100">
+                <h4 class="font-semibold text-blue-800 mb-2">💡 数据解读</h4>
+                <ul class="list-disc list-inside space-y-1 text-gray-700 text-sm">
+                    <li><span class="font-bold">完成任务 (task_result)</span> 是最强的留存信号，留存提升倍数高达 1.45 倍。</li>
+                    <li><span class="font-bold">完成游戏 (game_result)</span> 比单纯“进入游戏”更能留住用户。这说明让用户完整体验一局游戏至关重要。</li>
+                    <li><span class="font-bold">浏览付费页 (payment_view)</span> 也是高潜信号，即使未付费，这类用户的留存率也比普通用户高 36%。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: 时长驱动力 -->
+    <section class="mb-12">
+        <h2 class="text-2xl mb-6 flex items-center">
+            <span class="bg-green-100 text-green-600 rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">2</span>
+            时长驱动力 (Duration Drivers)
+        </h2>
+        <div class="card">
+            <h3 class="text-lg font-medium mb-4">高时长用户(>10min) vs 低时长用户(<5min) 行为差异</h3>
+            <div id="chart-duration" class="chart-container"></div>
+            <div class="mt-6 bg-green-50 p-4 rounded-xl border border-green-100">
+                <h4 class="font-semibold text-green-800 mb-2">💡 数据解读</h4>
+                <ul class="list-disc list-inside space-y-1 text-gray-700 text-sm">
+                    <li><span class="font-bold">领取奖励 (Redeem Reward)</span> 是高时长用户的超级特征，参与率差异高达 61 倍！</li>
+                    <li>高时长用户几乎垄断了<span class="font-bold">付费行为 (Payment Submit)</span>，这表明“投入时间”与“投入金钱”高度正相关。</li>
+                    <li><span class="font-bold">App 崩溃</span> 在高时长用户中更频繁 (8倍于低时长用户)，这是稳定性的隐患。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: 游戏漏斗 -->
+    <section class="mb-12">
+        <h2 class="text-2xl mb-6 flex items-center">
+            <span class="bg-purple-100 text-purple-600 rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">3</span>
+            游戏内流失漏斗
+        </h2>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="card lg:col-span-2">
+                <h3 class="text-lg font-medium mb-4">从“进入游戏”到“结算”的转化路径</h3>
+                <div id="chart-funnel" class="chart-container"></div>
+            </div>
+            <div class="card flex flex-col justify-center">
+                <h4 class="font-semibold text-purple-800 mb-4">💡 关键流失点</h4>
+                <div class="space-y-6">
+                    <div>
+                        <div class="text-red-500 font-bold text-xl mb-1">流失点 A (-9%)</div>
+                        <div class="text-sm text-gray-600">校准后 -> 正式开始前 (1s)</div>
+                        <div class="text-xs text-gray-400 mt-1">推测：加载过慢或校准反馈不明确</div>
+                    </div>
+                    <div>
+                        <div class="text-red-500 font-bold text-xl mb-1">流失点 B (-10%)</div>
+                        <div class="text-sm text-gray-600">进度 30s -> 进度 80%</div>
+                        <div class="text-xs text-gray-400 mt-1">推测：体力不支、动作太难或中途受挫</div>
+                    </div>
+                    <div class="pt-4 border-t border-gray-100">
+                        <div class="text-green-600 font-bold text-lg">整体完成率: ~76%</div>
+                        <div class="text-xs text-gray-400">仍有较大提升空间</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: 领奖用户画像 -->
+    <section class="mb-12">
+        <h2 class="text-2xl mb-6 flex items-center">
+            <span class="bg-orange-100 text-orange-600 rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">4</span>
+            领奖用户画像 (User Persona)
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="card">
+                <h3 class="text-lg font-medium mb-4">偏好游戏模式</h3>
+                <div id="chart-persona-mode" class="chart-container" style="height: 300px;"></div>
+                <div class="mt-4 text-sm text-gray-600 text-center">
+                    <span class="font-bold text-orange-600">86%</span> 的领奖用户选择“视觉模式”，偏好低门槛体验。
+                </div>
+            </div>
+            <div class="card">
+                <h3 class="text-lg font-medium mb-4">最爱玩的游戏 Top 5</h3>
+                <div id="chart-persona-games" class="chart-container" style="height: 300px;"></div>
+                <div class="mt-4 text-sm text-gray-600">
+                    <p class="mb-1"><strong>亲子型：</strong> 疯狂切水果、鲨鱼宝宝</p>
+                    <p><strong>派对型：</strong> 危险派对、科目三</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: 崩溃分析 -->
+    <section class="mb-12">
+        <h2 class="text-2xl mb-6 flex items-center">
+            <span class="bg-red-100 text-red-600 rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">5</span>
+            高时长用户崩溃分析
+        </h2>
+        <div class="card">
+            <h3 class="text-lg font-medium mb-4">崩溃用户设备品牌分布</h3>
+            <div class="flex flex-col md:flex-row items-center">
+                <div id="chart-crash" class="chart-container md:w-1/2"></div>
+                <div class="md:w-1/2 p-6">
+                    <div class="bg-red-50 p-4 rounded-xl border border-red-100">
+                        <h4 class="font-semibold text-red-800 mb-2">💡 稳定性洞察</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700 text-sm">
+                            <li><span class="font-bold">iOS 设备</span> 是重灾区，贡献了 56% 的崩溃。</li>
+                            <li>机型分布非常分散（从 iPhone 11 到 iPad Pro），未发现单一“机型杀手”。</li>
+                            <li>推测原因主要与 <span class="font-bold">iOS 系统长时间运行视觉算法后的内存管理 (OOM)</span> 有关。</li>
+                            <li>虽然崩溃率较高，但人均崩溃次数仅 1.04 次，未出现灾难性死循环。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // 1. Retention Chart
+        const retentionChart = echarts.init(document.getElementById('chart-retention'));
+        retentionChart.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            legend: { bottom: 0 },
+            grid: { left: '3%', right: '4%', bottom: '10%', containLabel: true },
+            xAxis: { type: 'value', name: '参与率 (%)', axisLabel: { formatter: '{value}%' } },
+            yAxis: { type: 'category', data: ['Task Result', 'Level Challenge', 'Game Result', 'Payment View'] },
+            series: [
+                {
+                    name: '留存用户 (Retained)',
+                    type: 'bar',
+                    data: [22.0, 44.9, 47.4, 15.0],
+                    itemStyle: { color: '#3b82f6' },
+                    label: { show: true, position: 'right', formatter: '{c}%' }
+                },
+                {
+                    name: '流失用户 (Churned)',
+                    type: 'bar',
+                    data: [15.2, 32.3, 34.9, 11.0],
+                    itemStyle: { color: '#94a3b8' },
+                    label: { show: true, position: 'right', formatter: '{c}%' }
+                }
+            ]
+        });
+
+        // 2. Duration Chart
+        const durationChart = echarts.init(document.getElementById('chart-duration'));
+        durationChart.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            legend: { bottom: 0 },
+            grid: { left: '3%', right: '4%', bottom: '10%', containLabel: true },
+            xAxis: { type: 'category', data: ['领奖 (Reward)', '付费 (Pay)', '崩溃 (Crash)', '完成游戏'] },
+            yAxis: { type: 'value', name: '渗透率 (%)', axisLabel: { formatter: '{value}%' } },
+            series: [
+                {
+                    name: '高时长 (>10m)',
+                    type: 'bar',
+                    data: [3.5, 2.1, 1.8, 93.3],
+                    itemStyle: { color: '#10b981' },
+                    label: { show: true, position: 'top', formatter: '{c}%' }
+                },
+                {
+                    name: '低时长 (<5m)',
+                    type: 'bar',
+                    data: [0.1, 0.1, 0.2, 17.1],
+                    itemStyle: { color: '#cbd5e1' },
+                    label: { show: true, position: 'top', formatter: '{c}%' }
+                }
+            ]
+        });
+
+        // 3. Funnel Chart
+        const funnelChart = echarts.init(document.getElementById('chart-funnel'));
+        funnelChart.setOption({
+            tooltip: { trigger: 'item', formatter: '{b}: {c} 人 ({d}%)' },
+            series: [
+                {
+                    name: 'Game Funnel',
+                    type: 'funnel',
+                    left: '10%', top: 60, bottom: 60, width: '80%',
+                    min: 0, max: 22094,
+                    minSize: '40%', maxSize: '100%',
+                    sort: 'descending',
+                    gap: 2,
+                    label: { show: true, position: 'inside', formatter: '{b}\n{c}' },
+                    labelLine: { length: 10, lineStyle: { width: 1, type: 'solid' } },
+                    itemStyle: { borderColor: '#fff', borderWidth: 1 },
+                    emphasis: { label: { fontSize: 20 } },
+                    data: [
+                        { value: 22094, name: '进入游戏' },
+                        { value: 21457, name: '完成校准' },
+                        { value: 19503, name: '开始播放 (1s)' },
+                        { value: 18440, name: '进行中 (30s)' },
+                        { value: 16705, name: '即将完成 (80%)' },
+                        { value: 16903, name: '结算页面' }
+                    ]
+                }
+            ]
+        });
+
+        // 4. Persona Charts
+        const personaModeChart = echarts.init(document.getElementById('chart-persona-mode'));
+        personaModeChart.setOption({
+            tooltip: { trigger: 'item' },
+            legend: { bottom: '5%' },
+            series: [
+                {
+                    name: '游戏模式',
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    avoidLabelOverlap: false,
+                    itemStyle: { borderRadius: 10, borderColor: '#fff', borderWidth: 2 },
+                    label: { show: false, position: 'center' },
+                    emphasis: { label: { show: true, fontSize: 20, fontWeight: 'bold' } },
+                    labelLine: { show: false },
+                    data: [
+                        { value: 1332, name: '视觉模式 (86%)', itemStyle: { color: '#f97316' } },
+                        { value: 212, name: '手表模式 (14%)', itemStyle: { color: '#fdba74' } }
+                    ]
+                }
+            ]
+        });
+
+        const personaGamesChart = echarts.init(document.getElementById('chart-persona-games'));
+        personaGamesChart.setOption({
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            xAxis: { type: 'value' },
+            yAxis: { type: 'category', data: ['可爱俏皮', '大风吹', '危险派对', '鲨鱼宝宝', '疯狂切水果'], inverse: true },
+            series: [
+                {
+                    name: '玩家数',
+                    type: 'bar',
+                    data: [63, 72, 72, 119, 123],
+                    itemStyle: { color: '#f97316' },
+                    label: { show: true, position: 'right' }
+                }
+            ]
+        });
+
+        // 5. Crash Chart
+        const crashChart = echarts.init(document.getElementById('chart-crash'));
+        crashChart.setOption({
+            tooltip: { trigger: 'item' },
+            legend: { orient: 'vertical', left: 'left' },
+            series: [
+                {
+                    name: '设备品牌',
+                    type: 'pie',
+                    radius: '70%',
+                    data: [
+                        { value: 14, name: 'Apple (56%)', itemStyle: { color: '#ef4444' } },
+                        { value: 4, name: 'Huawei (16%)', itemStyle: { color: '#f87171' } },
+                        { value: 3, name: 'Vivo (12%)', itemStyle: { color: '#fca5a5' } },
+                        { value: 2, name: 'Xiaomi (8%)', itemStyle: { color: '#fecaca' } },
+                        { value: 2, name: 'Other (8%)', itemStyle: { color: '#fee2e2' } }
+                    ],
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        });
+
+        // Resize charts on window resize
+        window.addEventListener('resize', function() {
+            retentionChart.resize();
+            durationChart.resize();
+            funnelChart.resize();
+            personaModeChart.resize();
+            personaGamesChart.resize();
+            crashChart.resize();
+        });
+    </script>
+</body>
+</html>
